@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function MettingRoom() {
+export default function MeetingRoom() {
   return <div>MettingRoom</div>;
 }

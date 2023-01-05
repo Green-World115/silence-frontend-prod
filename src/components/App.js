@@ -7,13 +7,19 @@ import PrivateRoute from "./PrivateRoute";
 
 import Signup from "./authentication/Signup";
 import Login from "./authentication/Login";
-import Dashboard from "./dashboard/Dashboard";
 import ForgotPassword from "./authentication/ForgotPassword";
 import AccountCreation from "./authentication/account_creation/AccountCreation";
 import SymptomAssessment from "./authentication/account_creation/SymptomAssessment";
 import SymptomCause from "./authentication/account_creation/SymtomCause";
 import AvatarUpload from "./authentication/account_creation/AvatarUpload";
 import PaymentDetails from "./authentication/account_creation/PaymentDetails";
+
+import Dashboard from "./dashboard/pages/Dashboard";
+import Content from "./dashboard/pages/Content";
+import ExtraProducts from "./dashboard/pages/ExtraProducts";
+import MeetingRoom from "./dashboard/pages/MeetingRoom";
+import Profile from "./dashboard/pages/Profile";
+import Settings from "./dashboard/pages/Settings";
 
 function App() {
   return (
@@ -33,6 +39,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
