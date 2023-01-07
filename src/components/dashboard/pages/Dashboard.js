@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import "../components/Sidebar.css";
 
 import Sidebar from "../components/Sidebar";
 
@@ -22,9 +23,15 @@ export default function Dashboard() {
   }
 
   return (
-    <>
+    <div className="Dashboard">
       <Sidebar />
-      <Card>
+      <div>Home</div>
+    </div>
+  );
+}
+
+{
+  /* <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -38,7 +45,5 @@ export default function Dashboard() {
         <Button variant="link" onClick={handleLogout}>
           Log Out
         </Button>
-      </div>
-    </>
-  );
+      </div> */
 }
