@@ -40,7 +40,11 @@ export default function SymptomRow({ name, label, control, setValue, watch }) {
           <Col xs={6}>
             <div>
               <Form.Label className="mr-2">Left</Form.Label>
-              <Controller control={control} name={`${name}.left`} render={({ field }) => <Form.Range {...field} />} />
+              <Controller
+                control={control}
+                name={`${name}.left`}
+                render={({ field }) => <Form.Range {...field} min={1} max={10} step={1} />}
+              />
             </div>
           </Col>
         )}
@@ -48,7 +52,11 @@ export default function SymptomRow({ name, label, control, setValue, watch }) {
           <Col xs={6}>
             <div>
               <Form.Label className="mr-2">Right</Form.Label>
-              <Controller control={control} name={`${name}.right`} render={({ field }) => <Form.Range {...field} />} />
+              <Controller
+                control={control}
+                name={`${name}.right`}
+                render={({ field }) => <Form.Range {...field} min={1} max={10} step={1} />}
+              />
             </div>
           </Col>
         )}
