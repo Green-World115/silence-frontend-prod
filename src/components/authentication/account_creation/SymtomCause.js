@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
-
+import React, { useState } from "react";
 import { Card, Form, Button, Alert, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateSymptomCauses } from "../../../api/symptoms";
 

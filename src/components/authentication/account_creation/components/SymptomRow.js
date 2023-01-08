@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Form, Row, Col, Stack } from "react-bootstrap";
+import React from "react";
+import { Form, Row, Col } from "react-bootstrap";
 import { Controller } from "react-hook-form";
 
 export default function SymptomRow({ name, label, control, setValue, watch }) {

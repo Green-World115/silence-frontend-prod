@@ -1,12 +1,10 @@
-import React, { useRef, useState } from "react";
-
-import { Card, Form, Button, Alert, Image } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Form, Button, Alert } from "react-bootstrap";
+import { getDownloadURL } from "firebase/storage";
 import { useAuth } from "../../../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight, FaArrowCircleUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import UploadButton from "./components/UploadButton";
 import { uploadAvatar } from "../../../api/storage";
-import { getDownloadURL } from "firebase/storage";
 import { updateUserAvatar } from "../../../api/user";
 
 export default function AvatarUpload() {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useAuth } from "../../../contexts/AuthContext";
-
 import { getSymptomByUser } from "../../../api/symptoms";
 import SymptomForm from "./components/SymptomForm";
 
