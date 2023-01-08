@@ -1,54 +1,58 @@
 import React, { useRef, useState } from "react";
+import { Form, Row, Col, Stack } from "react-bootstrap";
+import { Controller } from "react-hook-form";
 
-import { Form } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+export default function SymptomRow({ name, label, control, setValue, watch }) {
+  const type = watch(`${name}.type`);
 
-export default function SymptomRow(props) {
-  const rangeRef = useRef();
-  const [range, setRange] = useState(1);
-  const sideRef = useRef();
-  const [side, setSide] = useState("Left");
-  const bothRef = useRef();
-
-  function sideChoice() {
-    setSide(sideRef.current.checked ? "Right" : "Left");
-  }
-
-  function handleRangeChange() {
-    setRange(rangeRef.current.value);
-  }
   return (
-    <Form.Group id="symptom" as={Row} className="pe-3">
-      <Col sm={3}>
-        <Form.Label>{props.symptom}</Form.Label>
-      </Col>
-      <Col sm={4}>
-        <Form.Range
-          id={"range"}
-          min={1} // Lowest possible value
-          max={10} // Highest possible value
-          step={1}
-          defaultValue={1}
-          tickinterval={10}
-          onChange={handleRangeChange}
-          ref={rangeRef}
-        />
-      </Col>
-      <Col sm={1}>
-        <Form.Label>{range}</Form.Label>
-      </Col>
-      <Col sm={2}>
-        <Form.Switch
-          id="custom-switch"
-          label={side}
-          ref={sideRef}
-          onChange={sideChoice}
-        />
-      </Col>
-      <Col sm={2}>
-        <Form.Check type="checkbox" name="cbBoth" label="Both" ref={bothRef} />
-      </Col>
-    </Form.Group>
+    <div className="pb-4 pt-4 border-bottom">
+      <Row>
+        <div className="d-flex justify-content-between align-items-center">
+          <div>
+            <h5>{label}</h5>
+          </div>
+          <div className="d-flex ">
+            <Controller
+              control={control}
+              name={`${name}.type`}
+              render={({ field }) => (
+                <Form.Group {...field}>
+                  <Form.Check inline type="radio" label="Left" value="left" checked={field.value === "left"} readOnly />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Right"
+                    value="right"
+                    checked={field.value === "right"}
+                    readOnly
+                  />
+                  <Form.Check inline type="radio" label="Both" value="both" checked={field.value === "both"} readOnly />
+                </Form.Group>
+              )}
+            />
+          </div>
+        </div>
+      </Row>
+
+      <Row>
+        {(type === "left" || type === "both") && (
+          <Col xs={6}>
+            <div>
+              <Form.Label className="mr-2">Left</Form.Label>
+              <Controller control={control} name={`${name}.left`} render={({ field }) => <Form.Range {...field} />} />
+            </div>
+          </Col>
+        )}
+        {(type === "right" || type === "both") && (
+          <Col xs={6}>
+            <div>
+              <Form.Label className="mr-2">Right</Form.Label>
+              <Controller control={control} name={`${name}.right`} render={({ field }) => <Form.Range {...field} />} />
+            </div>
+          </Col>
+        )}
+      </Row>
+    </div>
   );
 }

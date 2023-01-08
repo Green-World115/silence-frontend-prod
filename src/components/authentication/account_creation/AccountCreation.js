@@ -1,71 +1,41 @@
-import React, { useRef, useState } from "react";
-
-import { Card, Form, Button, Alert } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Form, Button, Alert, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { addSymptom } from "../../../api/symptoms";
+import forEach from "lodash/forEach";
+import camelCase from "lodash/camelCase";
 
 export default function AccountCreation() {
-  const firstnameRef = useRef();
-  const lastnameRef = useRef();
-  const locationRef = useRef();
-
-  const maleRef = useRef(null);
-  const femaleRef = useRef(null);
-  const tinnitusRef = useRef(null);
-  const pulsatileRef = useRef(null);
-  const vertigoRef = useRef(null);
-  const hypercausisRef = useRef(null);
-  const hearingLossRef = useRef(null);
-  const visualSnowRef = useRef(null);
-
   const { currentUser, addUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  const { register, handleSubmit } = useForm({});
 
-    const symptoms = [];
-
-    const gender = maleRef.current.checked ? "Male" : "Female";
-    if (tinnitusRef.current.checked) {
-      symptoms.push("Tinnitus");
-    }
-    if (pulsatileRef.current.checked) {
-      symptoms.push("Pulsatile Tinitus");
-    }
-    if (vertigoRef.current.checked) {
-      symptoms.push("Vertigo");
-    }
-    if (hypercausisRef.current.checked) {
-      symptoms.push("Hyperacusis");
-    }
-    if (hearingLossRef.current.checked) {
-      symptoms.push("Hearing Loss");
-    }
-    if (visualSnowRef.current.checked) {
-      symptoms.push("Visual Snow");
-    }
-
+  const onSubmit = async (data) => {
+    setLoading(true);
     try {
-      setError("");
-      setLoading(true);
-      await addUser(
-        firstnameRef.current.value,
-        lastnameRef.current.value,
-        currentUser.email,
-        gender,
-        locationRef.current.value,
-        symptoms
-      );
+      const symptoms = {};
+      forEach(data.symptoms, (item) => {
+        symptoms[camelCase(item)] = {
+          name: item,
+          left: 0,
+          right: 0,
+          type: "both",
+        };
+      });
+
+      await addUser(data.firstName, data.lastName, currentUser.email, data.gender, data.location);
+      await addSymptom(currentUser.uid, symptoms);
       navigate("/symptom-assessment");
-    } catch {
+    } catch (error) {
       setError("Failed to create an account");
     }
-
     setLoading(false);
-  }
+  };
 
   return (
     <>
@@ -74,100 +44,52 @@ export default function AccountCreation() {
         <Card.Body>
           <h2 className="text-center mb-4">Enter Information</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <div className="d-flex flex-column">
               <div className="d-flex flex-row">
                 <Form.Group id="FirstName" className="pe-3">
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control type="text" ref={firstnameRef} required />
+                  <Form.Control type="text" required {...register("firstName")} />
                 </Form.Group>
                 <Form.Group className="mb-3 me-2" controlId="cb">
                   <Form.Label>Gender</Form.Label>
                   <br />
-                  <Form.Check
-                    name="gender"
-                    label="Male"
-                    type="radio"
-                    inline
-                    ref={maleRef}
-                    required
-                  />
-                  <Form.Check
-                    name="gender"
-                    label="Female"
-                    type="radio"
-                    inline
-                    ref={femaleRef}
-                  />
+                  <Form.Check label="Male" value="male" type="radio" inline required {...register("gender")} />
+                  <Form.Check label="Female" value="female" type="radio" inline {...register("gender")} />
                 </Form.Group>
               </div>
               <div className="d-flex flex-row">
                 <Form.Group id="Last Name" className="pe-3">
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control type="text" ref={lastnameRef} />
+                  <Form.Control type="text" {...register("lastName")} />
                 </Form.Group>
                 <Form.Group id="Location">
                   <Form.Label>Location</Form.Label>
-                  <Form.Control type="text" ref={locationRef} required />
+                  <Form.Control type="text" {...register("location")} required />
                 </Form.Group>
               </div>
             </div>
             <div>
               <Form.Label>Symptoms</Form.Label>
-              <div className="d-flex flex-row justify-content-center">
-                <div className="d-flex flex-column pb-1 me-3">
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Row>
+                  <Col>
+                    <Form.Check type="checkbox" label="Tinnitus" value="Tinnitus" {...register("symptoms")} />
                     <Form.Check
                       type="checkbox"
-                      name="cbTinnitus"
-                      label="Tinnitus"
-                      ref={tinnitusRef}
+                      label="Pulsatile tinnitus"
+                      value="Pulsatile tinnitus"
+                      {...register("symptoms")}
                     />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                      type="checkbox"
-                      name="cbPulsatile"
-                      label="Pulsatile tinitus"
-                      ref={pulsatileRef}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                      type="checkbox"
-                      name="cbVertigo"
-                      label="Vertigo"
-                      ref={vertigoRef}
-                    />
-                  </Form.Group>
-                </div>
-                <div class="d-flex flex-column pb-1">
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                      type="checkbox"
-                      name="cbHyperacusis"
-                      label="Hyperacusis"
-                      ref={hypercausisRef}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                      type="checkbox"
-                      name="cbHearing"
-                      label="Hearing loss"
-                      ref={hearingLossRef}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                      type="checkbox"
-                      name="cbSnow"
-                      label="Visual Snow"
-                      ref={visualSnowRef}
-                    />
-                  </Form.Group>
-                </div>
-              </div>
+                    <Form.Check type="checkbox" label="Vertigo" value="Vertigo" {...register("symptoms")} />
+                  </Col>
+                  <Col>
+                    <Form.Check type="checkbox" label="Hyperacusis" value="Hyperacusis" {...register("symptoms")} />
+                    <Form.Check type="checkbox" label="Hearing loss" value="Hearing loss" {...register("symptoms")} />
+                    <Form.Check type="checkbox" label="Visual Snow" value="Visual Snow" {...register("symptoms")} />
+                  </Col>
+                </Row>
+              </Form.Group>
             </div>
 
             <Button disabled={loading} className="w-100 mt-4" type="submit">
