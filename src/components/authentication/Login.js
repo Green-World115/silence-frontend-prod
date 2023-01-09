@@ -1,7 +1,18 @@
 import React, { useRef, useState } from "react";
-import { Card, Form, Button, Alert } from "react-bootstrap";
+import {
+  Card,
+  Form,
+  Button,
+  Alert,
+  FormControl,
+  Input,
+  InputGroup,
+  InputGroupAppend,
+} from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import * as FaIcons from "react-icons/fa";
+import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
 
 export default function Login() {
   const emailRef = useRef();
@@ -13,6 +24,7 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(passwordRef.current.value);
 
     try {
       setError("");
@@ -25,6 +37,28 @@ export default function Login() {
 
     setLoading(false);
   }
+
+  // function ShowHidePasswordInput(props) {
+  //   console.log("Here");
+  //   const [showPassword, setShowPassword] = useState(false);
+
+  //   const togglePassword = () => {
+  //     passwordRef.current.type = showPassword ? "password" : "text";
+  //     setShowPassword(!showPassword);
+  //   };
+
+  //   return (
+  //     <InputGroup>
+  //       <Form.Control ref={props.inputRef} type="password" required />
+  //       <div className="input-group-append">
+  //         <Button variant="btn-light" onClick={togglePassword}>
+  //           {showPassword ? <FaIcons.FaRegEyeSlash /> : <FaIcons.FaEye />}
+  //         </Button>
+  //       </div>
+  //     </InputGroup>
+  //   );
+  // }
+
   return (
     <>
       <h1 className="display-1 text-center mb-4">Silence</h1>
@@ -39,7 +73,7 @@ export default function Login() {
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <ShowHidePasswordInput inputRef={passwordRef} />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-4" type="submit">
               Log In
