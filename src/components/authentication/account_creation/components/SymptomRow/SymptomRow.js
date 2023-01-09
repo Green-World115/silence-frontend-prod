@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { Controller } from "react-hook-form";
+import styles from "./symptomRow.module.scss";
 
 export default function SymptomRow({ name, label, control, setValue, watch }) {
   const type = watch(`${name}.type`);
@@ -43,7 +44,16 @@ export default function SymptomRow({ name, label, control, setValue, watch }) {
               <Controller
                 control={control}
                 name={`${name}.left`}
-                render={({ field }) => <Form.Range {...field} min={1} max={10} step={1} />}
+                render={({ field }) => (
+                  <div className={styles.slideContainer}>
+                    <div className={styles.tickContainer}>
+                      {[...Array(11)].map((item) => (
+                        <div className={styles.tick} />
+                      ))}
+                    </div>
+                    <Form.Range {...field} min={0} max={10} step={1} />
+                  </div>
+                )}
               />
             </div>
           </Col>
@@ -55,7 +65,16 @@ export default function SymptomRow({ name, label, control, setValue, watch }) {
               <Controller
                 control={control}
                 name={`${name}.right`}
-                render={({ field }) => <Form.Range {...field} min={1} max={10} step={1} />}
+                render={({ field }) => (
+                  <div className={styles.slideContainer}>
+                    <div className={styles.tickContainer}>
+                      {[...Array(11)].map((item) => (
+                        <div className={styles.tick} />
+                      ))}
+                    </div>
+                    <Form.Range {...field} min={0} max={10} step={1} />
+                  </div>
+                )}
               />
             </div>
           </Col>
