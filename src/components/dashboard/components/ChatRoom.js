@@ -11,7 +11,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function ChatRoom() {
@@ -26,10 +25,10 @@ export default function ChatRoom() {
 
     const { uid, photoURL } = currentUser;
     try {
-      setError("");
+      //setError("");
       await addMessage(formValue, serverTimestamp(), uid, photoURL);
     } catch {
-      setError("Failed to create an account");
+      //setError("Failed to create an account");
     }
   };
 
