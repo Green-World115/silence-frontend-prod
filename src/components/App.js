@@ -16,65 +16,158 @@ import PaymentDetails from "./authentication/account_creation/PaymentDetails";
 
 import Dashboard from "./dashboard/pages/Dashboard";
 import Content from "./dashboard/pages/Content";
-import ExtraProducts from "./dashboard/pages/ExtraProducts";
+import LiveStream from "./dashboard/pages/LiveStream";
 import MeetingRoom from "./dashboard/pages/MeetingRoom";
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="w-100" style={{ maxWidth: "500px" }}>
-        <Router>
-          <AuthProvider>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <PrivateRoute>
-                    <Dashboard />
-                  </PrivateRoute>
-                }
-              />
-
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-
-              <Route
-                path="/account-creation"
-                element={<AccountCreation />}
-                style={{ maxWidth: "700px" }}
-              />
-              <Route
-                path="/symptom-assessment"
-                element={<SymptomAssessment />}
-                style={{ maxWidth: "1000px" }}
-              />
-              <Route
-                path="/symptom-cause"
-                element={<SymptomCause />}
-                style={{ maxWidth: "1000px" }}
-              />
-              <Route
-                path="/avatar-upload"
-                element={<AvatarUpload />}
-                style={{ maxWidth: "1000px" }}
-              />
-              <Route
-                path="/payment-details"
-                element={<PaymentDetails />}
-                style={{ maxWidth: "900px" }}
-              />
-            </Routes>
-          </AuthProvider>
-        </Router>
-      </div>
-    </Container>
+    <Router>
+      <AuthProvider>
+        <Routes>
+          //----------------Dashboard Routes--------------------------------//
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/meeting-room"
+            element={
+              <PrivateRoute>
+                <MeetingRoom />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/content"
+            element={
+              <PrivateRoute>
+                <Content />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/live-streams"
+            element={
+              <PrivateRoute>
+                <LiveStream />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          //----------------Authentication Routes---------------------------//
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/account-creation"
+            element={<AccountCreation />}
+            style={{ maxWidth: "700px" }}
+          />
+          <Route
+            path="/symptom-assessment"
+            element={<SymptomAssessment />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/symptom-cause"
+            element={<SymptomCause />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/avatar-upload"
+            element={<AvatarUpload />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/payment-details"
+            element={<PaymentDetails />}
+            style={{ maxWidth: "900px" }}
+          />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
 
 export default App;
+
+// <Container
+// className="d-flex align-items-center justify-content-center"
+// style={{ minHeight: "100vh" }}
+// >
+// <div className="w-100" style={{ maxWidth: "500px" }}>
+
+// </div>
+//     </Container>
+
+// function AuthStack() {
+//   return (
+//     <Routes>
+//       <Route path="/signup" element={<Signup />} />
+//       <Route path="/login" element={<Login />} />
+//       <Route path="/forgot-password" element={<ForgotPassword />} />
+
+//       <Route
+//         path="/account-creation"
+//         element={<AccountCreation />}
+//         style={{ maxWidth: "700px" }}
+//       />
+//       <Route
+//         path="/symptom-assessment"
+//         element={<SymptomAssessment />}
+//         style={{ maxWidth: "1000px" }}
+//       />
+//       <Route
+//         path="/symptom-cause"
+//         element={<SymptomCause />}
+//         style={{ maxWidth: "1000px" }}
+//       />
+//       <Route
+//         path="/avatar-upload"
+//         element={<AvatarUpload />}
+//         style={{ maxWidth: "1000px" }}
+//       />
+//       <Route
+//         path="/payment-details"
+//         element={<PaymentDetails />}
+//         style={{ maxWidth: "900px" }}
+//       />
+//     </Routes>
+//   );
+// }
+
+// function MainStack() {
+//   return (
+//     <Routes>
+//       <Route
+//         path="/"
+//         element={
+//           <PrivateRoute>
+//             <Dashboard />
+//           </PrivateRoute>
+//         }
+//       />
+//     </Routes>
+//   );
+// }
