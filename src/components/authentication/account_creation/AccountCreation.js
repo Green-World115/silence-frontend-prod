@@ -28,13 +28,7 @@ export default function AccountCreation() {
         };
       });
 
-      await addUser(
-        data.name,
-        data.age,
-        currentUser.email,
-        data.gender,
-        data.location
-      );
+      await addUser(data.firstName, data.lastName, currentUser.email, data.gender, data.location);
       await addSymptom(currentUser.uid, symptoms);
       navigate("/symptom-assessment");
     } catch (error) {
@@ -50,89 +44,47 @@ export default function AccountCreation() {
         <Card.Body>
           <h2 className="text-center mb-4">Enter Information</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <div className="d-flex flex-column justify-content-center align-items-center">
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <div className="d-flex flex-column">
               <div className="d-flex flex-row">
-                <Form.Group id="Name" className="pe-3">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" required {...register("name")} />
+                <Form.Group id="FirstName" className="pe-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control type="text" required {...register("firstName")} />
                 </Form.Group>
                 <Form.Group className="ms-4 mb-3 me-2" controlId="cb">
                   <Form.Label>Gender</Form.Label>
                   <br />
-                  <Form.Check
-                    label="Male"
-                    value="male"
-                    type="radio"
-                    inline
-                    required
-                    {...register("gender")}
-                  />
-                  <Form.Check
-                    label="Female"
-                    value="female"
-                    type="radio"
-                    inline
-                    {...register("gender")}
-                  />
+                  <Form.Check label="Male" value="male" type="radio" inline required {...register("gender")} />
+                  <Form.Check label="Female" value="female" type="radio" inline {...register("gender")} />
                 </Form.Group>
               </div>
               <div className="d-flex flex-row">
-                <Form.Group id="Age" className="pe-3">
-                  <Form.Label>Age</Form.Label>
-                  <Form.Control type="text" {...register("age")} />
+                <Form.Group id="Last Name" className="pe-3">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control type="text" {...register("lastName")} />
                 </Form.Group>
                 <Form.Group id="Location">
                   <Form.Label>Location</Form.Label>
-                  <Form.Control
-                    type="text"
-                    {...register("location")}
-                    required
-                  />
+                  <Form.Control type="text" {...register("location")} required />
                 </Form.Group>
               </div>
               <Form.Label>Symptoms</Form.Label>
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Row>
                   <Col>
-                    <Form.Check
-                      type="checkbox"
-                      label="Tinnitus"
-                      value="Tinnitus"
-                      {...register("symptoms")}
-                    />
+                    <Form.Check type="checkbox" label="Tinnitus" value="Tinnitus" {...register("symptoms")} />
                     <Form.Check
                       type="checkbox"
                       label="Pulsatile tinnitus"
                       value="Pulsatile tinnitus"
                       {...register("symptoms")}
                     />
-                    <Form.Check
-                      type="checkbox"
-                      label="Vertigo"
-                      value="Vertigo"
-                      {...register("symptoms")}
-                    />
+                    <Form.Check type="checkbox" label="Vertigo" value="Vertigo" {...register("symptoms")} />
                   </Col>
                   <Col>
-                    <Form.Check
-                      type="checkbox"
-                      label="Hyperacusis"
-                      value="Hyperacusis"
-                      {...register("symptoms")}
-                    />
-                    <Form.Check
-                      type="checkbox"
-                      label="Hearing loss"
-                      value="Hearing loss"
-                      {...register("symptoms")}
-                    />
-                    <Form.Check
-                      type="checkbox"
-                      label="Visual Snow"
-                      value="Visual Snow"
-                      {...register("symptoms")}
-                    />
+                    <Form.Check type="checkbox" label="Hyperacusis" value="Hyperacusis" {...register("symptoms")} />
+                    <Form.Check type="checkbox" label="Hearing loss" value="Hearing loss" {...register("symptoms")} />
+                    <Form.Check type="checkbox" label="Visual Snow" value="Visual Snow" {...register("symptoms")} />
                   </Col>
                 </Row>
               </Form.Group>

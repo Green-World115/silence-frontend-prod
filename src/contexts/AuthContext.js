@@ -1,15 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import {
-  collection,
-  addDoc,
-  setDoc,
-  doc,
-  getDoc,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, getDoc, query, where, getDocs } from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -60,7 +51,7 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  async function addUser(name, age, email, gender, location) {
+  async function addUser(firstName, lastName, email, gender, location) {
     return setDoc(doc(db, "users", currentUser.uid), {
       name,
       age,
@@ -106,9 +97,5 @@ export function AuthProvider({ children }) {
     addMessage,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 }
