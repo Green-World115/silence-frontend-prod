@@ -1,0 +1,22 @@
+.slideContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.tickContainer {
+  position: absolute;
+  width: calc(100% - 10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  left: 5px;
+  
+}
+.tick {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  pointer-events: none;
+}

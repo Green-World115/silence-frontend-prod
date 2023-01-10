@@ -60,14 +60,13 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  function addUser(firstName, lastName, email, gender, location, symptoms) {
+  async function addUser(name, age, email, gender, location) {
     return setDoc(doc(db, "users", currentUser.uid), {
-      firstName,
-      lastName,
+      name,
+      age,
       email,
       gender,
       location,
-      symptoms,
     });
   }
   function addMessage(text, createdAt, uid, photoURL) {

@@ -1,19 +1,8 @@
 import React, { useRef, useState } from "react";
-import {
-  Card,
-  Form,
-  Button,
-  Alert,
-  FormControl,
-  Input,
-  InputGroup,
-  InputGroupAppend,
-} from "react-bootstrap";
+import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
-
-//import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
+import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
 
 export default function Login() {
   const emailRef = useRef();
@@ -37,26 +26,6 @@ export default function Login() {
     }
 
     setLoading(false);
-  }
-
-  function ShowHidePasswordInput(props) {
-    const [showPassword, setShowPassword] = useState(false);
-
-    const togglePassword = () => {
-      passwordRef.current.type = showPassword ? "password" : "text";
-      setShowPassword(!showPassword);
-    };
-
-    return (
-      <InputGroup>
-        <Form.Control ref={props.inputRef} type="password" required />
-        <div className="input-group-append">
-          <Button variant="btn-light" onClick={togglePassword}>
-            {showPassword ? <FaIcons.FaRegEyeSlash /> : <FaIcons.FaEye />}
-          </Button>
-        </div>
-      </InputGroup>
-    );
   }
 
   return (

@@ -1,32 +1,45 @@
-import React, { useRef, useState } from "react";
-
-import { Card, Form, Button, Alert, Image } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Form, Button, Alert } from "react-bootstrap";
+import { getDownloadURL } from "firebase/storage";
 import { useAuth } from "../../../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight, FaArrowCircleUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import UploadButton from "./components/UploadButton";
+import { uploadAvatar } from "../../../api/storage";
+import { updateUserAvatar } from "../../../api/user";
 
 export default function AvatarUpload() {
-  const loudNoisesRef = useRef(null);
-  const medicationRef = useRef(null);
-  const stressRef = useRef(null);
+  const [image, setImage] = useState({ preview: null, file: null });
 
-  const { currentUser, addUser } = useAuth();
+  const { currentUser } = useAuth();
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  function uploadImage() {}
+  const handleUpload = (e) => {
+    console.log(e.target.files);
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      setImage({ preview: URL.createObjectURL(file), file });
+    }
+  };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    navigate("/payment-details");
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await uploadAvatar(image.file);
+      const url = await getDownloadURL(response.ref);
+      await updateUserAvatar(currentUser.uid, url);
+      navigate("/payment-details");
+    } catch (error) {
+      setError("Failed to update avatar");
+    }
 
     setLoading(false);
-  }
-  function goBack() {
-    navigate("/symptom-cause");
-  }
+  };
+
+  const handleBack = () => navigate("/symptom-cause");
 
   return (
     <>
@@ -35,41 +48,23 @@ export default function AvatarUpload() {
         <Card.Body>
           <h3 className="text-center mb-5">Upload Avatar</h3>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <div className="d-flex justify-content-center mb-5">
               <img
-                src="icon_avatar.png"
-                style={{ height: 100, width: 100 }}
+                src={image.preview || "icon_avatar.png"}
+                style={{ height: 100, width: 100, objectFit: "cover" }}
                 className="img-fluid hover-shadow"
                 alt=""
               />
             </div>
             <div className="d-flex justify-content-center mb-5">
-              <Button
-                disabled={loading}
-                className=""
-                type="button"
-                onClick={uploadImage}
-              >
-                <div class="d-flex flex-row justify-content-center">
-                  <FaArrowCircleUp
-                    className="align-self-center me-3"
-                    size={25}
-                  />
-                  Upload
-                </div>
-              </Button>
+              <UploadButton onChange={handleUpload} />
             </div>
             <div className="d-flex flex-row justify-content-center mt-3">
-              <Button
-                disabled={loading}
-                className="w-50 me-3"
-                type="button"
-                onClick={goBack}
-              >
+              <Button disabled={loading} className="w-50 me-3" type="button" onClick={handleBack}>
                 Back
               </Button>
-              <Button disabled={loading} className="w-50" type="submit">
+              <Button disabled={loading} className="w-50" onClick={handleSubmit}>
                 Next
               </Button>
             </div>
@@ -78,26 +73,4 @@ export default function AvatarUpload() {
       </Card>
     </>
   );
-}
-
-{
-  /* <div className="d-flex flex-row justify-content-center mt-3">
-              <Button
-                disabled={loading}
-                className="w-50 me-3 ps-5"
-                type="button"
-                onClick={goBack}
-              >
-                <div class="d-flex justify-content-between me-5">
-                  <FaChevronLeft class="align-self-center" />
-                  Back
-                </div>
-              </Button>
-              <Button disabled={loading} className="w-50 ps-5" type="submit">
-                <div class="d-flex justify-content-between me-4">
-                  Next
-                  <FaChevronRight class="align-self-center" />
-                </div>
-              </Button>
-            </div> */
 }
