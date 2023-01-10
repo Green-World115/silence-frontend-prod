@@ -70,6 +70,14 @@ export function AuthProvider({ children }) {
       symptoms,
     });
   }
+  function addMessage(text, createdAt, uid, photoURL) {
+    return addDoc(collection(db, "messages"), {
+      text,
+      createdAt,
+      uid,
+      photoURL,
+    });
+  }
 
   async function getUser() {
     //return getDoc(doc(db, "users", currentUser.uid));
@@ -96,6 +104,7 @@ export function AuthProvider({ children }) {
     updatePassword,
     addUser,
     getUser,
+    addMessage,
   };
 
   return (
