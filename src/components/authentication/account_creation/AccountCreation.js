@@ -5,8 +5,8 @@ import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AccountCreation() {
-  const firstnameRef = useRef();
-  const lastnameRef = useRef();
+  const nameRef = useRef();
+  const ageRef = useRef();
   const locationRef = useRef();
 
   const maleRef = useRef(null);
@@ -52,8 +52,8 @@ export default function AccountCreation() {
       setError("");
       setLoading(true);
       await addUser(
-        firstnameRef.current.value,
-        lastnameRef.current.value,
+        nameRef.current.value,
+        ageRef.current.value,
         currentUser.email,
         gender,
         locationRef.current.value,
@@ -75,13 +75,13 @@ export default function AccountCreation() {
           <h2 className="text-center mb-4">Enter Information</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column justify-content-center align-items-center">
               <div className="d-flex flex-row">
-                <Form.Group id="FirstName" className="pe-3">
+                <Form.Group id="Name" className="pe-3">
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control type="text" ref={firstnameRef} required />
+                  <Form.Control type="text" ref={nameRef} required />
                 </Form.Group>
-                <Form.Group className="mb-3 me-2" controlId="cb">
+                <Form.Group className="ms-4 mb-3 me-2" controlId="cb">
                   <Form.Label>Gender</Form.Label>
                   <br />
                   <Form.Check
@@ -102,17 +102,15 @@ export default function AccountCreation() {
                 </Form.Group>
               </div>
               <div className="d-flex flex-row">
-                <Form.Group id="Last Name" className="pe-3">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control type="text" ref={lastnameRef} />
+                <Form.Group id="Age" className="pe-3">
+                  <Form.Label>Age</Form.Label>
+                  <Form.Control type="text" ref={ageRef} />
                 </Form.Group>
                 <Form.Group id="Location">
                   <Form.Label>Location</Form.Label>
                   <Form.Control type="text" ref={locationRef} required />
                 </Form.Group>
               </div>
-            </div>
-            <div>
               <Form.Label>Symptoms</Form.Label>
               <div className="d-flex flex-row justify-content-center">
                 <div className="d-flex flex-column pb-1 me-3">

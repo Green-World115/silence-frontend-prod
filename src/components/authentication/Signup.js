@@ -1,8 +1,19 @@
 import React, { useRef, useState } from "react";
-import { Card, Form, Button, Alert } from "react-bootstrap";
+import {
+  Card,
+  Form,
+  Button,
+  Alert,
+  FormControl,
+  InputGroup,
+  InputGroupAppend,
+} from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
+
+import * as FaIcons from "react-icons/fa";
+
+//import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -13,12 +24,29 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  function ShowHidePasswordInput(props) {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePassword = () => {
+      passwordRef.current.type = showPassword ? "password" : "text";
+      setShowPassword(!showPassword);
+    };
+
+    return (
+      <InputGroup>
+        <Form.Control ref={props.inputRef} type="password" required />
+        <div className="input-group-append">
+          <Button variant="btn-light" onClick={togglePassword}>
+            {showPassword ? <FaIcons.FaRegEyeSlash /> : <FaIcons.FaEye />}
+          </Button>
+        </div>
+      </InputGroup>
+    );
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
-    }
+    console.log(passwordRef.current.value);
 
     try {
       setError("");
@@ -46,10 +74,6 @@ export default function Signup() {
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
               <ShowHidePasswordInput inputRef={passwordRef} />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <ShowHidePasswordInput />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-4" type="submit">
               Sign Up
