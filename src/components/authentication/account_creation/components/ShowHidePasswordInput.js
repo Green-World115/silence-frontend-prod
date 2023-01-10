@@ -14,6 +14,7 @@ export default function ShowHidePasswordInput(props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
+    props.inputRef.current.type = showPassword ? "password" : "text";
     setShowPassword(!showPassword);
   };
 
