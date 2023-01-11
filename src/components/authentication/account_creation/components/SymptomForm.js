@@ -6,14 +6,16 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../../../contexts/AuthContext";
 import SymptomRow from "./SymptomRow";
 
-export default function SymptomForm({ initialValues }) {
+export default function SymptomForm({ initialValues, page }) {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const { control, handleSubmit, setValue, watch } = useForm({ defaultValues: initialValues });
+  const { control, handleSubmit, setValue, watch } = useForm({
+    defaultValues: initialValues,
+  });
   const onSubmit = async (data) => {
     setLoading(true);
     try {
@@ -33,7 +35,13 @@ export default function SymptomForm({ initialValues }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <div>
           {initialValues.tinnitus && (
-            <SymptomRow control={control} name="tinnitus" label="Tinnitus" setValue={setValue} watch={watch} />
+            <SymptomRow
+              control={control}
+              name="tinnitus"
+              label="Tinnitus"
+              setValue={setValue}
+              watch={watch}
+            />
           )}
           {initialValues.pulsatileTinnitus && (
             <SymptomRow
@@ -45,26 +53,63 @@ export default function SymptomForm({ initialValues }) {
             />
           )}
           {initialValues.vertigo && (
-            <SymptomRow control={control} name="vertigo" label="Vertigo" setValue={setValue} watch={watch} />
+            <SymptomRow
+              control={control}
+              name="vertigo"
+              label="Vertigo"
+              setValue={setValue}
+              watch={watch}
+            />
           )}
           {initialValues.hyperacusis && (
-            <SymptomRow control={control} name="hyperacusis" label="Hyperacusis" setValue={setValue} watch={watch} />
+            <SymptomRow
+              control={control}
+              name="hyperacusis"
+              label="Hyperacusis"
+              setValue={setValue}
+              watch={watch}
+            />
           )}
           {initialValues.hearingLoss && (
-            <SymptomRow control={control} name="hearingLoss" label="Hearing Loss" setValue={setValue} watch={watch} />
+            <SymptomRow
+              control={control}
+              name="hearingLoss"
+              label="Hearing Loss"
+              setValue={setValue}
+              watch={watch}
+            />
           )}
           {initialValues.visualSnow && (
-            <SymptomRow control={control} name="visualSnow" label="Visual Snow" setValue={setValue} watch={watch} />
+            <SymptomRow
+              control={control}
+              name="visualSnow"
+              label="Visual Snow"
+              setValue={setValue}
+              watch={watch}
+            />
           )}
         </div>
 
         <div className="d-flex flex-row justify-content-center mt-3">
-          <Button disabled={loading} className="w-50 me-3" type="button" onClick={handleBack}>
-            Back
-          </Button>
-          <Button disabled={loading} className="w-50" type="submit">
-            Next
-          </Button>
+          {page !== "profile" ? (
+            <div>
+              <Button
+                disabled={loading}
+                className="w-50 me-3"
+                type="button"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
+              <Button disabled={loading} className="w-50" type="submit">
+                Next
+              </Button>
+            </div>
+          ) : (
+            <Button disabled={loading} className="w-50" type="submit">
+              Update
+            </Button>
+          )}
         </div>
       </Form>
     </>

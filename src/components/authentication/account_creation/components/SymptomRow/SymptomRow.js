@@ -19,7 +19,14 @@ export default function SymptomRow({ name, label, control, setValue, watch }) {
               name={`${name}.type`}
               render={({ field }) => (
                 <Form.Group {...field}>
-                  <Form.Check inline type="radio" label="Left" value="left" checked={field.value === "left"} readOnly />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Left"
+                    value="left"
+                    checked={field.value === "left"}
+                    readOnly
+                  />
                   <Form.Check
                     inline
                     type="radio"
@@ -28,7 +35,14 @@ export default function SymptomRow({ name, label, control, setValue, watch }) {
                     checked={field.value === "right"}
                     readOnly
                   />
-                  <Form.Check inline type="radio" label="Both" value="both" checked={field.value === "both"} readOnly />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Both"
+                    value="both"
+                    checked={field.value === "both"}
+                    readOnly
+                  />
                 </Form.Group>
               )}
             />
