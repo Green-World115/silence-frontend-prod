@@ -90,27 +90,25 @@ export default function SymptomForm({ initialValues, page }) {
           )}
         </div>
 
-        <div className="d-flex flex-row justify-content-center mt-3">
-          {page !== "profile" ? (
-            <div>
-              <Button
-                disabled={loading}
-                className="w-50 me-3"
-                type="button"
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-              <Button disabled={loading} className="w-50" type="submit">
-                Next
-              </Button>
-            </div>
-          ) : (
-            <Button disabled={loading} className="w-50" type="submit">
-              Update
+        {page !== "profile" ? (
+          <div className="d-flex flex-row justify-content-center mt-3">
+            <Button
+              disabled={loading}
+              className="w-25 me-3"
+              type="button"
+              onClick={handleBack}
+            >
+              Back
             </Button>
-          )}
-        </div>
+            <Button disabled={loading} className="w-25" type="submit">
+              Next
+            </Button>
+          </div>
+        ) : (
+          <Button disabled={loading} className="w-50" type="submit">
+            Update
+          </Button>
+        )}
       </Form>
     </>
   );

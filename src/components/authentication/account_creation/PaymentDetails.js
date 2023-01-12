@@ -32,7 +32,7 @@ export default function PaymentDetails() {
 
   return (
     <>
-      <Card>
+      <Card className="mx-5 mt-5">
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -46,6 +46,7 @@ export default function PaymentDetails() {
                       readonly
                       value={currentUser.email}
                       required
+                      disabled
                     />
                   </Form.Group>
                   <Form.Group id="name">

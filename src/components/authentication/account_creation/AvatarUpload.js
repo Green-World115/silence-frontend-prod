@@ -43,8 +43,8 @@ export default function AvatarUpload() {
 
   return (
     <>
-      <h1 className="text-center mb-4">Avatar Upload</h1>
-      <Card>
+      <h1 className="display-1 text-center my-5">Avatar Upload</h1>
+      <Card className="mx-5">
         <Card.Body>
           <h3 className="text-center mb-5">Upload Avatar</h3>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -60,11 +60,20 @@ export default function AvatarUpload() {
             <div className="d-flex justify-content-center mb-5">
               <UploadButton onChange={handleUpload} />
             </div>
-            <div className="d-flex flex-row justify-content-center mt-3">
-              <Button disabled={loading} className="w-50 me-3" type="button" onClick={handleBack}>
+            <div className="d-flex flex-row justify-content-center my-3">
+              <Button
+                disabled={loading}
+                className="w-25 me-3"
+                type="button"
+                onClick={handleBack}
+              >
                 Back
               </Button>
-              <Button disabled={loading} className="w-50" onClick={handleSubmit}>
+              <Button
+                disabled={loading}
+                className="w-25"
+                onClick={handleSubmit}
+              >
                 Next
               </Button>
             </div>

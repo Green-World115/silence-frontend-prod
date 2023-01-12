@@ -60,12 +60,22 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  async function addUser(firstName, lastName, email, gender, location) {
+  async function addUser(
+    firstName,
+    lastName,
+    email,
+    age,
+    gender,
+    userBio,
+    location
+  ) {
     return setDoc(doc(db, "users", currentUser.uid), {
       firstName,
       lastName,
       email,
+      age,
       gender,
+      userBio,
       location,
     });
   }
