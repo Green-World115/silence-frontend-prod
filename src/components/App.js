@@ -20,6 +20,7 @@ import ExtraProducts from "./dashboard/pages/ExtraProducts";
 import MeetingRoom from "./dashboard/pages/MeetingRoom";
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
+import Payment from "./authentication/account_creation/Payment";
 
 function App() {
   return (
@@ -63,6 +64,11 @@ function App() {
                 path="/avatar-upload"
                 element={<AvatarUpload />}
                 style={{ maxWidth: "1000px" }}
+              />
+              <Route
+                path="/payment"
+                element={<Payment />}
+                
               />
               <Route
                 path="/payment-details"

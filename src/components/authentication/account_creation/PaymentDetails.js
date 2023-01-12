@@ -44,7 +44,6 @@ export default function PaymentDetails() {
                     <Form.Control
                       type="email"
                       readonly
-                      value={currentUser.email}
                       required
                     />
                   </Form.Group>
