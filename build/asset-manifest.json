@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.c2cab247.css",
-    "main.js": "/static/js/main.6e1e2e46.js",
-    "index.html": "/index.html",
-    "main.c2cab247.css.map": "/static/css/main.c2cab247.css.map",
-    "main.6e1e2e46.js.map": "/static/js/main.6e1e2e46.js.map"
+    "main.css": "https://tinnituspal.com/static/css/main.4a080178.css",
+    "main.js": "https://tinnituspal.com/static/js/main.a7c63609.js",
+    "index.html": "https://tinnituspal.com/index.html",
+    "main.4a080178.css.map": "https://tinnituspal.com/static/css/main.4a080178.css.map",
+    "main.a7c63609.js.map": "https://tinnituspal.com/static/js/main.a7c63609.js.map"
   },
   "entrypoints": [
-    "static/css/main.c2cab247.css",
-    "static/js/main.6e1e2e46.js"
+    "static/css/main.4a080178.css",
+    "static/js/main.a7c63609.js"
   ]
 }
