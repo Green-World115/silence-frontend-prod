@@ -20,6 +20,7 @@ import LiveStream from "./dashboard/pages/LiveStream";
 import MeetingRoom from "./dashboard/pages/MeetingRoom";
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
+import Payment from "./authentication/account_creation/Payment";
 
 function App() {
   return (
