@@ -15,6 +15,7 @@ export default function Profile() {
   const [symptoms, setSymptoms] = useState({});
   const [username, setUsername] = useState();
   const [location, setLocation] = useState();
+  const [avatar, setAvatar] = useState();
 
   useEffect(() => {
     const get = async () => {
@@ -25,6 +26,7 @@ export default function Profile() {
         const docSnap = await getDoc(doc(db, "users", currentUser.uid));
         setUsername(docSnap.data().firstName);
         setLocation(docSnap.data().location);
+        setAvatar(docSnap.data().avatar);
       } catch (error) {}
 
       setLoading(false);
@@ -40,7 +42,16 @@ export default function Profile() {
           <div>
             <ul className="profileUserInfo">
               <li className="profileUserThumb">
-                <FaIcons.FaUser style={{ height: 100, width: 100 }} />
+                {avatar !== undefined ? (
+                  <img
+                    src={avatar}
+                    alt="..."
+                    class="img-thumbnail"
+                    style={{ height: 100, width: 100 }}
+                  />
+                ) : (
+                  <FaIcons.FaUser style={{ height: 100, width: 100 }} />
+                )}
               </li>
               <li className="mt-3">
                 Name:

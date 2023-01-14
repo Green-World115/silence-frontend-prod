@@ -7,12 +7,13 @@ import { IconContext } from "react-icons";
 import { useAuth } from "../../../contexts/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 
 function Sidebar() {
   const [sidebar, setSidebar] = useState(true);
   const { currentUser, getUser, logout } = useAuth();
   const [username, setUsername] = useState();
+  const [avatar, setAvatar] = useState();
 
   useEffect(() => {
     getCurrentUser();
@@ -22,6 +23,7 @@ function Sidebar() {
     const docRef = doc(db, "users", currentUser.uid);
     const docSnap = await getDoc(docRef);
     setUsername(docSnap.data().firstName);
+    setAvatar(docSnap.data().avatar);
   }
   function LogOut() {
     logout();
@@ -32,7 +34,16 @@ function Sidebar() {
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items">
             <li className="userInfo">
-              <FaIcons.FaUser style={{ height: 100, width: 100 }} />
+              {avatar !== undefined ? (
+                <img
+                  src={avatar}
+                  alt="..."
+                  class="img-thumbnail"
+                  style={{ height: 100, width: 100 }}
+                />
+              ) : (
+                <FaIcons.FaUser style={{ height: 100, width: 100 }} />
+              )}
             </li>
             <li className="userInfo">
               Logged in as:
