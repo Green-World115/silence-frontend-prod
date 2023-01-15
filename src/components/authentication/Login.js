@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
 
 export default function Login() {
   const emailRef = useRef();
@@ -13,6 +14,7 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(passwordRef.current.value);
 
     try {
       setError("");
@@ -25,6 +27,7 @@ export default function Login() {
 
     setLoading(false);
   }
+
   return (
     <>
       <h1 className="display-1 text-center mb-4">Silence</h1>
@@ -39,7 +42,7 @@ export default function Login() {
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <ShowHidePasswordInput inputRef={passwordRef} />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-4" type="submit">
               Log In

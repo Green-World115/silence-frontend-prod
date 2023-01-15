@@ -3,6 +3,8 @@ import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
+import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
+
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -14,10 +16,7 @@ export default function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
-    }
+    console.log(passwordRef.current.value);
 
     try {
       setError("");
@@ -44,11 +43,11 @@ export default function Signup() {
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <ShowHidePasswordInput inputRef={passwordRef} />
             </Form.Group>
             <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} required />
+              <ShowHidePasswordInput inputRef={passwordConfirmRef} />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-4" type="submit">
               Sign Up

@@ -1,6 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import { collection, addDoc, setDoc, doc, getDoc, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  getDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -51,13 +60,31 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  async function addUser(firstName, lastName, email, gender, location) {
+  async function addUser(
+    firstName,
+    lastName,
+    email,
+    age,
+    gender,
+    userBio,
+    location
+  ) {
     return setDoc(doc(db, "users", currentUser.uid), {
       firstName,
       lastName,
       email,
+      age,
       gender,
+      userBio,
       location,
+    });
+  }
+  function addMessage(text, createdAt, uid, photoURL) {
+    return addDoc(collection(db, "messages"), {
+      text,
+      createdAt,
+      uid,
+      photoURL,
     });
   }
 
@@ -86,7 +113,12 @@ export function AuthProvider({ children }) {
     updatePassword,
     addUser,
     getUser,
+    addMessage,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }
