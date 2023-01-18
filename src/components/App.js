@@ -37,7 +37,7 @@ function App() {
             }
           />
           <Route
-            path="/meeting-room"
+            path="/meeting-room/:id"
             element={
               <PrivateRoute>
                 <MeetingRoom />
