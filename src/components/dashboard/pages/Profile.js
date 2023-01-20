@@ -8,6 +8,7 @@ import * as FaIcons from "react-icons/fa";
 import { useAuth } from "../../../contexts/AuthContext";
 import { getSymptomByUser } from "../../../api/symptoms";
 import SymptomForm from "../../authentication/account_creation/components/SymptomForm";
+import NavBar from "../components/NavBar";
 
 export default function Profile() {
   const { currentUser } = useAuth();
@@ -35,9 +36,10 @@ export default function Profile() {
   }, []);
 
   return (
-    <div>
+    <div className="Dashboard">
       <Sidebar />
-      <div className="Dashboard">
+      <NavBar title={"Profile"} />
+      <div>
         <div className="d-flex">
           <div>
             <ul className="profileUserInfo">

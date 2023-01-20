@@ -21,6 +21,7 @@ import MeetingRoom from "./dashboard/pages/MeetingRoom";
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
 import Payment from "./authentication/account_creation/Payment";
+import Notifications from "./dashboard/communication/Notifications";
 
 function App() {
   return (
@@ -73,6 +74,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <PrivateRoute>
+                <Notifications />
               </PrivateRoute>
             }
           />

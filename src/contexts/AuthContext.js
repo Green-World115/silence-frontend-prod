@@ -9,6 +9,7 @@ import {
   query,
   where,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 
 const AuthContext = React.createContext();
@@ -103,6 +104,23 @@ export function AuthProvider({ children }) {
     // }
   }
 
+  function addNotification(uid, notifications) {
+    return addDoc(doc(db, "notifications", uid), {
+      uid,
+      notifications,
+    });
+  }
+
+  function updateNotifications(userId, notifications) {
+    return updateDoc(doc(db, "notifications", userId), {
+      notifications,
+    });
+  }
+
+  function getNotificationByUser(userId) {
+    return getDoc(doc(db, "notifications", userId));
+  }
+
   const value = {
     currentUser,
     login,
@@ -114,6 +132,9 @@ export function AuthProvider({ children }) {
     addUser,
     getUser,
     addMessage,
+    addNotification,
+    getNotificationByUser,
+    updateNotifications,
   };
 
   return (

@@ -38,6 +38,7 @@
   }
   
   .nav-text a:hover {
+    color: #ffffff;
     background-color: #1a83ff;
     margin-right: 25px;
   }
