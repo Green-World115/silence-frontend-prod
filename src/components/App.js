@@ -18,7 +18,9 @@ import PaymentDetails from "./authentication/account_creation/PaymentDetails";
 import Dashboard from "./dashboard/pages/Dashboard";
 import Content from "./dashboard/pages/Content";
 import LiveStream from "./dashboard/pages/LiveStream";
-import MeetingRoom from "./dashboard/pages/MeetingRoom";
+import MeetingRoom from "./dashboard/pages/meeting-room/MeetingRoom";
+import MeetingRoomSummery from "./dashboard/pages/meeting-room/MeetingRoomSummery";
+
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
 import Payment from "./authentication/account_creation/Payment";
@@ -36,6 +38,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/meeting-room"
+              element={
+                <PrivateRoute>
+                  <MeetingRoomSummery />
                 </PrivateRoute>
               }
             />
