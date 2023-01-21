@@ -24,7 +24,7 @@ const Comments = ({ comments, loading, groupId, postId }) => {
       </div>
       {show && (
         <div>
-          {loading && isEmpty(comments) && <Skeleton count={1} height={30} />}
+          {loading && isEmpty(comments) && <Skeleton count={4} height={15} />}
           {!loading && isEmpty(comments) && <p>No comments yet</p>}
           {comments.map((comment) => (
             <div key={comment.id}>

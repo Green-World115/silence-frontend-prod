@@ -3,7 +3,7 @@ import { db } from "../firebase";
 
 export const getGroupsByUser = (userId) => {
   const groupsRef = collection(db, "groups");
-  const q = query(groupsRef,  where("userIds", "array-contains", userId));
+  const q = query(groupsRef, where("userIds", "array-contains", userId));
   return getDocs(q);
 };
 

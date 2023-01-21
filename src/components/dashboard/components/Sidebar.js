@@ -35,12 +35,7 @@ function Sidebar() {
           <ul className="nav-menu-items">
             <li className="userInfo">
               {avatar !== undefined ? (
-                <img
-                  src={avatar}
-                  alt="..."
-                  class="img-thumbnail"
-                  style={{ height: 100, width: 100 }}
-                />
+                <img src={avatar} alt="..." class="img-thumbnail" style={{ height: 100, width: 100 }} />
               ) : (
                 <FaIcons.FaUser style={{ height: 100, width: 100 }} />
               )}
@@ -58,7 +53,7 @@ function Sidebar() {
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icon}
-                    <span>{item.title}</span>
+                    <span style={{ marginLeft: "15px" }}>{item.title}</span>
                   </Link>
                 </li>
               );

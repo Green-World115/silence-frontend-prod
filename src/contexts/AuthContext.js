@@ -3,7 +3,7 @@ import { auth, db } from "../firebase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/user";
 import { collection, addDoc, setDoc, doc, getDoc, query, where, getDocs, updateDoc } from "firebase/firestore";
-
+import * as userApi from "../api/user";
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -46,10 +46,18 @@ export function AuthProvider({ children }) {
 
   //Check logged in user
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      dispatch(setUser({ id: user.uid, name: "test name" }));
-      setLoading(false);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      try {
+        if (user) {
+          const response = await userApi.getUser(user.uid);
+          const data = response.data();
+          setCurrentUser(user);
+          dispatch(setUser({ id: user?.uid, name: `${data.firstName} ${data.lastName}` }));
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     });
 
     return unsubscribe;
