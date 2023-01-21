@@ -45,10 +45,6 @@
   width: 100%;
 }
 
-span {
-  margin-left: 16px;
-}
-
 .userInfo {
   list-style: none;
   display: flex;

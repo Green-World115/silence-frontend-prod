@@ -1,18 +1,14 @@
-import { Container } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
-import Nav from "react-bootstrap/Nav";
-import Row from "react-bootstrap/Row";
-import Tab from "react-bootstrap/Tab";
-import ChatRoom from "../ChatRoom/ChatRoom";
-import ChatRoomList from "../ChatRoomList";
+import Group from "../Group";
+import GroupList from "../GroupList";
 import styles from "./content.module.scss";
-function LeftTabsExample() {
+
+const Content = () => {
   return (
     <div className={styles.container}>
-      <ChatRoomList />
-      <ChatRoom />
+      <GroupList />
+      <Group />
     </div>
   );
-}
+};
 
-export default LeftTabsExample;
+export default Content;

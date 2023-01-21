@@ -2,7 +2,8 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import store from "../redux/store";
 import PrivateRoute from "./PrivateRoute";
 
 import Signup from "./authentication/Signup";
@@ -21,92 +22,75 @@ import MeetingRoom from "./dashboard/pages/MeetingRoom";
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
 import Payment from "./authentication/account_creation/Payment";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <Routes>
-          //----------------Dashboard Routes--------------------------------//
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/meeting-room/:id"
-            element={
-              <PrivateRoute>
-                <MeetingRoom />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/content"
-            element={
-              <PrivateRoute>
-                <Content />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/live-streams"
-            element={
-              <PrivateRoute>
-                <LiveStream />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <PrivateRoute>
-                <Settings />
-              </PrivateRoute>
-            }
-          />
-          //----------------Authentication Routes---------------------------//
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route
-            path="/account-creation"
-            element={<AccountCreation />}
-            style={{ maxWidth: "700px" }}
-          />
-          <Route
-            path="/symptom-assessment"
-            element={<SymptomAssessment />}
-            style={{ maxWidth: "1000px" }}
-          />
-          <Route
-            path="/symptom-cause"
-            element={<SymptomCause />}
-            style={{ maxWidth: "1000px" }}
-          />
-          <Route
-            path="/payment"
-            element={<Payment />}
-                
-          />
-          <Route
-            path="/payment-details"
-            element={<PaymentDetails />}
-            style={{ maxWidth: "900px" }}
-          />
-        </Routes>
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <Routes>
+            //----------------Dashboard Routes--------------------------------//
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/meeting-room/:id"
+              element={
+                <PrivateRoute>
+                  <MeetingRoom />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/content"
+              element={
+                <PrivateRoute>
+                  <Content />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/live-streams"
+              element={
+                <PrivateRoute>
+                  <LiveStream />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <PrivateRoute>
+                  <Settings />
+                </PrivateRoute>
+              }
+            />
+            //----------------Authentication Routes---------------------------//
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/account-creation" element={<AccountCreation />} style={{ maxWidth: "700px" }} />
+            <Route path="/symptom-assessment" element={<SymptomAssessment />} style={{ maxWidth: "1000px" }} />
+            <Route path="/symptom-cause" element={<SymptomCause />} style={{ maxWidth: "1000px" }} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/payment-details" element={<PaymentDetails />} style={{ maxWidth: "900px" }} />
+          </Routes>
+        </AuthProvider>
+      </Provider>
     </Router>
   );
 }

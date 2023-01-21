@@ -1,15 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import {
-  collection,
-  addDoc,
-  setDoc,
-  doc,
-  getDoc,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, getDoc, query, where, getDocs } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slices/user";
 
 const AuthContext = React.createContext();
 
@@ -19,6 +12,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   //Signup
   function signup(email, password) {
@@ -54,21 +48,14 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      dispatch(setUser({ id: user.uid, name: "test name" }));
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  async function addUser(
-    firstName,
-    lastName,
-    email,
-    age,
-    gender,
-    userBio,
-    location
-  ) {
+  async function addUser(firstName, lastName, email, age, gender, userBio, location) {
     return setDoc(doc(db, "users", currentUser.uid), {
       firstName,
       lastName,
@@ -116,9 +103,5 @@ export function AuthProvider({ children }) {
     addMessage,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 }
