@@ -1,7 +1,7 @@
 import Nav from "react-bootstrap/Nav";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../../../../contexts/AuthContext";
 import { useGroupList } from "../../../hooks/useChat";
+import flatMap from "lodash/flatMap";
 import styles from "./groupList.module.scss";
 function ChatRoomList() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function ChatRoomList() {
   return (
     <div className={styles.container}>
       <Nav variant="pills" className="flex-column">
-        {data.map((group) => (
+        {flatMap(data, (item) => item.groups).map((group) => (
           <Nav.Item>
             <Nav.Link onClick={() => handleSelect(group.id)} active={group.id === id}>
               {group.name}

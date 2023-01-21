@@ -3,7 +3,7 @@ import { db } from "../firebase";
 
 export const getGroupsByUser = (userId) => {
   const groupsRef = collection(db, "groups");
-  const q = query(groupsRef, where("userIds", "array-contains", userId));
+  const q = query(groupsRef,  where("userIds", "array-contains", userId));
   return getDocs(q);
 };
 
@@ -15,7 +15,7 @@ export const getPostsByGroup = (groupId) => {
 
 export const getCommentsByPost = (groupId, postId) => {
   const commentRefRef = collection(db, "groups", groupId, "posts", postId, "comments");
-  const q = query(commentRefRef, orderBy("updatedAt", "desc"));
+  const q = query(commentRefRef, orderBy("updatedAt", "asc"));
   return getDocs(q);
 };
 

@@ -1,31 +1,21 @@
 import React, { useState } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, Navbar, Input } from "react-bootstrap";
 import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../components/Sidebar.css";
 
 import Sidebar from "../components/Sidebar";
+import NavBar from "../components/NavBar";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  async function handleLogout() {
-    setError(" ");
-
-    try {
-      await logout();
-      navigate.pushState("/login");
-    } catch {
-      setError("Failed to log out");
-    }
-  }
-
   return (
     <div className="Dashboard">
       <Sidebar />
-      <div>Home</div>
+      <NavBar title={"Home"} />
     </div>
   );
 }

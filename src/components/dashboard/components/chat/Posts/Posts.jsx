@@ -2,18 +2,20 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { usePosts } from "../../../hooks/useChat";
 import Post from "./Post/Post";
+import styles from "./posts.module.scss";
+import PostSkelton from "./PostSkelton";
 
 const Posts = () => {
   let { id } = useParams();
-  const { data } = usePosts(id);
+  const { data, loading } = usePosts(id);
 
   return (
-    <div>
+    <div className={styles.container}>
       {data.map((post) => (
         <Post
           key={post.id}
           id={post.id}
-          user={post.userName}
+          userName={post.userName}
           time={post.time}
           text={post.text}
           groupId={id}
@@ -21,6 +23,14 @@ const Posts = () => {
           commentsLoading={post.commentsLoading}
         />
       ))}
+
+      {loading && (
+        <>
+          {[...Array(4)].map((_, key) => (
+            <PostSkelton key={key} />
+          ))}
+        </>
+      )}
     </div>
   );
 };

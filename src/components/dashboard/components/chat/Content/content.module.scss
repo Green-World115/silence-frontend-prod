@@ -1,4 +1,10 @@
 .container {
-  display: flex;
+  overflow: hidden;
   height: 100vh;
+}
+
+.content {
+  display: flex;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
 }

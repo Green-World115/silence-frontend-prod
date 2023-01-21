@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import { collection, addDoc, setDoc, doc, getDoc, query, where, getDocs } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/user";
+import { collection, addDoc, setDoc, doc, getDoc, query, where, getDocs, updateDoc } from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -90,6 +90,23 @@ export function AuthProvider({ children }) {
     // }
   }
 
+  function addNotification(uid, notifications) {
+    return addDoc(doc(db, "notifications", uid), {
+      uid,
+      notifications,
+    });
+  }
+
+  function updateNotifications(userId, notifications) {
+    return updateDoc(doc(db, "notifications", userId), {
+      notifications,
+    });
+  }
+
+  function getNotificationByUser(userId) {
+    return getDoc(doc(db, "notifications", userId));
+  }
+
   const value = {
     currentUser,
     login,
@@ -101,6 +118,9 @@ export function AuthProvider({ children }) {
     addUser,
     getUser,
     addMessage,
+    addNotification,
+    getNotificationByUser,
+    updateNotifications,
   };
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;

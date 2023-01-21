@@ -2,6 +2,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as chatApi from "../../api/chat";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import groupBy from "lodash/groupBy";
+import map from "lodash/map";
+
 import store from "../store";
 
 export const getGroups = createAsyncThunk("chat/getGroups", async (_, { rejectWithValue }) => {
@@ -12,7 +15,8 @@ export const getGroups = createAsyncThunk("chat/getGroups", async (_, { rejectWi
       id: doc.id,
       ...doc.data(),
     }));
-    return data;
+    const groupedData = map(groupBy(data, "category"), (items, category) => ({ category, groups: items }));
+    return groupedData;
   } catch (error) {
     return rejectWithValue(error);
   }
@@ -79,10 +83,11 @@ export const chatSlice = createSlice({
     });
 
     builder.addCase(getPosts.pending, (state) => {
+      state.posts.data = [];
       state.posts.loading = true;
     });
     builder.addCase(getPosts.fulfilled, (state, action) => {
-      state.posts.loading = true;
+      state.posts.loading = false;
       state.posts.data = action.payload;
     });
     builder.addCase(getPosts.rejected, (state) => {
