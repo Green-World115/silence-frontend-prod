@@ -10,7 +10,7 @@ export default function NotificationRow() {
   const [loading, setLoading] = useState(false);
   const [notifications, setNotifications] = useState({});
   const [username, setUsername] = useState();
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState()
   const [avatar, setAvatar] = useState();
 
   useEffect(() => {
