@@ -7,7 +7,6 @@ import store from "../redux/store";
 import PrivateRoute from "./PrivateRoute";
 
 import Signup from "./authentication/Signup";
-import Login from "./authentication/Login";
 import ForgotPassword from "./authentication/ForgotPassword";
 import AccountCreation from "./authentication/account_creation/AccountCreation";
 import SymptomAssessment from "./authentication/account_creation/SymptomAssessment";
@@ -21,11 +20,18 @@ import LiveStream from "./dashboard/pages/LiveStream";
 import MeetingRoom from "./dashboard/pages/meeting-room/MeetingRoom";
 import MeetingRoomSummery from "./dashboard/pages/meeting-room/MeetingRoomSummery";
 
+import Chat from "../pages/chat";
+
 import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
 import Payment from "./authentication/account_creation/Payment";
 import "react-loading-skeleton/dist/skeleton.css";
-import Notifications from "./dashboard/communication/Notifications";
+import Login from "../pages/login";
+import SignUp from "../pages/signup";
+import ResetPassword from "../pages/reset-password";
+import CreateAccount from "../pages/create-account";
+
+// import Notifications from "./dashboard/communication/Notifications";
 
 function App() {
   return (
@@ -90,19 +96,27 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
+            {/* <Route
               path="/notifications"
               element={
                 <PrivateRoute>
                   <Notifications />
                 </PrivateRoute>
               }
+            /> */}
+            <Route
+              path="/chat"
+              element={
+                <PrivateRoute>
+                  <Chat />
+                </PrivateRoute>
+              }
             />
             //----------------Authentication Routes---------------------------//
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/account-creation" element={<AccountCreation />} style={{ maxWidth: "700px" }} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/symptom-assessment" element={<SymptomAssessment />} style={{ maxWidth: "1000px" }} />
             <Route path="/symptom-cause" element={<SymptomCause />} style={{ maxWidth: "1000px" }} />
             <Route path="/avatar-upload" element={<AvatarUpload />} style={{ maxWidth: "1000px" }} />
