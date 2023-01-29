@@ -18,7 +18,7 @@ import Dashboard from "./dashboard/pages/Dashboard";
 import Content from "./dashboard/pages/Content";
 import LiveStream from "./dashboard/pages/LiveStream";
 import MeetingRoom from "./dashboard/pages/meeting-room/MeetingRoom";
-import MeetingRoomSummery from "./dashboard/pages/meeting-room/MeetingRoomSummery";
+import MeetingRoomSummary from "./dashboard/pages/meeting-room/MeetingRoomSummary";
 
 import Chat from "../pages/chat";
 
@@ -40,7 +40,7 @@ function App() {
         <AuthProvider>
           <Routes>
             //----------------Dashboard Routes--------------------------------//
-            <Route
+            {/* <Route
               path="/"
               element={
                 <PrivateRoute>
@@ -52,7 +52,7 @@ function App() {
               path="/meeting-room"
               element={
                 <PrivateRoute>
-                  <MeetingRoomSummery />
+                  <MeetingRoomSummary />
                 </PrivateRoute>
               }
             />
@@ -96,14 +96,14 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/* <Route
+             <Route
               path="/notifications"
               element={
                 <PrivateRoute>
                   <Notifications />
                 </PrivateRoute>
               }
-            /> */}
+            /> 
             <Route
               path="/chat"
               element={
@@ -111,16 +111,36 @@ function App() {
                   <Chat />
                 </PrivateRoute>
               }
-            />
+            /> */}
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/meeting-room" element={<MeetingRoomSummary />} />
+            <Route path="/meeting-room/:id" element={<MeetingRoom />} />
+            <Route path="/chat" element={<CreateChatAccount />} />
             //----------------Authentication Routes---------------------------//
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/create-account" element={<CreateAccount />} />
-            <Route path="/symptom-assessment" element={<SymptomAssessment />} style={{ maxWidth: "1000px" }} />
-            <Route path="/symptom-cause" element={<SymptomCause />} style={{ maxWidth: "1000px" }} />
-            <Route path="/avatar-upload" element={<AvatarUpload />} style={{ maxWidth: "1000px" }} />
-            <Route path="/payment-details" element={<PaymentDetails />} style={{ maxWidth: "900px" }} />
+            <Route
+              path="/symptom-assessment"
+              element={<SymptomAssessment />}
+              style={{ maxWidth: "1000px" }}
+            />
+            <Route
+              path="/symptom-cause"
+              element={<SymptomCause />}
+              style={{ maxWidth: "1000px" }}
+            />
+            <Route
+              path="/avatar-upload"
+              element={<AvatarUpload />}
+              style={{ maxWidth: "1000px" }}
+            />
+            <Route
+              path="/payment-details"
+              element={<PaymentDetails />}
+              style={{ maxWidth: "900px" }}
+            />
           </Routes>
         </AuthProvider>
       </Provider>

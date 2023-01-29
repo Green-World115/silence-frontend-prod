@@ -16,6 +16,7 @@ const BasicInformation = () => {
         <Stack spacing={3}>
           <RHFTextField name="firstName" control={control} label="First Name" />
           <RHFTextField name="email" control={control} label="Email" />
+          <RHFTextField name="password" control={control} label="Password" />
           <RHFTextField name="age" control={control} label="Age" />
           <RHFTextField name="location" control={control} label="Location" />
 
@@ -33,12 +34,13 @@ const BasicInformation = () => {
         </Stack>
       </Grid>
 
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} style={{marginTop: '-30px'}}>
         <Stack spacing={2}>
-          <Slider label="Test 1" />
-          <Slider label="Test 1" />
-          <Slider label="Test 1" />
-          <Slider label="Test 1" />
+          <Slider label="Tinnitus" />
+          <Slider label="Pulsatile Tinnitus" />
+          <Slider label="Hyperacusis" />
+          <Slider label="Vertigo" />
+          <Slider label="Hearing Loss" />
         </Stack>
       </Grid>
     </Grid>

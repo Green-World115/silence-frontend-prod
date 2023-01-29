@@ -12,6 +12,7 @@ const Slider = ({ label }) => {
       <FormLabel sx={{ mb: 1 }}>{label}</FormLabel>
       <Container>
         <MuiSlider valueLabelDisplay="auto" min={0} max={100} />
+        {label !== "Vertigo" ? 
         <ToggleButtonGroup size="small" aria-label="text formatting" value={side} onChange={handleChangeSide}>
           <ToggleButton value="left" disableRipple>
             L
@@ -20,6 +21,7 @@ const Slider = ({ label }) => {
             R
           </ToggleButton>
         </ToggleButtonGroup>
+        : ""}
       </Container>
     </div>
   );

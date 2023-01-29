@@ -23,7 +23,7 @@ const Login = () => {
           <StyledLink fontWeight={500} onClick={() => navigate("/reset-password")}>
             Reset password
           </StyledLink>
-          <StyledLink fontWeight={500} onClick={() => navigate("/signup")}>
+          <StyledLink fontWeight={500} onClick={() => navigate("/create-account")}>
             Don't have account? Create account
           </StyledLink>
         </Links>

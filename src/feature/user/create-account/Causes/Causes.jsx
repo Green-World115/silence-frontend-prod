@@ -1,4 +1,4 @@
-import { createFilterOptions, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import { createFilterOptions, Grid, Paper, Stack, TextField, Typography,FormLabel } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import RHFAutocomplete from "../../../../components/hook-forms/RHFAutocomplete";
@@ -22,6 +22,7 @@ const Causes = () => {
     <Grid container spacing={8}>
       <Grid item xs={12} md={6}>
         <Stack spacing={2}>
+        <FormLabel sx={{ mb: 1 }}>Tinnitus</FormLabel>
           <RHFAutocomplete
             name="firstName"
             control={control}
@@ -72,35 +73,46 @@ const Causes = () => {
             }}
             renderOption={(props, option) => <li {...props}>{option.label}</li>}
             freeSolo
-            renderInput={(params) => <TextField {...params} label="Tinnitus" />}
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
           />
+          <FormLabel>Pulsatile Tinnitus</FormLabel>
           <RHFAutocomplete
             name="email"
             control={control}
             label="Email"
-            renderInput={(params) => <TextField {...params} label="Pulsatile Tinnitus" />}
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
           />
+          <FormLabel >Hyperacusis</FormLabel>
           <RHFAutocomplete
             name="age"
             control={control}
             label="Age"
-            renderInput={(params) => <TextField {...params} label="Hyperacusis" />}
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
           />
+          <FormLabel>Vertigo</FormLabel>
           <RHFAutocomplete
             name="location"
             control={control}
             label="Location"
-            renderInput={(params) => <TextField {...params} label="Vertigo" />}
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
           />
+          <FormLabel>Hearing Loss</FormLabel>
+          <RHFAutocomplete
+            name="email"
+            control={control}
+            label="Email"
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
+          />
+          
         </Stack>
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <Info>
+        <Info style={{marginTop: "50px"}}>
           <Typography variant="body2">
             This page is used to gather information regarding the cause or causes of your tinnitus and/or other
-            symptoms. Simply start typing, and if your cause does not show, you can still enter it as a cause. Please
-            answer to the best of your abilities, and don't worry about getting everything perfect. These answers can be
+            symptoms. <br/><br/>Simply start typing, and if your cause does not show, you can still enter it as a cause. <br/><br/>Please
+            answer to the best of your abilities, and don't worry about getting everything perfect. <br/><br/>These answers can be
             changed later.
           </Typography>
         </Info>
