@@ -12,6 +12,9 @@ export const Header = styled("div")`
 export const ChatContainer = styled("div")`
   padding: ${(props) => props.theme.spacing(2)};
   overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
 `;
 
 export const ChatItemContainer = styled("div")`
@@ -31,7 +34,7 @@ export const ChatItemContent = styled("div")`
   display: inline-flex;
   flex-direction: column;
   align-items: ${(props) => !props.guest && "flex-end"};
-  width: 70%;
+  max-width: 70%;
 `;
 
 export const ChatItemText = styled("div")`

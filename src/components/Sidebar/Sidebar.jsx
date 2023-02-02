@@ -13,11 +13,13 @@ import { ListItem } from "./ListItem";
 
 import { Avatar, Typography } from "@mui/material";
 import { Container, UserContainer } from "./styled";
+import { useAuth } from "feature/auth/context";
 const drawerWidth = 240;
 
-const Sidebar = (props) => {
-  const { window } = props;
+const Sidebar = ({ window }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const { user } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -27,13 +29,11 @@ const Sidebar = (props) => {
     <Container>
       <UserContainer>
         <Avatar alt="Remy" />
-        <Box ml={2}>
+        <Box ml={2} sx={{ overflow: "hidden", textOverflow: "ellipsis", color: "#ffffff" }}>
           <Typography variant="body2" color="#ffffff">
             User name
           </Typography>
-          <Typography variant="caption" color="#ffffff">
-            test@gmail.com
-          </Typography>
+          <Typography variant="caption">{user?.email}</Typography>
         </Box>
       </UserContainer>
       <List disablePadding>
