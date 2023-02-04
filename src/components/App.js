@@ -113,9 +113,9 @@ function App() {
               }
             /> */}
             <Route path="/" element={<Dashboard />} />
-            <Route path="/meeting-room" element={<MeetingRoomSummary />} />
+            {/* <Route path="/meeting-room" element={<MeetingRoomSummary />} /> */}
             <Route path="/meeting-room/:id" element={<MeetingRoom />} />
-            <Route path="/chat" element={<CreateChatAccount />} />
+            <Route path="/chat" element={<Chat />} />
             //----------------Authentication Routes---------------------------//
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />

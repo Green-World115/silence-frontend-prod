@@ -1,4 +1,4 @@
-import { Box, FormLabel, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, FormLabel, Grid, Paper, Stack, Typography, Checkbox, FormControlLabel, FormGroup} from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -34,13 +34,16 @@ const BasicInformation = () => {
         </Stack>
       </Grid>
 
-      <Grid item xs={12} md={6} style={{marginTop: '-30px'}}>
+      <Grid item xs={12} md={6} marginTop= '-30px'>
         <Stack spacing={2}>
           <Slider label="Tinnitus" />
           <Slider label="Pulsatile Tinnitus" />
           <Slider label="Hyperacusis" />
           <Slider label="Vertigo" />
           <Slider label="Hearing Loss" />
+          <FormGroup>
+            <FormControlLabel control={<Checkbox />} label="Visual Snow" />
+          </FormGroup>       
         </Stack>
       </Grid>
     </Grid>

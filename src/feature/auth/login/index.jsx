@@ -4,13 +4,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title } from "./styled";
+import logo from '../background-image.jpeg'; 
 
 const Login = () => {
   const { control } = useForm();
   const navigate = useNavigate();
 
   return (
-    <StyledGrid container spacing={2}>
+    <StyledGrid container spacing={2} backgroundColor="#3152B3">
       <StyledGridItem item xs={12} md={6}>
         <Company variant="h5">Tinnitus pal</Company>
         <Title variant="h4">Sign in to your account</Title>
@@ -28,7 +29,11 @@ const Login = () => {
           </StyledLink>
         </Links>
       </StyledGridItem>
-      <Grid item xs={12} md={6}></Grid>
+      <Grid item xs={12} md={6}>
+      <StyledGridItem item xs={12} md={6}>
+      <img src={logo} alt="Logo" />
+      </StyledGridItem>
+      </Grid>
     </StyledGrid>
   );
 };

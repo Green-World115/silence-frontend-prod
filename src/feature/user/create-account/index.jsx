@@ -43,7 +43,7 @@ const CreateAccount = () => {
   };
 
   return (
-    <div>
+    <div style={{marginTop: "-70px"}}>
       <div style={{display: 'flex', whiteSpace: 'nowrap' }}>
         <Company variant="h5">Tinnitus pal</Company>
         <StyledLink fontWeight={300} onClick={() => navigate("/login")}>

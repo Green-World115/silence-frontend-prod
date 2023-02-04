@@ -19,10 +19,10 @@ const Causes = () => {
   const { control } = useForm();
 
   return (
-    <Grid container spacing={8}>
+    <Grid container spacing={6}>
       <Grid item xs={12} md={6}>
-        <Stack spacing={2}>
-        <FormLabel sx={{ mb: 1 }}>Tinnitus</FormLabel>
+        <Stack spacing={1}>
+        <FormLabel >Tinnitus</FormLabel>
           <RHFAutocomplete
             name="firstName"
             control={control}
@@ -97,6 +97,13 @@ const Causes = () => {
             renderInput={(params) => <TextField {...params} label="Enter details..." />}
           />
           <FormLabel>Hearing Loss</FormLabel>
+          <RHFAutocomplete
+            name="email"
+            control={control}
+            label="Email"
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
+          />
+          <FormLabel>Visual Snow</FormLabel>
           <RHFAutocomplete
             name="email"
             control={control}
