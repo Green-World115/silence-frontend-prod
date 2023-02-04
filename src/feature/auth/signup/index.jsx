@@ -4,10 +4,18 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title } from "./styled";
-
+import * as authApi from "../../../api/auth";
+import { useSnackbar } from "notistack";
 const SignUp = () => {
-  const { control } = useForm();
-  const navigate = useNavigate();
+  const { control, handleSubmit } = useForm();
+  const navigate = useNavigate({});
+  const { enqueueSnackbar } = useSnackbar();
+
+  const signup = handleSubmit(async (values) => {
+    const { error, data } = await authApi.signup(values.email, values.password);
+
+    if (error) enqueueSnackbar(error.message, { variant: "error" });
+  });
 
   return (
     <StyledGrid container spacing={2}>
@@ -19,7 +27,9 @@ const SignUp = () => {
           <RHFTextField name="password" control={control} label="Password" type="password" />
           <RHFTextField name="confirmPassword" control={control} label="Confirm Password" type="password" />
 
-          <Button size="large">Create</Button>
+          <Button size="large" onClick={signup}>
+            Create
+          </Button>
         </Stack>
         <Links onClick={() => navigate("/login")}>
           <StyledLink fontWeight={500}>Already have a account? Login</StyledLink>
