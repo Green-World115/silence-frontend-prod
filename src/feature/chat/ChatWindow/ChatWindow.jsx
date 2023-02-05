@@ -6,9 +6,15 @@ import { ChatContainer, Header } from "./styled";
 import ChatItem from "./ChatItem";
 import Input from "./Input";
 import { useResponsive } from "../../../hooks/useResponsive";
+import { useParams } from "react-router-dom";
+import { useMessages } from "../hooks/useMessages";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
+  const { id: conversationId } = useParams();
+
+  const { messages, pagination, loadNext } = useMessages(conversationId);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
@@ -26,72 +32,22 @@ const ChatWindow = () => {
           </IconButton>
         )}
       </Header>
-      <ChatContainer>
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />{" "}
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />{" "}
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />
-        <ChatItem
-          name="Tim"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-          time="8 hours ago"
-          guest
-        />
+      <ChatContainer id="chat-container">
+        <InfiniteScroll
+          scrollableTarget="chat-container"
+          next={loadNext}
+          style={{ display: "flex", flexDirection: "column-reverse" }}
+          inverse={true}
+          hasMore={pagination.totalPages > pagination.currentPage}
+          scrollThreshold={"20px"}
+          dataLength={messages.length}
+        >
+          {messages?.map((message) => (
+            <ChatItem key={message.id} name={message.name} content={message.content} time="8 hours ago" guest />
+          ))}
+        </InfiniteScroll>
       </ChatContainer>
-
-      <Input></Input>
+      <Input conversationId={conversationId} userId={1} />
     </Box>
   );
 };

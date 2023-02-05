@@ -37,112 +37,100 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <AuthProvider>
-          <Routes>
-            //----------------Dashboard Routes--------------------------------//
-            {/* <Route
-              path="/"
-              element={
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/meeting-room"
-              element={
-                <PrivateRoute>
-                  <MeetingRoomSummary />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/meeting-room/:id"
-              element={
-                <PrivateRoute>
-                  <MeetingRoom />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/content"
-              element={
-                <PrivateRoute>
-                  <Content />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/live-streams"
-              element={
-                <PrivateRoute>
-                  <LiveStream />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <PrivateRoute>
-                  <Settings />
-                </PrivateRoute>
-              }
-            />
-             <Route
+        <Routes>
+          //----------------Dashboard Routes--------------------------------//
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/meeting-room"
+            element={
+              <PrivateRoute>
+                <MeetingRoomSummery />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/meeting-room/:id"
+            element={
+              <PrivateRoute>
+                <MeetingRoom />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/content"
+            element={
+              <PrivateRoute>
+                <Content />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/live-streams"
+            element={
+              <PrivateRoute>
+                <LiveStream />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route
               path="/notifications"
               element={
                 <PrivateRoute>
                   <Notifications />
                 </PrivateRoute>
               }
-            /> 
-            <Route
-              path="/chat"
-              element={
-                <PrivateRoute>
-                  <Chat />
-                </PrivateRoute>
-              }
             /> */}
-            <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/meeting-room" element={<MeetingRoomSummary />} /> */}
-            <Route path="/meeting-room/:id" element={<MeetingRoom />} />
-            <Route path="/chat" element={<Chat />} />
-            //----------------Authentication Routes---------------------------//
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/create-account" element={<CreateAccount />} />
-            <Route
-              path="/symptom-assessment"
-              element={<SymptomAssessment />}
-              style={{ maxWidth: "1000px" }}
-            />
-            <Route
-              path="/symptom-cause"
-              element={<SymptomCause />}
-              style={{ maxWidth: "1000px" }}
-            />
-            <Route
-              path="/avatar-upload"
-              element={<AvatarUpload />}
-              style={{ maxWidth: "1000px" }}
-            />
-            <Route
-              path="/payment-details"
-              element={<PaymentDetails />}
-              style={{ maxWidth: "900px" }}
-            />
-          </Routes>
-        </AuthProvider>
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:id" element={<Chat />} />
+          //----------------Authentication Routes---------------------------//
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/create-account" element={<CreateAccount />} />
+          <Route
+            path="/symptom-assessment"
+            element={<SymptomAssessment />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/symptom-cause"
+            element={<SymptomCause />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/avatar-upload"
+            element={<AvatarUpload />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/payment-details"
+            element={<PaymentDetails />}
+            style={{ maxWidth: "900px" }}
+          />
+        </Routes>
       </Provider>
     </Router>
   );
