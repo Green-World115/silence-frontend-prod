@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../../utils/superbase-client";
 const AuthContext = createContext(null);
 
@@ -17,12 +17,11 @@ export const useAuth = () => {
 };
 
 export const useAuthProvider = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      console.log(data);
-      setUser({ email: data.session.user.email });
+      setUser({ email: data.session.user.email, id: data.session.user.id });
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {});

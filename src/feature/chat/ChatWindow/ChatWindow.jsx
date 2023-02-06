@@ -9,12 +9,14 @@ import { useResponsive } from "../../../hooks/useResponsive";
 import { useParams } from "react-router-dom";
 import { useMessages } from "../hooks/useMessages";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useAuth } from "feature/auth/context";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
-  const { id: conversationId } = useParams();
+  const { id: chatGroupId } = useParams();
+  const { user } = useAuth();
 
-  const { messages, pagination, loadNext } = useMessages(conversationId);
+  const { messages, pagination, loadNext } = useMessages(chatGroupId);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
@@ -47,7 +49,7 @@ const ChatWindow = () => {
           ))}
         </InfiniteScroll>
       </ChatContainer>
-      <Input conversationId={conversationId} userId={1} />
+      <Input chatGroupId={chatGroupId} userId={user.id} />
     </Box>
   );
 };

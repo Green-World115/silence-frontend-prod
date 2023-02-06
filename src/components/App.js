@@ -104,7 +104,7 @@ function App() {
               }
             /> */}
           <Route path="/chat" element={<Chat />} />
-          <Route path="/chat/:id" element={<Chat />} />
+          <Route path="/chat/:type/:id" element={<Chat />} />
           //----------------Authentication Routes---------------------------//
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

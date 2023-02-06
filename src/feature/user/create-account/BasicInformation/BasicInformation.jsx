@@ -13,7 +13,7 @@ const BasicInformation = () => {
   return (
     <Grid container spacing={12}>
       <Grid item xs={12} md={6}>
-        <Stack spacing={3}>
+        <Stack spacing={2}>
           <RHFTextField name="firstName" control={control} label="First Name" />
           <RHFTextField name="email" control={control} label="Email" />
           <RHFTextField name="age" control={control} label="Age" />

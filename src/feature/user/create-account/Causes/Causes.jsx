@@ -1,8 +1,8 @@
-import { createFilterOptions, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import { createFilterOptions, Grid, Paper, Stack, Typography } from "@mui/material";
+import TextField from "components/mui-form/TextField";
 import React from "react";
 import { useForm } from "react-hook-form";
 import RHFAutocomplete from "../../../../components/hook-forms/RHFAutocomplete";
-import RHFTextField from "../../../../components/hook-forms/RHFTextField";
 import { Info } from "./styled";
 
 const causes = [
@@ -75,21 +75,159 @@ const Causes = () => {
             renderInput={(params) => <TextField {...params} label="Tinnitus" />}
           />
           <RHFAutocomplete
-            name="email"
+            name="firstName"
             control={control}
-            label="Email"
+            // onChange={(event, newValue) => {
+            //   if (typeof newValue === "string") {
+            //     setValue({
+            //       title: newValue,
+            //     });
+            //   } else if (newValue && newValue.inputValue) {
+            //     // Create a new value from the user input
+            //     setValue({
+            //       title: newValue.inputValue,
+            //     });
+            //   } else {
+            //     setValue(newValue);
+            //   }
+            // }}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params);
+
+              const { inputValue } = params;
+              // Suggest the creation of a new value
+              const isExisting = options.some((option) => inputValue === option.title);
+              if (inputValue !== "" && !isExisting) {
+                filtered.push({
+                  inputValue,
+                  title: `Add "${inputValue}"`,
+                });
+              }
+
+              return filtered;
+            }}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            options={causes}
+            getOptionLabel={(option) => {
+              // Value selected with enter, right from the input
+              if (typeof option === "string") {
+                return option;
+              }
+              // Add "xxx" option created dynamically
+              if (option.inputValue) {
+                return option.inputValue;
+              }
+              // Regular option
+              return option.label;
+            }}
+            renderOption={(props, option) => <li {...props}>{option.label}</li>}
+            freeSolo
             renderInput={(params) => <TextField {...params} label="Pulsatile Tinnitus" />}
           />
           <RHFAutocomplete
-            name="age"
+            name="firstName"
             control={control}
-            label="Age"
+            // onChange={(event, newValue) => {
+            //   if (typeof newValue === "string") {
+            //     setValue({
+            //       title: newValue,
+            //     });
+            //   } else if (newValue && newValue.inputValue) {
+            //     // Create a new value from the user input
+            //     setValue({
+            //       title: newValue.inputValue,
+            //     });
+            //   } else {
+            //     setValue(newValue);
+            //   }
+            // }}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params);
+
+              const { inputValue } = params;
+              // Suggest the creation of a new value
+              const isExisting = options.some((option) => inputValue === option.title);
+              if (inputValue !== "" && !isExisting) {
+                filtered.push({
+                  inputValue,
+                  title: `Add "${inputValue}"`,
+                });
+              }
+
+              return filtered;
+            }}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            options={causes}
+            getOptionLabel={(option) => {
+              // Value selected with enter, right from the input
+              if (typeof option === "string") {
+                return option;
+              }
+              // Add "xxx" option created dynamically
+              if (option.inputValue) {
+                return option.inputValue;
+              }
+              // Regular option
+              return option.label;
+            }}
+            renderOption={(props, option) => <li {...props}>{option.label}</li>}
+            freeSolo
             renderInput={(params) => <TextField {...params} label="Hyperacusis" />}
           />
           <RHFAutocomplete
-            name="location"
+            name="firstName"
             control={control}
-            label="Location"
+            // onChange={(event, newValue) => {
+            //   if (typeof newValue === "string") {
+            //     setValue({
+            //       title: newValue,
+            //     });
+            //   } else if (newValue && newValue.inputValue) {
+            //     // Create a new value from the user input
+            //     setValue({
+            //       title: newValue.inputValue,
+            //     });
+            //   } else {
+            //     setValue(newValue);
+            //   }
+            // }}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params);
+
+              const { inputValue } = params;
+              // Suggest the creation of a new value
+              const isExisting = options.some((option) => inputValue === option.title);
+              if (inputValue !== "" && !isExisting) {
+                filtered.push({
+                  inputValue,
+                  title: `Add "${inputValue}"`,
+                });
+              }
+
+              return filtered;
+            }}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            options={causes}
+            getOptionLabel={(option) => {
+              // Value selected with enter, right from the input
+              if (typeof option === "string") {
+                return option;
+              }
+              // Add "xxx" option created dynamically
+              if (option.inputValue) {
+                return option.inputValue;
+              }
+              // Regular option
+              return option.label;
+            }}
+            renderOption={(props, option) => <li {...props}>{option.label}</li>}
+            freeSolo
             renderInput={(params) => <TextField {...params} label="Vertigo" />}
           />
         </Stack>

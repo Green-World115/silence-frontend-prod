@@ -48,41 +48,68 @@ export const addComment = (text, userId, userName, groupId, postId) => {
   });
 };
 
-export const getMessages = (conversationId, page = 1) => {
+export const getMessages = (chatGroupId, page = 1) => {
   const { from, to } = getPagination(page, 10);
   return supabase
-    .from("messages")
-    .select("*, user:userId(firstName,id)", { count: "exact" })
-    .eq("conversationId", conversationId)
+    .from("chat_messages")
+    .select("*, user:users(firstName,id)", { count: "exact" })
+    .eq("chatGroupId", chatGroupId)
     .order("createdAt", { ascending: false })
     .range(from, to);
 };
 
-export const getUserConversations = (userId) => {
+
+export const getMessagesByUserId = (chatGroupId, page = 1) => {
+  const { from, to } = getPagination(page, 10);
   return supabase
-    .from("user_conversations")
-    .select("conversation: conversationId(*, user1: user1Id(*)), messages(*)")
-    .eq("userId", userId);
+    .from("chat_messages")
+    .select("*, user:users(firstName,id), userGroup: user_group()" , { count: "exact" })
+    .eq("chatGroupId", chatGroupId)
+    .order("createdAt", { ascending: false })
+    .range(from, to);
 };
-export const sendMessage = (content, media, userId, conversationId) => {
-  return supabase.from("messages").insert({
+
+
+
+
+
+export const getChatGroupById = (id) => {
+  return supabase
+    .from("chat_groups")
+    .select("name,id,private, userChatGroups: user_chat_groups(user: users(id, firstName, lastName))")
+    .eq("id", id)
+    .limit(2, { foreignTable: "userChatGroups" });
+};
+
+export const getChatGroups = (userId) => {
+  return supabase
+    .from("chat_groups")
+    .select(
+      "name,id,type, user: user_chat_groups(*), userChatGroups: user_chat_groups(user: users(id, firstName, lastName))"
+    )
+    .eq("user.userId", userId)
+    .limit(2, { foreignTable: "userChatGroups" });
+};
+
+export const sendMessage = (content, media, userId, chatGroupId) => {
+  return supabase.from("chat_messages").insert({
     content,
     media,
     userId,
-    conversationId,
+    chatGroupId,
   });
 };
 
-export const subscribeToMessages = (conversationId, handleUpdateMessages) => {
+export const subscribeToMessages = (chatGroupId, handleUpdateMessages) => {
   supabase
-    .channel("public:messages")
+    .channel("public:chat_messages")
     .on(
       "postgres_changes",
-      { event: "INSERT", schema: "public", table: "messages", filter: `conversationId=eq.${conversationId}` },
+      { event: "INSERT", schema: "public", table: "chat_messages", filter: `chatGroupId=eq.${chatGroupId}` },
       handleUpdateMessages
     )
     .subscribe();
 };
 export const unsubscribeToMessages = () => {
-  supabase.removeChannel("public:messages");
+  supabase.removeChannel("public:chat_messages");
 };

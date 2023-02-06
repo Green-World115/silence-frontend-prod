@@ -8,6 +8,7 @@ import BasicInformation from "./BasicInformation";
 import { Card, Company, Container, Content, Footer, Title } from "./styed";
 import { useState } from "react";
 import Causes from "./Causes";
+import Plans from "./Plans";
 
 export const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -46,7 +47,7 @@ const CreateAccount = () => {
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Basic Information" />
           <Tab label="Causes" />
-          <Tab label="Plan" />
+          <Tab label="Plans" />
         </Tabs>
         <Content>
           <TabPanel value={value} index={0}>
@@ -55,10 +56,9 @@ const CreateAccount = () => {
           <TabPanel value={value} index={1}>
             <Causes />
           </TabPanel>
-          <TabPanel value={value} index={2}></TabPanel>
-          <Footer>
-            <Button size="large">Save & continue</Button>
-          </Footer>
+          <TabPanel value={value} index={2}>
+            <Plans />
+          </TabPanel>
         </Content>
       </Paper>
     </div>
