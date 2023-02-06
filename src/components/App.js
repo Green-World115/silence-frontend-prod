@@ -18,7 +18,7 @@ import Dashboard from "./dashboard/pages/Dashboard";
 import Content from "./dashboard/pages/Content";
 import LiveStream from "./dashboard/pages/LiveStream";
 import MeetingRoom from "./dashboard/pages/meeting-room/MeetingRoom";
-import MeetingRoomSummary from "./dashboard/pages/meeting-room/MeetingRoomSummary";
+import MeetingRoomSummery from "./dashboard/pages/meeting-room/MeetingRoomSummery";
 
 import Chat from "../pages/chat";
 
