@@ -12,19 +12,19 @@ const Info = () => {
     <Paper elevation={3}>
       <Content>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <RHFTextField name="firstName" label="First Name" control={control} fullWidth />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <RHFTextField name="lastName" label="Last Name" control={control} fullWidth />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <RHFTextField name="email" label="Email" control={control} fullWidth />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <RHFTextField name="age" label="Age" control={control} fullWidth />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <RHFTextField name="location" label="Location" control={control} fullWidth />
           </Grid>
 

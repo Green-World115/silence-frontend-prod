@@ -38,7 +38,7 @@ const Sidebar = ({ window }) => {
       </UserContainer>
       <List disablePadding>
         <ListItem disablePadding title="Home" icon={<HomeIcon />} />
-        <ListItem disablePadding title="Meeting room" icon={<TextsmsIcon />} />
+        <ListItem disablePadding title="Meeting room" path="/groups" icon={<TextsmsIcon />} />
         <ListItem disablePadding title="Content" icon={<ContentPasteIcon />} />
         <ListItem disablePadding title="Live streams" icon={<VideocamIcon />} />
         <ListItem disablePadding title="Profile" path="/profile" icon={<AccountBoxIcon />} />

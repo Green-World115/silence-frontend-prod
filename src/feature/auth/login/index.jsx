@@ -23,7 +23,7 @@ const Login = () => {
       <StyledGridItem item xs={12} md={6}>
         <Company variant="h5">Tinnitus pal</Company>
         <Title variant="h4">Sign in to your account</Title>
-        <Stack spacing={3} sx={{ width: "100%" }}>
+        <Stack spacing={2} sx={{ width: "100%" }}>
           <RHFTextField name="email" control={control} label="Email" />
           <RHFTextField name="password" control={control} label="Password" type="password" />
           <Button size="large" onClick={login}>

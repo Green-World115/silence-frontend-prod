@@ -21,10 +21,13 @@ export const useAuthProvider = () => {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
+      console.log(data);
       setUser({ email: data.session.user.email, id: data.session.user.id });
     });
 
-    supabase.auth.onAuthStateChange((_event, session) => {});
+    supabase.auth.onAuthStateChange((_event, session) => {
+      console.log(session);
+    });
   }, []);
 
   return { user };

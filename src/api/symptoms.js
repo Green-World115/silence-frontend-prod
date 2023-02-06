@@ -1,5 +1,6 @@
-import {  setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { supabase } from "../utils/superbase-client";
 
 export const addSymptom = (userId, symptoms) => {
   return setDoc(doc(db, "symptoms", userId), {
@@ -21,4 +22,8 @@ export const updateSymptomCauses = (userId, symptomCauses, additionalSymptomCaus
     symptomCauses,
     additionalSymptomCauses,
   });
+};
+
+export const getSymptoms = () => {
+  return supabase.from("symptoms").select("name, id, type");
 };

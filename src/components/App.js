@@ -30,6 +30,7 @@ import SignUp from "../pages/signup";
 import ResetPassword from "pages/reset-password";
 import CreateAccount from "pages/create-account";
 import Profile from "pages/profile";
+import GroupsPage from "pages/groups";
 
 // import Notifications from "./dashboard/communication/Notifications";
 
@@ -98,6 +99,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/chat/:type/:id" element={<Chat />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/groups" element={<GroupsPage />} />
           //----------------Authentication Routes---------------------------//
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

@@ -18,9 +18,7 @@ export const Accordion = styled(MuiAccordion)`
 `;
 
 export const SummeryContainer = styled("div")`
-  border: ${(props) => `1px solid ${props.theme.palette.divider}`};
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
-  padding: ${(props) => props.theme.spacing(3)};
   margin-top: ${(props) => props.theme.spacing(1)};
 `;
 

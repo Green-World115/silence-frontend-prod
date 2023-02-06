@@ -16,7 +16,7 @@ const Plans = () => {
             <Typography variant="subtitle1">Select payment amount</Typography>
             <Typography variant="caption">Payment option can be changed a any time with zero penalties</Typography>
           </div>
-          <Slider />
+          <Slider valueLabelDisplay="auto" min={0} max={193} />
         </Stack>
         <PaymentContainer>
           <Typography variant="subtitle1" mb={1}>
