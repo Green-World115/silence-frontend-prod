@@ -22,14 +22,14 @@ import MeetingRoomSummery from "./dashboard/pages/meeting-room/MeetingRoomSummer
 
 import Chat from "../pages/chat";
 
-import Profile from "./dashboard/pages/Profile";
 import Settings from "./dashboard/pages/Settings";
 import Payment from "./authentication/account_creation/Payment";
 import "react-loading-skeleton/dist/skeleton.css";
 import Login from "../pages/login";
 import SignUp from "../pages/signup";
-import ResetPassword from "../pages/reset-password";
-import CreateAccount from "../pages/create-account";
+import ResetPassword from "pages/reset-password";
+import CreateAccount from "pages/create-account";
+import Profile from "pages/profile";
 
 // import Notifications from "./dashboard/communication/Notifications";
 
@@ -80,14 +80,6 @@ function App() {
             }
           />
           <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-          <Route
             path="/settings"
             element={
               <PrivateRoute>
@@ -105,6 +97,7 @@ function App() {
             /> */}
           <Route path="/chat" element={<Chat />} />
           <Route path="/chat/:type/:id" element={<Chat />} />
+          <Route path="/profile" element={<Profile />} />
           //----------------Authentication Routes---------------------------//
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

@@ -41,7 +41,7 @@ const Sidebar = ({ window }) => {
         <ListItem disablePadding title="Meeting room" icon={<TextsmsIcon />} />
         <ListItem disablePadding title="Content" icon={<ContentPasteIcon />} />
         <ListItem disablePadding title="Live streams" icon={<VideocamIcon />} />
-        <ListItem disablePadding title="Profiles" icon={<AccountBoxIcon />} />
+        <ListItem disablePadding title="Profile" path="/profile" icon={<AccountBoxIcon />} />
         <ListItem disablePadding title="Settings" icon={<SettingsIcon />} />
       </List>
       <Button variant="contained" size="large" fullWidth>
