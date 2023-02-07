@@ -1,4 +1,11 @@
-import { Grid, styled, Typography, Link } from "@mui/material";
+import { Grid, styled, Typography, Link, Paper } from "@mui/material";
+
+export const Content = styled(Paper)`
+  padding: ${(props) => props.theme.spacing(2)};
+  ${(props) => props.theme.breakpoints.up("lg")} {
+    padding: ${(props) => props.theme.spacing(4)};
+  }
+`;
 
 export const StyledGrid = styled(Grid)`
   height: 100%;

@@ -20,7 +20,7 @@ const Login = () => {
   });
 
   return (
-    <div style={{marginTop: "100px" }} >
+    <div style={{paddingTop: "100px" }} >
     <Paper elevation={5}>
       <Content>
         <StyledGrid container spacing={3}>
