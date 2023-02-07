@@ -6,7 +6,7 @@ import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
 import * as authApi from "../../../api/auth";
 import { useSnackbar } from "notistack";
-import logo from '../hearingloss.png'; 
+import logo from "../hearingloss.png";
 
 import Button from "components/Button";
 const SignUp = () => {
@@ -31,17 +31,22 @@ const SignUp = () => {
   });
 
   return (
-    <div style={{marginTop: "100px" }} >
-      <Paper elevation={5}>
+    <Paper elevation={5}>
       <Content>
         <StyledGrid container spacing={2}>
           <StyledGridItem item xs={12} md={7}>
             <Company variant="h5">Tinnitus pal</Company>
             <Title variant="h4">Create account</Title>
-            <Stack spacing={3} sx={{ width: "100%" }}>
+            <Stack spacing={2} sx={{ width: "100%" }}>
               <RHFTextField name="email" control={control} label="Email" />
               <RHFTextField name="password" control={control} label="Password" type="password" />
-              <RHFTextField name="confirmPassword" control={control} label="Confirm Password" type="password" />
+              <RHFTextField
+                name="confirmPassword"
+                control={control}
+                label="Confirm Password"
+                type="password"
+                sx={{ mb: 2 }}
+              />
               <Button size="large" onClick={signup}>
                 Create
               </Button>
@@ -50,15 +55,12 @@ const SignUp = () => {
               <StyledLink fontWeight={500}>Already have a account? Login</StyledLink>
             </Links>
           </StyledGridItem>
-          <Grid item xs={12} md={5}>
-            <StyledGridItem item xs={12} md={6}>
-              <img src={logo} alt="Logo" width={" 95%"}/>
-            </StyledGridItem>
-          </Grid>
+          <StyledGridItem item xs={12} md={5}>
+            <img src={logo} alt="Logo" width={" 95%"} />
+          </StyledGridItem>
         </StyledGrid>
-        </Content>
-      </Paper>
-    </div>
+      </Content>
+    </Paper>
   );
 };
 

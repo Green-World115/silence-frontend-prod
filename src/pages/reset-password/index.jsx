@@ -1,12 +1,12 @@
-import { Container } from "@mui/material";
+import AuthLayout from "components/AuthLayout";
 import React from "react";
 import ResetPassword from "../../feature/auth/reset-password";
 
 const ResetPasswordPage = () => {
   return (
-    <Container sx={{ height: "100vh" }} maxWidth="md">
+    <AuthLayout>
       <ResetPassword />
-    </Container>
+    </AuthLayout>
   );
 };
 

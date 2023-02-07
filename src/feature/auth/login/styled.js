@@ -1,9 +1,9 @@
 import { Grid, styled, Typography, Link, Paper } from "@mui/material";
 
 export const Content = styled(Paper)`
-  padding: ${(props) => props.theme.spacing(2)};
+  padding: ${(props) => props.theme.spacing(8, 2)};
   ${(props) => props.theme.breakpoints.up("lg")} {
-    padding: ${(props) => props.theme.spacing(4)};
+    padding: ${(props) => props.theme.spacing(8, 4)};
   }
 `;
 

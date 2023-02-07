@@ -1,12 +1,12 @@
-import { Container } from "@mui/material";
+import AuthLayout from "components/AuthLayout";
 import React from "react";
 import SignUp from "../../feature/auth/signup";
 
 const LoginPage = () => {
   return (
-    <Container sx={{ height: "100vh" }} maxWidth="md">
+    <AuthLayout>
       <SignUp />
-    </Container>
+    </AuthLayout>
   );
 };
 

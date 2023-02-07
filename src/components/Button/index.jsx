@@ -3,7 +3,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const Button = ({ children, loading, ...props }) => {
   return (
-    <MuiButton disabled={loading} {...props}>
+    <MuiButton disabled={loading} {...props} >
       {loading ? <CircularProgress color="inherit" size={25} /> : children}
     </MuiButton>
   );
