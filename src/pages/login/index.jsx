@@ -4,7 +4,7 @@ import Login from "../../feature/auth/login";
 
 const LoginPage = () => {
   return (
-    <Container sx={{ height: "100vh" }} maxWidth="md">
+    <Container sx={{ height: "100vh", width: "100%", backgroundColor:"#3C507B" }} >
       <Login />
     </Container>
   );

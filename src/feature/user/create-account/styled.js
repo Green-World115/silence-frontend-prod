@@ -1,4 +1,4 @@
-import { Paper, styled, Typography } from "@mui/material";
+import { Paper, styled, Typography, Link } from "@mui/material";
 
 export const Content = styled(Paper)`
   padding: ${(props) => props.theme.spacing(2)};
@@ -23,4 +23,9 @@ export const Footer = styled("div")`
   display: flex;
   margin-top: ${(props) => props.theme.spacing(2)};
   justify-content: flex-end;
+`;
+export const StyledLink = styled(Link)`
+  cursor: pointer;
+  color: #222222;
+  margin-bottom: ${(props) => props.theme.spacing(1)};
 `;

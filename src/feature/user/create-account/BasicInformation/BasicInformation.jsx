@@ -1,4 +1,4 @@
-import { Box, FormLabel, Grid, Stack, Typography } from "@mui/material";
+import { Box, FormLabel, Grid, Stack, Typography, Checkbox, FormControlLabel, FormGroup} from "@mui/material";
 import Button from "components/Button";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -49,15 +49,20 @@ const BasicInformation = ({ initialValues, symptomOptions }) => {
         </Stack>
       </Grid>
 
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} marginTop= '-30px'>
         <Stack spacing={2}>
-          {symptomOptions?.map((symptom) => (
-            <Slider label={symptom?.name} />
-          ))}
+          <Slider label="Tinnitus" />
+          <Slider label="Pulsatile Tinnitus" />
+          <Slider label="Hyperacusis" />
+          <Slider label="Vertigo" />
+          <Slider label="Hearing Loss" />
+          <FormGroup>
+            <FormControlLabel control={<Checkbox />} label="Visual Snow" />
+          </FormGroup>       
         </Stack>
       </Grid>
 
-      <Grid item>
+      <Grid item marginTop= '-75px'>
         <Button loading={saving} onClick={submit}>
           Save and continue
         </Button>

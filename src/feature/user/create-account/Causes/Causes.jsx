@@ -1,4 +1,4 @@
-import { createFilterOptions, Grid, Paper, Stack, Typography } from "@mui/material";
+import { createFilterOptions, Grid, Paper, Stack, Typography,FormLabel } from "@mui/material";
 import TextField from "components/mui-form/TextField";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -19,9 +19,10 @@ const Causes = () => {
   const { control } = useForm();
 
   return (
-    <Grid container spacing={8}>
+    <Grid container spacing={6}>
       <Grid item xs={12} md={6}>
-        <Stack spacing={2}>
+        <Stack spacing={1}>
+        <FormLabel >Tinnitus</FormLabel>
           <RHFAutocomplete
             name="firstName"
             control={control}
@@ -72,8 +73,9 @@ const Causes = () => {
             }}
             renderOption={(props, option) => <li {...props}>{option.label}</li>}
             freeSolo
-            renderInput={(params) => <TextField {...params} label="Tinnitus" />}
+            renderInput={(params) => <TextField {...params} label="Enter details..." />}
           />
+          <FormLabel>Pulsatile Tinnitus</FormLabel>
           <RHFAutocomplete
             name="firstName"
             control={control}
@@ -126,6 +128,7 @@ const Causes = () => {
             freeSolo
             renderInput={(params) => <TextField {...params} label="Pulsatile Tinnitus" />}
           />
+          <FormLabel >Hyperacusis</FormLabel>
           <RHFAutocomplete
             name="firstName"
             control={control}
@@ -178,6 +181,7 @@ const Causes = () => {
             freeSolo
             renderInput={(params) => <TextField {...params} label="Hyperacusis" />}
           />
+          <FormLabel>Vertigo</FormLabel>
           <RHFAutocomplete
             name="firstName"
             control={control}
@@ -230,15 +234,16 @@ const Causes = () => {
             freeSolo
             renderInput={(params) => <TextField {...params} label="Vertigo" />}
           />
+          
         </Stack>
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <Info>
+        <Info style={{marginTop: "50px"}}>
           <Typography variant="body2">
             This page is used to gather information regarding the cause or causes of your tinnitus and/or other
-            symptoms. Simply start typing, and if your cause does not show, you can still enter it as a cause. Please
-            answer to the best of your abilities, and don't worry about getting everything perfect. These answers can be
+            symptoms. <br/><br/>Simply start typing, and if your cause does not show, you can still enter it as a cause. <br/><br/>Please
+            answer to the best of your abilities, and don't worry about getting everything perfect. <br/><br/>These answers can be
             changed later.
           </Typography>
         </Info>

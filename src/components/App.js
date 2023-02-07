@@ -105,10 +105,26 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/create-account" element={<CreateAccount />} />
-          <Route path="/symptom-assessment" element={<SymptomAssessment />} style={{ maxWidth: "1000px" }} />
-          <Route path="/symptom-cause" element={<SymptomCause />} style={{ maxWidth: "1000px" }} />
-          <Route path="/avatar-upload" element={<AvatarUpload />} style={{ maxWidth: "1000px" }} />
-          <Route path="/payment-details" element={<PaymentDetails />} style={{ maxWidth: "900px" }} />
+          <Route
+            path="/symptom-assessment"
+            element={<SymptomAssessment />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/symptom-cause"
+            element={<SymptomCause />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/avatar-upload"
+            element={<AvatarUpload />}
+            style={{ maxWidth: "1000px" }}
+          />
+          <Route
+            path="/payment-details"
+            element={<PaymentDetails />}
+            style={{ maxWidth: "900px" }}
+          />
         </Routes>
       </Provider>
     </Router>

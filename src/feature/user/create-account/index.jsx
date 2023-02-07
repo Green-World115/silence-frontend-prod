@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import BasicInformation from "./BasicInformation";
-import { Company, Content, Title } from "./styed";
+import { Company, Content, Title, StyledLink } from "./styled";
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 import Causes from "./Causes";
 import Plans from "./Plans";
@@ -32,6 +34,8 @@ export const TabPanel = (props) => {
 
 const CreateAccount = () => {
   const [tab, setTab] = useState(0);
+  const navigate = useNavigate({});
+
   const handleChange = (event, newValue) => {
     setTab(newValue);
   };
@@ -39,9 +43,13 @@ const CreateAccount = () => {
   const { loading, basicInfo, symptomOptions } = useCreateAccount(tab);
 
   return (
-    <div>
-      <Company variant="h5">Tinnitus pal</Company>
-      <Title variant="h4">Complete your account</Title>
+    <div style={{ marginTop: "-70px" }}>
+      <div style={{ display: "flex", whiteSpace: "nowrap" }}>
+        <Company variant="h5">Tinnitus pal</Company>
+        <StyledLink fontWeight={300} onClick={() => navigate("/login")}>
+          Already have account? Login
+        </StyledLink>
+      </div>
       <Paper elevation={5}>
         <Tabs value={tab} onChange={handleChange}>
           <Tab label="Basic Information" />
