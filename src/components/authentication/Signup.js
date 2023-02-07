@@ -1,63 +1,82 @@
-import React, { useRef, useState } from "react";
-import { Card, Form, Button, Alert } from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+  Paper,
+} from "@mui/material";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import RHFTextField from "../../../components/hook-forms/RHFTextField";
+import {
+  Company,
+  Links,
+  StyledGrid,
+  StyledGridItem,
+  StyledLink,
+  Title,
+  Content,
+} from "./styled";
+import * as authApi from "../../../api/auth";
+import { useSnackbar } from "notistack";
+import logo from "../hearingloss.png";
 
-import ShowHidePasswordInput from "./account_creation/components/ShowHidePasswordInput";
+const SignUp = () => {
+  const { control, handleSubmit } = useForm();
+  const navigate = useNavigate({});
+  const { enqueueSnackbar } = useSnackbar();
 
-export default function Signup() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const signup = handleSubmit(async (values) => {
+    const { error, data } = await authApi.signup(values.email, values.password);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    console.log(passwordRef.current.value);
+    if (error) enqueueSnackbar(error.message, { variant: "error" });
+  });
 
-    try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      navigate("/account-creation");
-    } catch {
-      setError("Failed to create an account");
-    }
-
-    setLoading(false);
-  }
   return (
-    <>
-      <h1 className="display-1 text-center mb-4">Silence</h1>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <ShowHidePasswordInput inputRef={passwordRef} />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <ShowHidePasswordInput inputRef={passwordConfirmRef} />
-            </Form.Group>
-            <Button disabled={loading} className="w-100 mt-4" type="submit">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="=w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
-      </div>
-    </>
+    <div style={{ marginTop: "150px" }}>
+      <Paper elevation={5}>
+        <Content>
+          <StyledGrid container spacing={2}>
+            <StyledGridItem item xs={12} md={7}>
+              <Company variant="h5">Tinnitus pal</Company>
+              <Title variant="h4">Create account</Title>
+              <Stack spacing={3} sx={{ width: "100%" }}>
+                <RHFTextField name="email" control={control} label="Email" />
+                <RHFTextField
+                  name="password"
+                  control={control}
+                  label="Password"
+                  type="password"
+                />
+                <RHFTextField
+                  name="confirmPassword"
+                  control={control}
+                  label="Confirm Password"
+                  type="password"
+                />
+                <Button size="large" onClick={signup}>
+                  Create
+                </Button>
+              </Stack>
+              <Links onClick={() => navigate("/login")}>
+                <StyledLink fontWeight={500}>
+                  Already have a account? Login
+                </StyledLink>
+              </Links>
+            </StyledGridItem>
+            <Grid item xs={12} md={5}>
+              <StyledGridItem item xs={12} md={6}>
+                <img src={logo} alt="Logo" width={" 95%"} />
+              </StyledGridItem>
+            </Grid>
+          </StyledGrid>
+        </Content>
+      </Paper>
+    </div>
   );
-}
+};
+
+export default SignUp;

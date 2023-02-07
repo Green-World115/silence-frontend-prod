@@ -31,7 +31,6 @@ const SignUp = () => {
               <RHFTextField name="email" control={control} label="Email" />
               <RHFTextField name="password" control={control} label="Password" type="password" />
               <RHFTextField name="confirmPassword" control={control} label="Confirm Password" type="password" />
-
               <Button size="large" onClick={signup}>
                 Create
               </Button>
