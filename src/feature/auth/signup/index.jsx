@@ -1,5 +1,5 @@
-import { Button, Container, Grid, Stack, TextField, Typography, Paper } from "@mui/material";
-import React from "react";
+import { Grid, Stack, Paper } from "@mui/material";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import RHFTextField from "../../../components/hook-forms/RHFTextField";
@@ -8,15 +8,26 @@ import * as authApi from "../../../api/auth";
 import { useSnackbar } from "notistack";
 import logo from '../hearingloss.png'; 
 
+import Button from "components/Button";
 const SignUp = () => {
+  const [loading, setLoading] = useState();
   const { control, handleSubmit } = useForm();
   const navigate = useNavigate({});
   const { enqueueSnackbar } = useSnackbar();
 
   const signup = handleSubmit(async (values) => {
+    setLoading(true);
     const { error, data } = await authApi.signup(values.email, values.password);
-
     if (error) enqueueSnackbar(error.message, { variant: "error" });
+
+    if (data?.user?.identities.length === 0) {
+      enqueueSnackbar("Email already exits", { variant: "error" });
+    } else {
+      sessionStorage.setItem("temp-email", data.user.email);
+      navigate("/create-account");
+    }
+
+    setLoading(false);
   });
 
   return (

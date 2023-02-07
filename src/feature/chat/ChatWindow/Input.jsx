@@ -5,13 +5,13 @@ import { InputContainer } from "./styled";
 import SendIcon from "@mui/icons-material/Send";
 import * as chatApi from "api/chat";
 import { useSnackbar } from "notistack";
-const Input = ({ userId, conversationId }) => {
+const Input = ({ userId, chatGroupId }) => {
   const [value, setValue] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = (e) => setValue(e.target.value);
   const handleSend = async () => {
-    const { error } = await chatApi.sendMessage(value, null, userId, conversationId);
+    const { error } = await chatApi.sendMessage(value, null, userId, chatGroupId);
     if (error) enqueueSnackbar("Failed to send message", { variant: "error" });
     else setValue("");
   };

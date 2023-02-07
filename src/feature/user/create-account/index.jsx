@@ -1,16 +1,18 @@
 import { Box, Button, Grid, Paper } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import BasicInformation from "./BasicInformation";
-import { Card, Company, Container, Content, Footer, Title, StyledLink } from "./styled";
+import { Company, Content, Title, StyledLink } from "./styled";
 import { useNavigate } from "react-router-dom";
 
 
 import { useState } from "react";
 import Causes from "./Causes";
+import Plans from "./Plans";
+import * as symptomApi from "api/symptoms";
+import * as userApi from "api/user";
 
 export const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -33,11 +35,7 @@ export const TabPanel = (props) => {
 };
 
 const CreateAccount = () => {
-  const { control } = useForm();
-  const navigate = useNavigate();
-
   const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -54,19 +52,18 @@ const CreateAccount = () => {
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Basic Information" />
           <Tab label="Causes" />
-          <Tab label="Plan" />
+          <Tab label="Plans" />
         </Tabs>
         <Content>
           <TabPanel value={value} index={0}>
-            <BasicInformation />
+            <BasicInformation onNext={() => handleChange(1)} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <Causes />
           </TabPanel>
-          <TabPanel value={value} index={2}></TabPanel>
-          <Footer>
-            <Button size="large">Save & continue</Button>
-          </Footer>
+          <TabPanel value={value} index={2}>
+            <Plans />
+          </TabPanel>
         </Content>
       </Paper>
     </div>

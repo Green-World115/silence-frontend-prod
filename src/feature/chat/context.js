@@ -1,3 +1,4 @@
+import { useAuth } from "feature/auth/context";
 import { createContext, useContext, useEffect, useState } from "react";
 import * as chatApi from "../../api/chat";
 import { mapChatList } from "./map";
@@ -19,14 +20,16 @@ export const useChat = () => {
 export const useChatProvider = () => {
   const [chatList, setChatList] = useState([]);
 
+  const { user } = useAuth();
+
   useEffect(() => {
     const getChatList = async () => {
-      const { data, error } = await chatApi.getUserConversations("1");
+      const { data, error } = await chatApi.getChatGroups(user.id);
       console.log(data);
       setChatList(mapChatList(data));
     };
-    getChatList();
-  }, []);
+    if (user?.id) getChatList();
+  }, [user?.id]);
 
   return { chatList };
 };

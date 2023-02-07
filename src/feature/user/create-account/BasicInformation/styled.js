@@ -1,4 +1,4 @@
-import { alpha, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { lime } from "@mui/material/colors";
 export const Info = styled("div")`
   background-color: ${lime[50]};
