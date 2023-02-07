@@ -1,21 +1,17 @@
 import { Box, FormLabel, Grid, Stack, Typography } from "@mui/material";
 import Button from "components/Button";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import Switch from "components/mui-form/Switch";
 import Slider from "../Slider";
 import { Info } from "./styled";
 import * as userApi from "api/user";
-import * as symptomApi from "api/symptoms";
 
-const BasicInformation = () => {
-  const [loading, setLoading] = useState();
+const BasicInformation = ({ initialValues, symptomOptions }) => {
   const [saving, setSaving] = useState();
-  const [basicInfo, setBasicInfo] = useState();
-  const [symptomOptions, setSymptomOptions] = useState();
 
-  const { control, handleSubmit, setValue } = useForm();
+  const { control, handleSubmit } = useForm({ defaultValues: initialValues });
 
   const submit = handleSubmit(async (values) => {
     setSaving(true);
@@ -29,23 +25,6 @@ const BasicInformation = () => {
 
     setSaving(false);
   });
-
-  useEffect(() => {
-    const init = async () => {
-      setLoading(true);
-      const email = sessionStorage.getItem("temp-email");
-      const [symptoms, user] = await Promise.all([symptomApi.getSymptoms(), userApi.getUserByEmail(email)]);
-
-      setValue("firstName", "test");
-      setValue("email", "test");
-
-      setSymptomOptions(symptoms.data);
-      // setBasicInfo(user.data);
-      setLoading(true);
-    };
-
-    init();
-  }, []);
 
   return (
     <Grid container spacing={12}>

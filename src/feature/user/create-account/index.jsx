@@ -8,8 +8,7 @@ import { Company, Content, Title } from "./styed";
 import { useState } from "react";
 import Causes from "./Causes";
 import Plans from "./Plans";
-import * as symptomApi from "api/symptoms";
-import * as userApi from "api/user";
+import { useCreateAccount } from "./hooks/useCreateAccount";
 
 export const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -32,29 +31,37 @@ export const TabPanel = (props) => {
 };
 
 const CreateAccount = () => {
-  const [value, setValue] = useState(0);
+  const [tab, setTab] = useState(0);
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTab(newValue);
   };
+
+  const { loading, basicInfo, symptomOptions } = useCreateAccount(tab);
 
   return (
     <div>
       <Company variant="h5">Tinnitus pal</Company>
       <Title variant="h4">Complete your account</Title>
       <Paper elevation={5}>
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={tab} onChange={handleChange}>
           <Tab label="Basic Information" />
           <Tab label="Causes" />
           <Tab label="Plans" />
         </Tabs>
         <Content>
-          <TabPanel value={value} index={0}>
-            <BasicInformation onNext={() => handleChange(1)} />
+          <TabPanel value={tab} index={0}>
+            {!loading && (
+              <BasicInformation
+                onNext={() => handleChange(1)}
+                symptomOptions={symptomOptions}
+                initialValues={basicInfo}
+              />
+            )}
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={tab} index={1}>
             <Causes />
           </TabPanel>
-          <TabPanel value={value} index={2}>
+          <TabPanel value={tab} index={2}>
             <Plans />
           </TabPanel>
         </Content>
