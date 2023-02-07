@@ -1,4 +1,4 @@
-import { Paper, Box } from "@mui/material";
+import { Paper, Box, Typography } from "@mui/material";
 import React from "react";
 import ChatWindow from "./ChatWindow";
 import List from "./List";

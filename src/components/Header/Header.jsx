@@ -10,9 +10,13 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import { Search, ToolBar } from "./styled";
 import { useResponsive } from "../../hooks/useResponsive";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchAppBar() {
   const { tab } = useResponsive();
+  const navigate = useNavigate();
+
+  const handleChat = () => navigate("/chat");
 
   return (
     <AppBar elevation={0} color="inherit" position="relative">
@@ -28,7 +32,7 @@ export default function SearchAppBar() {
         </Search>
 
         <Stack direction="row" spacing={2}>
-          <IconButton>
+          <IconButton onClick={handleChat}>
             <Badge badgeContent={2} color="primary">
               <ChatBubbleOutlineOutlinedIcon color="primary" />
             </Badge>

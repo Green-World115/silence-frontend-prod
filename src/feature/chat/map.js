@@ -1,6 +1,7 @@
 export const mapChatList = (data = []) => {
   return data.map((item) => ({
-    name: !item.conversation.private ? item.conversation.name : "temp name",
-    id: item.conversation.id,
+    name: item.type === "private" ? "test name" : item.name,
+    id: item.id,
+    type: item.type,
   }));
 };

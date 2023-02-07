@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { TextField, useTheme } from "@mui/material";
 import { Container, ListContainer, SearchContainer } from "./styled";
 import { useChat } from "../context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const users = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 const List = () => {
@@ -25,7 +25,7 @@ const List = () => {
 
   const { chatList } = useChat();
 
-  const handleSelect = (id) => navigate(`/chat/${id}`);
+  const handleSelect = (type, id) => navigate(`/chat/${type}/${id}`);
 
   const drawer = (
     <Container>
@@ -38,7 +38,7 @@ const List = () => {
           {chatList?.map((chat, key) => (
             <div key={key}>
               <ListItem alignItems="flex-start" disablePadding>
-                <ListItemButton onClick={() => handleSelect(chat.id)}>
+                <ListItemButton onClick={() => handleSelect(chat.type, chat.id)} disableRipple>
                   <ListItemAvatar>
                     <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
                   </ListItemAvatar>
