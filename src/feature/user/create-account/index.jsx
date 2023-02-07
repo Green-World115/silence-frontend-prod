@@ -36,6 +36,8 @@ export const TabPanel = (props) => {
 
 const CreateAccount = () => {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate({});
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

@@ -83,7 +83,7 @@ const BasicInformation = () => {
         </Stack>
       </Grid>
 
-      <Grid item>
+      <Grid item marginTop= '-75px'>
         <Button loading={saving} onClick={submit}>
           Save and continue
         </Button>
