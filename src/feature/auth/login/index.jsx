@@ -20,11 +20,11 @@ const Login = () => {
   });
 
   return (
-    <div style={{marginTop: "100px" }} >
+    <div style={{marginTop: "150px" }} >
     <Paper elevation={5}>
       <Content>
         <StyledGrid container spacing={3}>
-          <StyledGridItem item xs={12} md={6}>
+          <StyledGridItem item xs={12} md={7}>
             <Company variant="h5">Tinnitus pal</Company>
             <Title variant="h4">Sign in to your account</Title>
             <Stack spacing={3} sx={{ width: "100%" }}>
@@ -38,12 +38,12 @@ const Login = () => {
               <StyledLink fontWeight={500} onClick={() => navigate("/reset-password")}>
                 Reset password
               </StyledLink>
-              <StyledLink fontWeight={500} onClick={() => navigate("/create-account")}>
+              <StyledLink fontWeight={500} onClick={() => navigate("/signup")}>
                 Don't have account? Create account
               </StyledLink>
             </Links>
           </StyledGridItem>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
           <StyledGridItem item xs={12} md={6}>
           <img src={logo} alt="Logo" width={" 95%"}/>
           </StyledGridItem>
