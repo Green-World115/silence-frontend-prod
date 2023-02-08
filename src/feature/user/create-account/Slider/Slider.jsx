@@ -1,27 +1,33 @@
 import React, { useState } from "react";
-import { Container, ToggleButton, ToggleButtonGroup } from "./styled";
-import { FormLabel, styled } from "@mui/material";
+import { Container, SliderContainer } from "./styled";
+import { FormLabel, Typography } from "@mui/material";
+import RHFSlider from "components/hook-forms/RHFSlider";
 
-import MuiSlider from "../../../../components/mui-form/Slider";
-
-const Slider = ({ label }) => {
-  const [side, setSide] = useState([]);
-  const handleChangeSide = (_event, newSides) => setSide(newSides);
+const Slider = ({ label, multiple, control, name }) => {
   return (
     <div>
       <FormLabel sx={{ mb: 1 }}>{label}</FormLabel>
       <Container>
-        <MuiSlider valueLabelDisplay="auto" min={0} max={100} />
-        {label !== "Vertigo" ? 
-        <ToggleButtonGroup size="small" aria-label="text formatting" value={side} onChange={handleChangeSide}>
-          <ToggleButton value="left" disableRipple>
-            L
-          </ToggleButton>
-          <ToggleButton value="right" disableRipple>
-            R
-          </ToggleButton>
-        </ToggleButtonGroup>
-        : ""}
+        {multiple ? (
+          <>
+            <SliderContainer>
+              <Typography sx={{ mr: 2 }} variant="caption">
+                Left
+              </Typography>
+              <RHFSlider valueLabelDisplay="auto" min={0} max={100} control={control} name={`${name}.left`} />
+            </SliderContainer>
+            <SliderContainer>
+              <Typography sx={{ mr: 2 }} variant="caption">
+                Right
+              </Typography>
+              <RHFSlider valueLabelDisplay="auto" min={0} max={100} control={control} name={`${name}.right`} />
+            </SliderContainer>
+          </>
+        ) : (
+          <SliderContainer>
+            <RHFSlider valueLabelDisplay="auto" min={0} max={100} control={control} name={`${name}.value`} />
+          </SliderContainer>
+        )}
       </Container>
     </div>
   );

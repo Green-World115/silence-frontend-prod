@@ -1,27 +1,43 @@
-import { Box, FormLabel, Grid, Stack, Typography, Checkbox, FormControlLabel, FormGroup} from "@mui/material";
+import { Box, FormLabel, Grid, Stack, Typography } from "@mui/material";
 import Button from "components/Button";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import Switch from "components/mui-form/Switch";
-import Slider from "../Slider";
 import { Info } from "./styled";
+import Input from "./Input";
 import * as userApi from "api/user";
+import * as symptomApi from "api/symptoms";
 
-const BasicInformation = ({ initialValues, symptomOptions }) => {
+const BasicInformation = ({ initialValues }) => {
   const [saving, setSaving] = useState();
 
-  const { control, handleSubmit } = useForm({ defaultValues: initialValues });
+  const { control, handleSubmit } = useForm({
+    defaultValues: initialValues,
+  });
+
+  const { fields } = useFieldArray({
+    control,
+    name: "symptoms",
+  });
 
   const submit = handleSubmit(async (values) => {
     setSaving(true);
-
-    const { data, error } = await userApi.updateUserBasicInfo(values.email, {
+    const userResponse = await userApi.updateUserBasicInfo(values.id, {
       firstName: values.firstName,
       lastName: values.lastName,
       age: values.age,
       location: values.location,
     });
+
+    const symptoms = values.symptoms?.map((symptom) => ({
+      value: symptom.value,
+      symptomId: symptom.symptomId,
+      userId: values.id,
+      id: symptom.userSymptomId,
+    }));
+
+    const symptomResponse = await symptomApi.updateUserSymptoms(symptoms);
 
     setSaving(false);
   });
@@ -49,20 +65,21 @@ const BasicInformation = ({ initialValues, symptomOptions }) => {
         </Stack>
       </Grid>
 
-      <Grid item xs={12} md={6} marginTop= '-30px'>
+      <Grid item xs={12} md={6} marginTop="-30px">
         <Stack spacing={2}>
-          <Slider label="Tinnitus" />
-          <Slider label="Pulsatile Tinnitus" />
-          <Slider label="Hyperacusis" />
-          <Slider label="Vertigo" />
-          <Slider label="Hearing Loss" />
-          <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="Visual Snow" />
-          </FormGroup>       
+          {fields?.map((field, index) => (
+            <Input
+              type={field.type}
+              label={field.name}
+              control={control}
+              name={`symptoms.${index}.value`}
+              key={field.id}
+            />
+          ))}
         </Stack>
       </Grid>
 
-      <Grid item marginTop= '-75px'>
+      <Grid item marginTop="-75px">
         <Button loading={saving} onClick={submit}>
           Save and continue
         </Button>

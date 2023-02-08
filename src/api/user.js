@@ -11,7 +11,7 @@ export const getUser = (userId) => {
   return getDoc(doc(db, "users", userId));
 };
 
-export const updateUserBasicInfo = async (email, { firstName, lastName, age, location }) => {
+export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location }) => {
   return await supabase
     .from("users")
     .update({
@@ -20,7 +20,7 @@ export const updateUserBasicInfo = async (email, { firstName, lastName, age, loc
       age,
       location,
     })
-    .eq("email", email);
+    .eq("id", userId);
 };
 export const getUserByEmail = async (email) => {
   return await supabase.from("users").select("*").eq("email", email).limit(1).single();

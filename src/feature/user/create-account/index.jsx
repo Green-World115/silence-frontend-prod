@@ -43,13 +43,8 @@ const CreateAccount = () => {
   const { loading, basicInfo, symptomOptions } = useCreateAccount(tab);
 
   return (
-    <div style={{ marginTop: "-70px" }}>
-      <div style={{ display: "flex", whiteSpace: "nowrap" }}>
-        <Company variant="h5">Tinnitus pal</Company>
-        <StyledLink fontWeight={300} onClick={() => navigate("/login")}>
-          Already have account? Login
-        </StyledLink>
-      </div>
+    <>
+      <Company variant="h5">Tinnitus pal</Company>
       <Paper elevation={5}>
         <Tabs value={tab} onChange={handleChange}>
           <Tab label="Basic Information" />
@@ -74,7 +69,7 @@ const CreateAccount = () => {
           </TabPanel>
         </Content>
       </Paper>
-    </div>
+    </>
   );
 };
 
