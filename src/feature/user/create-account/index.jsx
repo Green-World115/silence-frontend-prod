@@ -16,13 +16,7 @@ export const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} aria-labelledby={`simple-tab-${index}`} {...other}>
       {value === index && (
         <>
           <>{children}</>
@@ -36,36 +30,30 @@ const CreateAccount = () => {
   const [tab, setTab] = useState(0);
   const navigate = useNavigate({});
 
-  const handleChange = (event, newValue) => {
-    setTab(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setTab(newValue);
+  // };
 
-  const { loading, basicInfo, symptomOptions } = useCreateAccount(tab);
+  const { loading, basicInfo, symptomOptions, causes } = useCreateAccount(tab);
 
   return (
     <>
       <Company variant="h5">Tinnitus pal</Company>
       <Paper elevation={5}>
-        <Tabs value={tab} onChange={handleChange}>
-          <Tab label="Basic Information" />
-          <Tab label="Causes" />
-          <Tab label="Plans" />
+        <Tabs value={tab}>
+          <Tab label="Basic Information" disableRipple />
+          <Tab label="Causes" disableRipple />
+          <Tab label="Plans" disableRipple />
         </Tabs>
         <Content>
           <TabPanel value={tab} index={0}>
-            {!loading && (
-              <BasicInformation
-                onNext={() => handleChange(1)}
-                symptomOptions={symptomOptions}
-                initialValues={basicInfo}
-              />
-            )}
+            {!loading && <BasicInformation onNext={() => setTab(1)} initialValues={basicInfo} />}
           </TabPanel>
           <TabPanel value={tab} index={1}>
-            <Causes />
+            {!loading && <Causes initialValues={causes} onNext={() => setTab(2)} onBack={() => setTab(0)} />}
           </TabPanel>
           <TabPanel value={tab} index={2}>
-            <Plans />
+            <Plans onBack={() => setTab(1)} />
           </TabPanel>
         </Content>
       </Paper>

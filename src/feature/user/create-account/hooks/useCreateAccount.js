@@ -8,9 +8,11 @@ import keyBy from "lodash/keyBy";
 export const useCreateAccount = (activeTab) => {
   const [loading, setLoading] = useState(true);
   const [basicInfo, setBasicInfo] = useState();
+  const [causes, setCauses] = useState([]);
 
   useEffect(() => {
-    const getTab1 = async () => {
+    const getTab0 = async () => {
+      setLoading(true);
       const email = sessionStorage.getItem("temp-email");
       const [symptomsResponse, userResponse] = await Promise.all([
         symptomApi.getSymptoms(),
@@ -28,19 +30,40 @@ export const useCreateAccount = (activeTab) => {
           value: 0,
         },
       }));
+      const formattedUserSymptoms = userSymptomsResponse.data?.map((userSymptom) => ({
+        id: userSymptom.id,
+        symptomId: userSymptom.symptom?.id,
+        value: userSymptom.value,
+      }));
 
-      const symptoms = values(
-        merge(keyBy(formattedSymptoms, "symptomId"), keyBy(userSymptomsResponse.data, "symptomId"))
+      const userSymptoms = values(
+        merge(keyBy(formattedSymptoms, "symptomId"), keyBy(formattedUserSymptoms, "symptomId"))
       );
       setBasicInfo({
         ...userResponse?.data,
-        symptoms,
+        userSymptoms,
       });
       setLoading(false);
     };
 
-    if (activeTab === 0) getTab1();
+    const getTab1 = async () => {
+      setLoading(true);
+      const email = sessionStorage.getItem("temp-email");
+      const userResponse = await userApi.getUserByEmail(email);
+      const userSymptomsResponse = await symptomApi.getUserSymptoms(userResponse.data?.id);
+
+      const formattedSymptoms = userSymptomsResponse.data?.map((userSymptom) => ({
+        symptomName: userSymptom.symptom.name,
+        causes: userSymptom.causes,
+        id: userSymptom.id,
+      }));
+      setCauses({ userSymptoms: formattedSymptoms });
+      setLoading(false);
+    };
+
+    if (activeTab === 0) getTab0();
+    if (activeTab === 1) getTab1();
   }, [activeTab]);
 
-  return { loading, basicInfo };
+  return { loading, basicInfo, causes };
 };

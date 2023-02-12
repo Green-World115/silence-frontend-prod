@@ -32,5 +32,8 @@ export const updateUserSymptoms = (symptom) => {
   return supabase.from("user_symptoms").upsert(symptom).select();
 };
 export const getUserSymptoms = (userId) => {
-  return supabase.from("user_symptoms").select("userSymptomId: id, userId, symptomId, value").eq("userId", userId);
+  return supabase
+    .from("user_symptoms")
+    .select("id, userId, value, symptom: symptoms(id, name), causes")
+    .eq("userId", userId);
 };
