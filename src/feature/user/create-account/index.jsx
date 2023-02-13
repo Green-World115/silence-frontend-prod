@@ -1,44 +1,38 @@
-import { Box, Button, Grid, Paper } from "@mui/material";
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Box, Link, Paper } from "@mui/material";
+import React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import BasicInformation from "./BasicInformation";
-import { Company, Content, Title, StyledLink } from "./styled";
-import { useNavigate } from "react-router-dom";
+import { Company, Content } from "./styled";
 
 import { useState } from "react";
 import Causes from "./Causes";
 import Plans from "./Plans";
 import { useCreateAccount } from "./hooks/useCreateAccount";
-
-export const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div role="tabpanel" hidden={value !== index} aria-labelledby={`simple-tab-${index}`} {...other}>
-      {value === index && (
-        <>
-          <>{children}</>
-        </>
-      )}
-    </div>
-  );
-};
+import * as authApi from "api/auth";
+import { useRouter } from "next/router";
+import TabPanel from "components/TabPanel";
 
 const CreateAccount = () => {
   const [tab, setTab] = useState(0);
-  const navigate = useNavigate({});
 
-  // const handleChange = (event, newValue) => {
-  //   setTab(newValue);
-  // };
+  const router = useRouter();
 
-  const { loading, basicInfo, symptomOptions, causes } = useCreateAccount(tab);
+  const { loading, basicInfo, causes } = useCreateAccount(tab);
+
+  const handleLogout = async () => {
+    await authApi.logout();
+    router.push("/login");
+  };
 
   return (
     <>
-      <Company variant="h5">Tinnitus pal</Company>
+      <Box justifyContent="space-between" display="flex">
+        <Company variant="h5">Tinnitus pal</Company>
+        <Link whiteSpace="nowrap" component="button" variant="h6" onClick={handleLogout}>
+          Log out
+        </Link>
+      </Box>
       <Paper elevation={5}>
         <Tabs value={tab}>
           <Tab label="Basic Information" disableRipple />

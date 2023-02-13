@@ -5,7 +5,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import RHFSwitch from "components/hook-forms/RHFSwitch";
 import { Info } from "./styled";
-import Input from "./Input";
+import SymptomInput from "../../components/SymptomInput";
 import * as userApi from "api/user";
 import * as symptomApi from "api/symptoms";
 import { useSnackbar } from "notistack";
@@ -83,7 +83,7 @@ const BasicInformation = ({ initialValues, onNext }) => {
         <Grid item xs={12} md={6}>
           <Stack spacing={2}>
             {fields?.map((field, index) => (
-              <Input
+              <SymptomInput
                 type={field.type}
                 label={field.name}
                 control={control}

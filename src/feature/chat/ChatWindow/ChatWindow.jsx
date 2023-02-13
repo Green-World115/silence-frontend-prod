@@ -9,12 +9,12 @@ import { useResponsive } from "../../../hooks/useResponsive";
 import { useParams } from "react-router-dom";
 import { useMessages } from "../hooks/useMessages";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useAuth } from "feature/auth/context";
+import { useUser } from "feature/auth/context";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
   const { id: chatGroupId } = useParams();
-  const { user } = useAuth();
+  const user = useUser();
 
   const { messages, pagination, loadNext } = useMessages(chatGroupId);
 

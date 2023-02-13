@@ -10,19 +10,27 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import Button from "@mui/material/Button";
 import { ListItem } from "./ListItem";
+import * as authApi from "api/auth";
 
 import { Avatar, Typography } from "@mui/material";
 import { Container, UserContainer } from "./styled";
-import { useAuth } from "feature/auth/context";
+import { useUser } from "feature/auth/context";
+import { useRouter } from "next/router";
+import Collapse from "./Collapse";
 const drawerWidth = 240;
 
 const Sidebar = ({ window }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const { user } = useAuth();
+  const router = useRouter();
+  const user = useUser();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = async () => {
+    await authApi.logout();
+    router.push("/login");
   };
 
   const drawer = (
@@ -31,20 +39,25 @@ const Sidebar = ({ window }) => {
         <Avatar alt="Remy" />
         <Box ml={2} sx={{ overflow: "hidden", textOverflow: "ellipsis", color: "#ffffff" }}>
           <Typography variant="body2" color="#ffffff">
-            User name
+            {user?.firstName}
           </Typography>
           <Typography variant="caption">{user?.email}</Typography>
         </Box>
       </UserContainer>
       <List disablePadding>
-        <ListItem disablePadding title="Home" icon={<HomeIcon />} />
+        <ListItem disablePadding title="Home" icon={<HomeIcon />} path="/" />
         <ListItem disablePadding title="Meeting room" path="/groups" icon={<TextsmsIcon />} />
         <ListItem disablePadding title="Content" icon={<ContentPasteIcon />} />
         <ListItem disablePadding title="Live streams" icon={<VideocamIcon />} />
-        <ListItem disablePadding title="Profile" path="/profile" icon={<AccountBoxIcon />} />
+
+        <Collapse title="User" icon={<AccountBoxIcon />}>
+          <ListItem disablePadding title="Profile" path="/profile" />
+          <ListItem disablePadding title="Symptoms" path="/profile/symptoms" />
+        </Collapse>
+
         <ListItem disablePadding title="Settings" icon={<SettingsIcon />} />
       </List>
-      <Button variant="contained" size="large" fullWidth>
+      <Button variant="contained" size="large" fullWidth onClick={handleLogout}>
         Log out
       </Button>
     </Container>

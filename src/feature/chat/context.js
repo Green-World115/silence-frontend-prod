@@ -1,4 +1,4 @@
-import { useAuth } from "feature/auth/context";
+import { useUser } from "feature/auth/context";
 import { createContext, useContext, useEffect, useState } from "react";
 import * as chatApi from "../../api/chat";
 import { mapChatList } from "./map";
@@ -20,7 +20,7 @@ export const useChat = () => {
 export const useChatProvider = () => {
   const [chatList, setChatList] = useState([]);
 
-  const { user } = useAuth();
+  const user = useUser();
 
   useEffect(() => {
     const getChatList = async () => {

@@ -2,35 +2,29 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../../utils/superbase-client";
 const AuthContext = createContext(null);
 
-const AuthProvider = ({ children }) => {
-  const auth = useAuthProvider();
+const AuthProvider = ({ children, initialSession }) => {
+  const [session, setSession] = useState(initialSession);
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, _session) => {
+      if (_session && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED")) {
+        setSession({ ...session, user: { ...session?.user, ..._session.user } });
+      }
 
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+      if (event === "SIGNED_OUT") {
+        setSession(null);
+      }
+    });
+  }, []);
+
+  return <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
+export const useUser = () => {
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error("authContext has to be used within <AuthContext.Provider>");
   }
-  return authContext;
-};
-
-export const useAuthProvider = () => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      console.log(data);
-      setUser({ email: data.session.user.email, id: data.session.user.id });
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      console.log(session);
-    });
-  }, []);
-
-  return { user };
+  return authContext?.session?.user ?? null;
 };
 
 export default AuthProvider;

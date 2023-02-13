@@ -1,10 +1,18 @@
 import { createTheme, ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 import { alpha, CssBaseline } from "@mui/material";
 import { indigo } from "@mui/material/colors";
+import { Poppins } from "@next/font/google";
 
 const transparent1 = alpha("#9e9e9e", 0.2);
 const transparent2 = alpha("#9e9e9e", 0.14);
 const transparent3 = alpha("#9e9e9e", 0.12);
+
+export const poppins = Poppins({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
+});
 
 const theme = createTheme({
   palette: {
@@ -17,7 +25,7 @@ const theme = createTheme({
   },
 
   typography: {
-    fontFamily: "Poppins",
+    fontFamily: poppins.style.fontFamily,
   },
 
   shape: {

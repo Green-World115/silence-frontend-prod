@@ -6,7 +6,7 @@ import RHFSlider from "components/hook-forms/RHFSlider";
 const Slider = ({ label, multiple, control, name }) => {
   return (
     <div>
-      <FormLabel sx={{ mb: 1 }}>{label}</FormLabel>
+      <FormLabel>{label}</FormLabel>
       <Container>
         {multiple ? (
           <>

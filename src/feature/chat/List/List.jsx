@@ -15,13 +15,14 @@ import { TextField, useTheme } from "@mui/material";
 import { Container, ListContainer, SearchContainer } from "./styled";
 import { useChat } from "../context";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/router";
 const users = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 const List = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("md"));
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { chatList } = useChat();
 

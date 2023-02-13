@@ -2,13 +2,13 @@ import React from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { useRouter } from "next/router";
 import { StyledListItem } from "./styled";
-import { useNavigate } from "react-router-dom";
 
 export const ListItem = ({ title, icon, path }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const handleNavigation = () => navigate(path);
+  const handleNavigation = () => router.push(path);
   return (
     <StyledListItem disablePadding sx={{ color: "#ffffff" }}>
       <ListItemButton onClick={handleNavigation}>

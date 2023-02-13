@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
@@ -10,13 +9,13 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import { Search, ToolBar } from "./styled";
 import { useResponsive } from "../../hooks/useResponsive";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 export default function SearchAppBar() {
   const { tab } = useResponsive();
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const handleChat = () => navigate("/chat");
+  const handleChat = () => router.push("/chat");
 
   return (
     <AppBar elevation={0} color="inherit" position="relative">

@@ -1,14 +1,24 @@
-import { Button, Stack, Paper } from "@mui/material";
-import React from "react";
+import { Stack, Paper, Box } from "@mui/material";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
-import logo from "../hearingloss.png";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import Button from "components/Button";
 
 const ResetPassword = () => {
-  const { control } = useForm();
-  const navigate = useNavigate();
+  const { control, handleSubmit } = useForm();
+  const router = useRouter();
+  const [sending, setSending] = useState(false);
+
+  const submit = handleSubmit(async (values) => {
+    setSending(true);
+
+    
+
+    setSending(false);
+  });
 
   return (
     <Paper elevation={5}>
@@ -19,14 +29,18 @@ const ResetPassword = () => {
             <Title variant="h4">Reset your password</Title>
             <Stack spacing={3} sx={{ width: "100%" }}>
               <RHFTextField name="email" control={control} label="Email" />
-              <Button size="large">Send</Button>
+              <Button size="large" onClick={submit} loading={sending}>
+                Send
+              </Button>
             </Stack>
-            <Links onClick={() => navigate("/login")}>
+            <Links onClick={() => router.push("/login")}>
               <StyledLink fontWeight={500}>Back to Login</StyledLink>
             </Links>
           </StyledGridItem>
           <StyledGridItem item xs={12} md={6}>
-            <img src={logo} alt="Logo" width={" 95%"} />
+            <Box sx={{ position: "relative", width: "100%", height: 300 }}>
+              <Image src="/assets/auth-background.png" alt="Logo" fill style={{ objectFit: "contain" }} />
+            </Box>
           </StyledGridItem>
         </StyledGrid>
       </Content>

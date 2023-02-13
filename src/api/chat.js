@@ -1,52 +1,6 @@
 import { query, collection, where, getDocs, setDoc, doc, serverTimestamp, addDoc, orderBy } from "firebase/firestore";
 import { getPagination } from "utils/pagination";
-import { db } from "../firebase";
 import { supabase } from "../utils/superbase-client";
-
-export const getGroupsByUser = (userId) => {
-  const groupsRef = collection(db, "groups");
-  const q = query(groupsRef, where("userIds", "array-contains", userId));
-  return getDocs(q);
-};
-
-export const getPostsByGroup = (groupId) => {
-  const postsRef = collection(db, "groups", groupId, "posts");
-  const q = query(postsRef, orderBy("updatedAt", "desc"));
-  return getDocs(q);
-};
-
-export const getCommentsByPost = (groupId, postId) => {
-  const commentRefRef = collection(db, "groups", groupId, "posts", postId, "comments");
-  const q = query(commentRefRef, orderBy("updatedAt", "asc"));
-  return getDocs(q);
-};
-
-export const addPost = (text, media = [], userId, userName, groupId) => {
-  const groupRef = doc(db, "groups", groupId);
-  const postRef = collection(groupRef, "posts");
-  return addDoc(postRef, {
-    text,
-    media,
-    userId,
-    groupId,
-    userName,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-};
-export const addComment = (text, userId, userName, groupId, postId) => {
-  const postRef = doc(db, "groups", groupId, "posts", postId);
-  const commentRef = collection(postRef, "comments");
-  return addDoc(commentRef, {
-    text,
-    userId,
-    userName,
-    groupId,
-    postId,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-};
 
 export const getMessages = (chatGroupId, page = 1) => {
   const { from, to } = getPagination(page, 10);
@@ -58,20 +12,15 @@ export const getMessages = (chatGroupId, page = 1) => {
     .range(from, to);
 };
 
-
 export const getMessagesByUserId = (chatGroupId, page = 1) => {
   const { from, to } = getPagination(page, 10);
   return supabase
     .from("chat_messages")
-    .select("*, user:users(firstName,id), userGroup: user_group()" , { count: "exact" })
+    .select("*, user:users(firstName,id), userGroup: user_group()", { count: "exact" })
     .eq("chatGroupId", chatGroupId)
     .order("createdAt", { ascending: false })
     .range(from, to);
 };
-
-
-
-
 
 export const getChatGroupById = (id) => {
   return supabase

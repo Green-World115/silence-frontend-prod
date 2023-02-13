@@ -4,25 +4,27 @@ import * as symptomApi from "api/symptoms";
 import values from "lodash/values";
 import merge from "lodash/merge";
 import keyBy from "lodash/keyBy";
+import { useUser } from "feature/auth/context";
 
 export const useCreateAccount = (activeTab) => {
   const [loading, setLoading] = useState(true);
   const [basicInfo, setBasicInfo] = useState();
   const [causes, setCauses] = useState([]);
+  const user = useUser();
 
   useEffect(() => {
     const getTab0 = async () => {
       setLoading(true);
-      const email = sessionStorage.getItem("temp-email");
-      const [symptomsResponse, userResponse] = await Promise.all([
+
+      const [symptomsResponse, userSymptomsResponse, userResponse] = await Promise.all([
         symptomApi.getSymptoms(),
-        userApi.getUserByEmail(email),
+        symptomApi.getUserSymptoms(user?.id),
+        userApi.getUserById(user?.id),
       ]);
 
-      const userSymptomsResponse = await symptomApi.getUserSymptoms(userResponse.data?.id);
-
       const formattedSymptoms = symptomsResponse.data?.map((symptom) => ({
-        ...symptom,
+        name: symptom.name,
+        type: symptom.type,
         symptomId: symptom.id,
         value: {
           left: 0,
@@ -40,7 +42,7 @@ export const useCreateAccount = (activeTab) => {
         merge(keyBy(formattedSymptoms, "symptomId"), keyBy(formattedUserSymptoms, "symptomId"))
       );
       setBasicInfo({
-        ...userResponse?.data,
+        ...userResponse.data,
         userSymptoms,
       });
       setLoading(false);
@@ -48,9 +50,7 @@ export const useCreateAccount = (activeTab) => {
 
     const getTab1 = async () => {
       setLoading(true);
-      const email = sessionStorage.getItem("temp-email");
-      const userResponse = await userApi.getUserByEmail(email);
-      const userSymptomsResponse = await symptomApi.getUserSymptoms(userResponse.data?.id);
+      const userSymptomsResponse = await symptomApi.getUserSymptoms(user?.id);
 
       const formattedSymptoms = userSymptomsResponse.data?.map((userSymptom) => ({
         symptomName: userSymptom.symptom.name,
