@@ -6,14 +6,20 @@ import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 const ChatPage = () => {
   return (
-    <DashboardLayout>
-      <ChatProvider>
-        <Chat />
-      </ChatProvider>
-    </DashboardLayout>
+    <ChatProvider>
+      <Chat />
+    </ChatProvider>
   );
 };
 
 export default ChatPage;
+
+ChatPage.getLayout = function getLayout(page) {
+  return (
+    <DashboardLayout maxWidth="xl" title="Chat">
+      {page}
+    </DashboardLayout>
+  );
+};
 
 export const getServerSideProps = dashboardGetServerSideProps;

@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography, FormLabel, Box, TextField, Paper } from "@mui/material";
+import { Grid, Stack, Typography, FormLabel, Box, TextField, Paper, Card } from "@mui/material";
 import Button from "components/Button";
 import React, { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -47,7 +47,7 @@ const Causes = ({ initialValues }) => {
   });
 
   return (
-    <Paper elevation={5} sx={{ p: 5, width: "100%" }}>
+    <Card sx={{ p: 5 }}>
       <Grid container spacing={4}>
         {fields.map((field, index) => (
           <Grid item xs={12} md={6} key={index}>
@@ -74,7 +74,7 @@ const Causes = ({ initialValues }) => {
           Update
         </Button>
       </Box>
-    </Paper>
+    </Card>
   );
 };
 

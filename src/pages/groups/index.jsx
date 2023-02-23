@@ -1,13 +1,20 @@
 import DashboardLayout from "components/DashboardLayout";
-import Groups from "feature/groups";
+import GroupList from "feature/groups/group-list";
 import React from "react";
+import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 export const GroupsPage = () => {
+  return <GroupList />;
+};
+
+export default GroupsPage;
+
+GroupsPage.getLayout = function getLayout(page) {
   return (
-    <DashboardLayout>
-      <Groups />
+    <DashboardLayout maxWidth="lg" title="Groups">
+      {page}
     </DashboardLayout>
   );
 };
 
-export default GroupsPage;
+export const getServerSideProps = dashboardGetServerSideProps;

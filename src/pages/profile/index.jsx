@@ -9,7 +9,11 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 ProfilePage.getLayout = function getLayout(page) {
-  return <DashboardLayout maxWidth="lg">{page}</DashboardLayout>;
+  return (
+    <DashboardLayout maxWidth="lg" title="Profile">
+      {page}
+    </DashboardLayout>
+  );
 };
 
 export const getServerSideProps = dashboardGetServerSideProps;

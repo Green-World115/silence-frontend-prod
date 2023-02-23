@@ -17,10 +17,6 @@ const Symptoms = () => {
   };
   return (
     <Box width="100%">
-      <Typography variant="h5" fontWeight="bold" mb={5}>
-        Symptoms
-      </Typography>
-
       <Tabs value={tab} onChange={handleChange}>
         <Tab label="Symptoms" disableRipple />
         <Tab label="Causes" disableRipple />

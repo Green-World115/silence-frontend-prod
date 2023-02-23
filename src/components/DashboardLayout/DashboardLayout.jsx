@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Container } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Sidebar from "../Sidebar";
 import Header from "../Header";
 
-const DashboardLayout = ({ children, maxWidth }) => {
+const DashboardLayout = ({ children, maxWidth, title }) => {
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar />
@@ -11,11 +11,11 @@ const DashboardLayout = ({ children, maxWidth }) => {
         <Header />
         <Box
           component="main"
-          sx={{ display: "flex", p: 3, height: "calc(100vh - 64px)", width: "100%" }}
+          sx={{ display: "flex", p: 3, minHeight: "calc(100vh - 64px)", width: "100%", flexDirection: "column" }}
           maxWidth={maxWidth}
           margin="auto"
         >
-          {children}
+          <Box sx={{ display: "flex", flex: 1 }}>{children}</Box>
         </Box>
       </Box>
     </Box>

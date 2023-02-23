@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Grid, Paper } from "@mui/material";
+import { Card, Grid, Paper } from "@mui/material";
 import { Box, Stack } from "@mui/material";
 import Button from "components/Button";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import * as symptomApi from "api/symptoms";
 import SymptomInput from "../../components/SymptomInput";
+import { useUser } from "feature/auth/context";
 
 const Symptoms = ({ initialValues }) => {
   const [saving, setSaving] = useState();
+
+  const user = useUser();
 
   const { enqueueSnackbar } = useSnackbar();
   const { control, handleSubmit } = useForm({
@@ -25,7 +28,7 @@ const Symptoms = ({ initialValues }) => {
     const userSymptoms = values.userSymptoms?.map((symptom) => ({
       value: symptom.value,
       symptomId: symptom.symptomId,
-      userId: values.id,
+      userId: user.id,
       id: symptom.id,
     }));
 
@@ -41,7 +44,7 @@ const Symptoms = ({ initialValues }) => {
   });
 
   return (
-    <Paper elevation={5} sx={{ p: 5, width: "100%" }}>
+    <Card sx={{ p: 5 }}>
       <Grid container spacing={4}>
         {fields?.map((field, index) => (
           <Grid item xs={12} md={6}>
@@ -60,7 +63,7 @@ const Symptoms = ({ initialValues }) => {
           Update
         </Button>
       </Box>
-    </Paper>
+    </Card>
   );
 };
 

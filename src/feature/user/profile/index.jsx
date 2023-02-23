@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import General from "./General";
@@ -14,10 +14,6 @@ const Profile = () => {
 
   return (
     <div>
-      <Typography variant="h5" fontWeight="bold" mb={5}>
-        Profile
-      </Typography>
-
       <Tabs value={tab} onChange={handleChange}>
         <Tab label="General" disableRipple />
         <Tab label="Billing" disableRipple />

@@ -1,4 +1,3 @@
-import { query, collection, where, getDocs, setDoc, doc, serverTimestamp, addDoc, orderBy } from "firebase/firestore";
 import { getPagination } from "utils/pagination";
 import { supabase } from "../utils/superbase-client";
 

@@ -9,7 +9,11 @@ const SymptomPage = () => {
 export default SymptomPage;
 
 SymptomPage.getLayout = function getLayout(page) {
-  return <DashboardLayout maxWidth="lg">{page}</DashboardLayout>;
+  return (
+    <DashboardLayout maxWidth="lg" title="Symptoms">
+      {page}
+    </DashboardLayout>
+  );
 };
 
 export const getServerSideProps = dashboardGetServerSideProps;
