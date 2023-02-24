@@ -87,7 +87,7 @@ const Users = ({ onChange, value }) => {
                 }}
                 checked={value?.includes[user.id]}
               />
-              <CustomAvatar name={user.firstName + user.lastName} />
+              <CustomAvatar name={user.firstName + user.lastName} src={user.image} />
               <Typography variant="subtitle2">{`${user.firstName} ${user.lastName || ""}`}</Typography>
             </Stack>
           ))}

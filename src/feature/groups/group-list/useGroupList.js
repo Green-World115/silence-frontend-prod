@@ -23,7 +23,9 @@ export const useGroupList = () => {
 
   useEffect(() => {
     const get = async () => {
-      const { data } = await postApi.getGroupsByUserId(user?.id);
+      const { data, error } = await postApi.getGroupsByUserId(user?.id);
+
+      console.log(data, error);
       setGroups(
         data.map((item) => ({
           name: item.name,

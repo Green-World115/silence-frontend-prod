@@ -1,5 +1,5 @@
+import { supabase } from "utils/superbase-client";
 import { getPagination } from "utils/pagination";
-import { supabase } from "../utils/superbase-client";
 
 export const getMessages = (chatGroupId, page = 1) => {
   const { from, to } = getPagination(page, 10);

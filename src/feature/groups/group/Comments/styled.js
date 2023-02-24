@@ -1,4 +1,4 @@
-import { Card, styled } from "@mui/material";
+import { Card, IconButton, styled } from "@mui/material";
 
 export const Content = styled("div")`
   background-color: ${(props) => props.theme.palette.grey[200]};
@@ -6,3 +6,7 @@ export const Content = styled("div")`
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
   width: 100%;
 `;
+
+export const Toggle = styled("div")`
+
+`

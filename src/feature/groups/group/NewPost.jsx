@@ -1,9 +1,30 @@
-import { alpha, Card, InputBase, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { Card, InputBase } from "@mui/material";
 import { Box } from "@mui/system";
 import Button from "components/Button";
-import React from "react";
-
+import { useUser } from "feature/auth/context";
+import { useRouter } from "next/router";
+import * as postApi from "api/post";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const NewPost = () => {
+  const user = useUser();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { id: groupId } = router.query;
+  const [value, setValue] = useState("");
+
+  const handleChange = (e) => setValue(e.target.value);
+  const post = useMutation({
+    mutationFn: postApi.createPost,
+    onError: (e) => console.log(e),
+    onSuccess: () => {
+      setValue("");
+      queryClient.invalidateQueries(["posts", groupId]);
+    },
+  });
+  const handleSubmit = () => post.mutate({ userId: user.id, groupId, text: value, media: [] });
+
   return (
     <Card sx={{ p: 3, mb: 2 }}>
       <InputBase
@@ -11,14 +32,18 @@ const NewPost = () => {
         fullWidth
         rows={4}
         placeholder="Write a new post...."
+        value={value}
         sx={{
           borderRadius: 1,
           border: (theme) => `solid 1px ${theme.palette.grey[300]}`,
           p: 2,
         }}
+        onChange={handleChange}
       />
       <Box display="flex" justifyContent="flex-end" mt={2}>
-        <Button>Post</Button>
+        <Button disabled={!value || post.isLoading} onClick={handleSubmit} loading={post.isLoading}>
+          Post
+        </Button>
       </Box>
     </Card>
   );

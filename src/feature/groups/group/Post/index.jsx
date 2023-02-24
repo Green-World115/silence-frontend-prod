@@ -1,45 +1,35 @@
-import { Card, CardContent, CardHeader, Stack, Typography } from "@mui/material";
-import { CustomAvatar } from "components/custom-avatar";
 import React from "react";
-import Comment from "../Comment";
+import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
+import { CustomAvatar } from "components/custom-avatar";
+import Comments from "../Comments";
 import NewComment from "../NewComment";
 
-const Post = () => {
+const Post = ({ id, firstName, lastName, text, image, commentCount, time }) => {
+  const name = `${firstName} ${lastName}`;
+
   return (
     <Card>
       <CardHeader
         disableTypography
-        avatar={<CustomAvatar name="test name" />}
+        avatar={<CustomAvatar name={name} src={image} />}
         title={
           <Typography color="inherit" variant="subtitle2">
-            Minimal UI
+            {name}
           </Typography>
         }
         subheader={
           <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
-            21 Feb 2023
+            {time} ago
           </Typography>
         }
       />
       <CardContent>
-        <Typography variant="body1">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-          sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-          PageMaker including versions of Lorem Ipsum.
-        </Typography>
-      </CardContent>
-      <CardContent>
-        <Stack mb={4} spacing={2}>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+        <Stack spacing={3}>
+          <Typography variant="body1">{text}</Typography>
+          <Divider />
+          <Comments postId={id} commentCount={commentCount} />
+          <NewComment postId={id} />
         </Stack>
-        <NewComment />
       </CardContent>
     </Card>
   );

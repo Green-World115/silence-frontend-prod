@@ -29,7 +29,7 @@ function createShadow(color) {
     warning: `0 8px 16px 0 ${alpha(themeColor.warning.main, 0.24)}`,
     error: `0 8px 16px 0 ${alpha(themeColor.error.main, 0.24)}`,
     //
-    card: `0 0 2px 0 ${alpha(color, 0.2)}, 0 12px 24px -4px ${alpha(color, 0.12)}`,
+    card: `0 0 2px 0 ${alpha(color, 0.3)}, 0 12px 24px -4px ${alpha(color, 0.12)}`,
     dialog: `-40px 40px 80px -8px ${alpha(color, 0.24)}`,
     dropdown: `0 0 2px 0 ${alpha(color, 0.24)}, -20px 20px 40px -4px ${alpha(color, 0.24)}`,
   };

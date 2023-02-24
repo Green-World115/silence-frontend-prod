@@ -29,7 +29,7 @@ export const getUserById = async (userId) => {
 export const getUsersBySymptomsAndCauses = async (symptoms, causes) => {
   return await supabase
     .from("users")
-    .select("id, firstName, lastName, user_symptoms!inner(*)")
+    .select("id, firstName, lastName, image, user_symptoms!inner(*)")
     .or("value->left.gt.0, value->right.gt.0, value->value.gt.0, value->value.eq.true", {
       foreignTable: "user_symptoms",
     })

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import Sidebar from "../Sidebar";
 import Header from "../Header";
 
@@ -11,7 +11,13 @@ const DashboardLayout = ({ children, maxWidth, title }) => {
         <Header />
         <Box
           component="main"
-          sx={{ display: "flex", p: 3, minHeight: "calc(100vh - 64px)", width: "100%", flexDirection: "column" }}
+          sx={{
+            display: "flex",
+            p: { xs: 1.5, md: 3 },
+            minHeight: "calc(100vh - 64px)",
+            width: "100%",
+            flexDirection: "column",
+          }}
           maxWidth={maxWidth}
           margin="auto"
         >

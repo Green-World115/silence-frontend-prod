@@ -6,36 +6,37 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 import createEmotionCache from "theme/createEmotionCache";
 import { SnackbarProvider } from "notistack";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import AuthProvider from "feature/auth/context";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const clientSideEmotionCache = createEmotionCache();
+
+const queryClient = new QueryClient();
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <AuthProvider initialSession={pageProps.initialSession}>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <ThemeProvider>
-          <CssBaseline />
-          <SnackbarProvider
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-          >
-            {getLayout(<Component {...pageProps} />)}
-          </SnackbarProvider>
-        </ThemeProvider>
-      </CacheProvider>
+      <QueryClientProvider client={queryClient}>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+          </Head>
+          <ThemeProvider>
+            <CssBaseline />
+            <SnackbarProvider
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              {getLayout(<Component {...pageProps} />)}
+            </SnackbarProvider>
+          </ThemeProvider>
+        </CacheProvider>
+      </QueryClientProvider>
     </AuthProvider>
   );
 }
