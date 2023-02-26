@@ -18,7 +18,7 @@ export const useCreateAccount = (activeTab) => {
 
       const [symptomsResponse, userSymptomsResponse, userResponse] = await Promise.all([
         symptomApi.getSymptoms(),
-        symptomApi.getUserSymptoms(user?.id),
+        symptomApi.getAllUserSymptoms(user?.id),
         userApi.getUserById(user?.id),
       ]);
 
@@ -50,7 +50,7 @@ export const useCreateAccount = (activeTab) => {
 
     const getTab1 = async () => {
       setLoading(true);
-      const userSymptomsResponse = await symptomApi.getUserSymptoms(user?.id);
+      const userSymptomsResponse = await symptomApi.getSelectedUserSymptoms(user?.id);
 
       const formattedSymptoms = userSymptomsResponse.data?.map((userSymptom) => ({
         symptomName: userSymptom.symptom.name,

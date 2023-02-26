@@ -35,3 +35,12 @@ export const getUsersBySymptomsAndCauses = async (symptoms, causes) => {
     })
     .or(`symptomId.in.(${symptoms.join(",")}),causes.ov.{${causes.join(",")}}`, { foreignTable: "user_symptoms" });
 };
+
+export const confirmUser = async (userId) => {
+  return await supabase
+    .from("users")
+    .update({
+      isAccountComplete: true,
+    })
+    .eq("id", userId);
+};

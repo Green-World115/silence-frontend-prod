@@ -7,8 +7,19 @@ import CardPayment from "./CardPayment";
 import GooglePay from "./GooglePay";
 import OrderSummery from "./OrderSummery";
 import { PaymentContainer } from "./styled";
+import * as userApi from "api/user";
+import { useUser } from "feature/auth/context";
+import { useRouter } from "next/router";
 
 const Plans = ({ onBack }) => {
+  const user = useUser();
+  const router = useRouter();
+
+  const handleSave = async () => {
+    await userApi.confirmUser(user.id);
+    router.push("/");
+  };
+
   return (
     <>
       <Grid container spacing={12}>
@@ -32,8 +43,9 @@ const Plans = ({ onBack }) => {
           <OrderSummery />
         </Grid>
       </Grid>
-      <Box display="flex" mt={5}>
+      <Box display="flex" mt={5} justifyContent="space-between">
         <Button onClick={onBack}>Previous</Button>
+        <Button onClick={handleSave}>Save</Button>
       </Box>
     </>
   );

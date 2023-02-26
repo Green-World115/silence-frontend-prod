@@ -1,4 +1,4 @@
-import { Box, Link, Paper } from "@mui/material";
+import { Box, Card, Link, Paper } from "@mui/material";
 import React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -33,8 +33,8 @@ const CreateAccount = () => {
           Log out
         </Link>
       </Box>
-      <Paper elevation={5}>
-        <Tabs value={tab}>
+      <Card >
+        <Tabs value={tab} sx={{ "& .MuiTabs-flexContainer": { pl: 2 } }}>
           <Tab label="Basic Information" disableRipple />
           <Tab label="Causes" disableRipple />
           <Tab label="Plans" disableRipple />
@@ -50,7 +50,7 @@ const CreateAccount = () => {
             <Plans onBack={() => setTab(1)} />
           </TabPanel>
         </Content>
-      </Paper>
+      </Card>
     </>
   );
 };
