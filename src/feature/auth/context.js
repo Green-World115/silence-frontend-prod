@@ -6,8 +6,13 @@ const AuthProvider = ({ children, initialSession }) => {
   const [session, setSession] = useState(initialSession);
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, _session) => {
+      console.log((event));
       if (_session && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED")) {
         setSession({ ...session, user: { ...session?.user, ..._session.user } });
+      }
+
+      if (event == "PASSWORD_RECOVERY") {
+        console.log("recovery");
       }
 
       if (event === "SIGNED_OUT") {

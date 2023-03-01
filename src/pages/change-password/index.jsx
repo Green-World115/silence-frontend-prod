@@ -1,13 +1,13 @@
 import AuthLayout from "components/AuthLayout";
 import React from "react";
-import ResetPassword from "../../feature/auth/reset-password";
+import ChangePassword from "../../feature/auth/change-password";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import * as userApi from "api/user";
 
 const ResetPasswordPage = () => {
   return (
     <AuthLayout>
-      <ResetPassword />
+      <ChangePassword />
     </AuthLayout>
   );
 };

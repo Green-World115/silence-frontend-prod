@@ -1,24 +1,29 @@
+import React from "react";
 import { Stack, Paper, Box } from "@mui/material";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "components/Button";
+import { useMutation } from "@tanstack/react-query";
+import * as authApi from "api/auth";
+import { useSnackbar } from "notistack";
 
 const ResetPassword = () => {
   const { control, handleSubmit } = useForm();
   const router = useRouter();
-  const [sending, setSending] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const submit = handleSubmit(async (values) => {
-    setSending(true);
-
-    
-
-    setSending(false);
+  const resetPassword = useMutation({
+    mutationFn: authApi.resetPassword,
+    onError: (e) => enqueueSnackbar(e.message, { variant: "error" }),
+    onSuccess: () => {
+      enqueueSnackbar("Password reset email sent", { variant: "success" });
+    },
   });
+
+  const submit = handleSubmit(async (values) => resetPassword.mutate(values.email));
 
   return (
     <Paper elevation={5}>
@@ -29,7 +34,7 @@ const ResetPassword = () => {
             <Title variant="h4">Reset your password</Title>
             <Stack spacing={3} sx={{ width: "100%" }}>
               <RHFTextField name="email" control={control} label="Email" />
-              <Button size="large" onClick={submit} loading={sending}>
+              <Button size="large" onClick={submit} loading={resetPassword.isLoading}>
                 Send
               </Button>
             </Stack>
