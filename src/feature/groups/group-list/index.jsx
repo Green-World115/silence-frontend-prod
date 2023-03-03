@@ -24,6 +24,9 @@ const GroupList = () => {
           id={group.id}
           name={group.name}
           isAccepted={group.isAccepted}
+          userCount={group.userCount}
+          postCount={group.postCount}
+          users={group.users}
           onJoin={handleJoin}
           onDecline={handleDecline}
         />

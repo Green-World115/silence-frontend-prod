@@ -1,15 +1,30 @@
-import { forwardRef } from "react";
-import Switch from "components/mui-form/Switch";
-import { Controller } from "react-hook-form";
+import PropTypes from 'prop-types';
+// form
+import { Controller } from 'react-hook-form';
+// @mui
+import { Switch, FormControlLabel, FormHelperText } from '@mui/material';
 
-const RHFSwitch = forwardRef(({ name, control, ...rest }, ref) => {
+// ----------------------------------------------------------------------
+
+RHFSwitch.propTypes = {
+  name: PropTypes.string,
+  helperText: PropTypes.node,
+};
+
+export default function RHFSwitch({ name, helperText,control, ...rest }) {
+
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field }) => <Switch {...field} {...rest} checked={field.value} ref={ref} />}
+      render={({ field, fieldState: { error } }) => (
+        <div>
+          <FormControlLabel control={<Switch {...field} checked={field.value} />} {...rest} />
+          {(!!error || helperText) && (
+            <FormHelperText error={!!error}>{error ? error?.message : helperText}</FormHelperText>
+          )}
+        </div>
+      )}
     />
   );
-});
-
-export default RHFSwitch;
+}

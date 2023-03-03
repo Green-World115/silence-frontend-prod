@@ -25,12 +25,14 @@ export const useGroupList = () => {
     const get = async () => {
       const { data, error } = await postApi.getGroupsByUserId(user?.id);
 
-      console.log(data, error);
       setGroups(
         data.map((item) => ({
           name: item.name,
           id: item.id,
           isAccepted: item?.userPostGroup[0]?.isAccepted,
+          postCount: item.postCount[0]?.count || 0,
+          userCount: item.userCount[0]?.count || 0,
+          users: item.users.map((user) => ({ firstName: user.user.firstName, image: user.user.image })),
         }))
       );
     };

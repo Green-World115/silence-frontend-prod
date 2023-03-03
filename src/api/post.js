@@ -5,18 +5,21 @@ export const getGroupsByUserId = (userId) => {
   return supabase
     .from("post_groups")
     .select(
-      "id, name, userPostGroup: user_post_groups!inner(*,isAccepted), userCount: user_post_groups(count), postCount: posts(count)"
+      "id, name, userPostGroup: user_post_groups!inner(*,isAccepted), users:user_post_groups(user: users(firstName, image)), userCount: user_post_groups(count), postCount: posts(count)"
     )
-    .eq("user_post_groups.userId", userId);
+    .eq("user_post_groups.userId", userId)
+    .limit(3, { foreignTable: "user_post_groups" });
 };
 
-export const createGroup = ({ name, description, createdBy }) => {
-  return supabase.from("post_groups").insert({ name, description, createdBy }).select().single();
-};
-export const addUsersToGroup = (groupId, userId, userIds = []) => {
+export const createGroup = ({ name, description, createdBy, allowInvitation, allowLimitedInvitation }) => {
   return supabase
-    .from("user_post_groups")
-    .upsert(userIds.map((id) => ({ userId: id, postGroupId: groupId, isAccepted: userId === id })));
+    .from("post_groups")
+    .insert({ name, description, createdBy, allowInvitation, allowLimitedInvitation })
+    .select()
+    .single();
+};
+export const addUsersToGroup = (users) => {
+  return supabase.from("user_post_groups").upsert(users);
 };
 
 export const acceptGroupInvitation = (userId, groupId) => {

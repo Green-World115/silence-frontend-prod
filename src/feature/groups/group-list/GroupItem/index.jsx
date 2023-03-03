@@ -1,11 +1,11 @@
-import { Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import Button from "components/Button";
-import { CustomAvatar } from "components/custom-avatar";
+import { CustomAvatar, CustomAvatarGroup } from "components/custom-avatar";
 import { useRouter } from "next/router";
 import React from "react";
-import { Container } from "./styled";
+import { Container, DetailsContainer, UserContainer } from "./styled";
 
-const GroupItem = ({ name, id, isAccepted, onJoin, onDecline }) => {
+const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, postCount }) => {
   const router = useRouter();
 
   const handleSelect = () => isAccepted && router.push(`groups/${id}`);
@@ -16,8 +16,7 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline }) => {
         <CustomAvatar src="" name={name} />
         <Typography>{name}</Typography>
       </Stack>
-      <Stack></Stack>
-      {!isAccepted && (
+      {!isAccepted ? (
         <Stack direction="row" spacing={2}>
           <Button size="small" color="success" onClick={() => onJoin(id)}>
             Join
@@ -26,6 +25,25 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline }) => {
             Decline
           </Button>
         </Stack>
+      ) : (
+        <DetailsContainer>
+          <UserContainer>
+            <CustomAvatarGroup max={5}>
+              {users?.map((user) => (
+                <CustomAvatar src={user.image} name={user.firstName} />
+              ))}
+            </CustomAvatarGroup>
+            <Typography variant="subtitle1">{userCount} members</Typography>
+          </UserContainer>
+          <span>
+            <Typography variant="subtitle1" display="inline">
+              {postCount}&nbsp;
+            </Typography>
+            <Typography variant="subtitle1" display="inline">
+              posts
+            </Typography>
+          </span>
+        </DetailsContainer>
       )}
     </Container>
   );

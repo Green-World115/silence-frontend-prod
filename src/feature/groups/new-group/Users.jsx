@@ -21,6 +21,10 @@ const Users = ({ onChange, value }) => {
 
   return (
     <Card sx={{ p: 3 }}>
+      <Typography variant="h6">Find people to invite</Typography>
+      <Typography mb={3} variant="body2" color="text.secondary">
+        Use this section to profile the people you want to mass invite
+      </Typography>
       <Stack spacing={2}>
         <div>
           <FormLabel>Symptoms</FormLabel>
@@ -78,20 +82,22 @@ const Users = ({ onChange, value }) => {
           </Button>
         </Box>
 
-        <UserContainer>
-          {users?.map((user) => (
-            <Stack key={user.id} direction="row" alignItems="center" spacing={1} sx={{ p: 1 }}>
-              <Checkbox
-                onChange={(e) => {
-                  e.target.checked ? onChange([user.id, ...value]) : onChange(xor(value, [user.id]));
-                }}
-                checked={value?.includes[user.id]}
-              />
-              <CustomAvatar name={user.firstName + user.lastName} src={user.image} />
-              <Typography variant="subtitle2">{`${user.firstName} ${user.lastName || ""}`}</Typography>
-            </Stack>
-          ))}
-        </UserContainer>
+        {users.length > 0 && (
+          <UserContainer>
+            {users?.map((user) => (
+              <Stack key={user.id} direction="row" alignItems="center" spacing={1} sx={{ p: 1 }}>
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked ? onChange([user.id, ...value]) : onChange(xor(value, [user.id]));
+                  }}
+                  checked={value?.includes[user.id]}
+                />
+                <CustomAvatar name={user.firstName + user.lastName} src={user.image} />
+                <Typography variant="subtitle2">{`${user.firstName} ${user.lastName || ""}`}</Typography>
+              </Stack>
+            ))}
+          </UserContainer>
+        )}
       </Stack>
     </Card>
   );
