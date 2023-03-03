@@ -47,8 +47,6 @@ export const ChatItemText = styled("div")`
 
 export const InputContainer = styled("div")`
   padding: ${(props) => props.theme.spacing(2)};
-  border-top: 1px solid;
-  border-top-color: ${(props) => props.theme.palette.grey[200]};
   display: flex;
   align-items: center;
 `;

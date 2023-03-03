@@ -25,7 +25,6 @@ export const useChatProvider = () => {
   useEffect(() => {
     const getChatList = async () => {
       const { data, error } = await chatApi.getChatGroups(user.id);
-      console.log(data);
       setChatList(mapChatList(data));
     };
     if (user?.id) getChatList();

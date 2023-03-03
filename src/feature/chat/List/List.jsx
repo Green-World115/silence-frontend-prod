@@ -14,8 +14,8 @@ import Typography from "@mui/material/Typography";
 import { TextField, useTheme } from "@mui/material";
 import { Container, ListContainer, SearchContainer } from "./styled";
 import { useChat } from "../context";
-import { useNavigate, useParams } from "react-router-dom";
 import { useRouter } from "next/router";
+import { CustomAvatar } from "components/custom-avatar";
 const users = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 const List = () => {
@@ -26,7 +26,7 @@ const List = () => {
 
   const { chatList } = useChat();
 
-  const handleSelect = (type, id) => navigate(`/chat/${type}/${id}`);
+  const handleSelect = (type, id) => router.push(`/chat/${type}/${id}`);
 
   const drawer = (
     <Container>
@@ -41,13 +41,19 @@ const List = () => {
               <ListItem alignItems="flex-start" disablePadding>
                 <ListItemButton onClick={() => handleSelect(chat.type, chat.id)} disableRipple>
                   <ListItemAvatar>
-                    <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
+                    <CustomAvatar name={chat.name} src="/static/images/avatar/1.jpg" alt={chat.name} />
                   </ListItemAvatar>
                   <ListItemText
-                    primary={chat.name}
+                    primary={
+                      <React.Fragment>
+                        <Typography component="span" variant="subtitle2" color="text.primary">
+                          How are you?
+                        </Typography>
+                      </React.Fragment>
+                    }
                     secondary={
                       <React.Fragment>
-                        <Typography component="span" variant="body2" color="text.primary">
+                        <Typography component="span" variant="caption" color="text.secondary">
                           How are you?
                         </Typography>
                       </React.Fragment>

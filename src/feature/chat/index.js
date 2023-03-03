@@ -1,4 +1,4 @@
-import { Paper, Box, Typography } from "@mui/material";
+import { Paper, Box, Typography, Card } from "@mui/material";
 import React from "react";
 import ChatWindow from "./ChatWindow";
 import List from "./List";
@@ -6,12 +6,12 @@ import List from "./List";
 const Chat = () => {
   return (
     <>
-      <Paper elevation={10} sx={{ width: "100%" }}>
+      <Card sx={{ flex: 1 }}>
         <Box display="flex" sx={{ height: "100%" }}>
           <List />
           <ChatWindow />
         </Box>
-      </Paper>
+      </Card>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, IconButton, Typography } from "@mui/material";
+import { Avatar, Divider, IconButton, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import GroupIcon from "@mui/icons-material/Group";
 import { ChatContainer, Header } from "./styled";
@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useMessages } from "../hooks/useMessages";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useUser } from "feature/auth/context";
+import { CustomAvatar } from "components/custom-avatar";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
@@ -22,7 +23,7 @@ const ChatWindow = () => {
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
       <Header>
         <Stack direction="row" spacing={2}>
-          <Avatar />
+          <CustomAvatar />
           <div>
             <Typography variant="subtitle2">Name</Typography>
             <Typography variant="caption">Name</Typography>
@@ -49,6 +50,7 @@ const ChatWindow = () => {
           ))}
         </InfiniteScroll>
       </ChatContainer>
+      <Divider/>
       <Input chatGroupId={chatGroupId} userId={user.id} />
     </Box>
   );
