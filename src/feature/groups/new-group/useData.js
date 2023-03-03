@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import * as symptomApi from "api/symptoms";
 import * as userApi from "api/user";
+import * as postApi from "api/post";
+
 import { useUser } from "feature/auth/context";
+import { useQuery } from "@tanstack/react-query";
 
 export const useData = () => {
   const [symptoms, setSymptoms] = useState([]);
@@ -28,4 +31,15 @@ export const useData = () => {
   }, []);
 
   return { symptoms, users, loadingUser: loading.users, loadingSymptoms: loading.symptoms, getUsers };
+};
+
+export const useCategories = () => {
+  const categories = useQuery({
+    queryKey: ["group-categories"],
+    queryFn: () => postApi.getGroupCategories(),
+    select: (data) => data?.data?.map((item) => ({ id: item.id, label: item.name })),
+    initialData: [],
+  });
+
+  return categories;
 };

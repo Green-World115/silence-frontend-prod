@@ -10,5 +10,10 @@ export const CoverPhoto = styled("div")`
 export const AvatarContainer = styled("div")`
   position: absolute;
   left: ${(props) => props.theme.spacing(5)};
-  bottom: ${(props) => props.theme.spacing(10)};
+  bottom: ${(props) => props.theme.spacing(8)};
+  display: flex;
+  align-items: flex-end;
+`;
+export const NameContainer = styled("div")`
+  margin-left: ${(props) => props.theme.spacing(2)};
 `;

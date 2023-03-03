@@ -66,7 +66,7 @@ const Causes = ({ initialValues, onNext, onBack }) => {
                   renderOption={(props, option) => <li {...props}>{option}</li>}
                   freeSolo
                   multiple
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params} size="small" />}
                   key={index}
                 />
               </div>

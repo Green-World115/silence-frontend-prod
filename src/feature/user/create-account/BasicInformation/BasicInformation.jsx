@@ -9,6 +9,8 @@ import SymptomInput from "../../components/SymptomInput";
 import * as userApi from "api/user";
 import * as symptomApi from "api/symptoms";
 import { useSnackbar } from "notistack";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./schema";
 
 const BasicInformation = ({ initialValues, onNext }) => {
   const [saving, setSaving] = useState();
@@ -16,6 +18,7 @@ const BasicInformation = ({ initialValues, onNext }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { control, handleSubmit } = useForm({
     defaultValues: initialValues,
+    resolver: yupResolver(schema),
   });
 
   const { fields } = useFieldArray({
@@ -64,7 +67,7 @@ const BasicInformation = ({ initialValues, onNext }) => {
           <Stack spacing={2}>
             <RHFTextField name="firstName" control={control} label="First Name" />
             <RHFTextField name="email" control={control} label="Email" disabled />
-            <RHFTextField name="age" control={control} label="Age" />
+            <RHFTextField name="age" control={control} label="Age" type="number" />
             <RHFTextField name="location" control={control} label="Location" />
             <Info>
               <Typography variant="body2">

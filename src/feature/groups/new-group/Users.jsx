@@ -54,9 +54,9 @@ const Users = ({ onChange, value }) => {
         <div>
           <FormLabel>Causes</FormLabel>
           <FormGroup row>
-            {map(causes, (cause) => (
+            {map(causes, (cause, key) => (
               <FormControlLabel
-                key={cause.id}
+                key={key}
                 label={cause}
                 control={
                   <Controller

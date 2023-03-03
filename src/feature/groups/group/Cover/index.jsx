@@ -1,9 +1,9 @@
-import { Card, Divider, Tab, Tabs } from "@mui/material";
+import { Divider, Tab, Tabs, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import React from "react";
-import { AvatarContainer, CoverContainer, CoverPhoto } from "./styled";
+import { AvatarContainer, CoverContainer, CoverPhoto, NameContainer } from "./styled";
 
-const Cover = ({ activeTab, onChangeTab }) => {
+const Cover = ({ name, category, avatar, activeTab, onChangeTab }) => {
   return (
     <CoverContainer>
       <AvatarContainer>
@@ -15,6 +15,14 @@ const Cover = ({ activeTab, onChangeTab }) => {
             height: { xs: 100, md: 120 },
           }}
         />
+        <NameContainer>
+          <Typography variant="h5" fontWeight={600}>
+            {name}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            {category}
+          </Typography>
+        </NameContainer>
       </AvatarContainer>
       <CoverPhoto></CoverPhoto>
       <Divider />
@@ -24,8 +32,7 @@ const Cover = ({ activeTab, onChangeTab }) => {
         sx={{
           "& .MuiTabs-flexContainer": {
             pl: 5,
-            mt: 10,
-            justifyContent: {},
+            mt: 12,
           },
         }}
       >
