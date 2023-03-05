@@ -6,28 +6,26 @@ import { ChatContainer, Header } from "./styled";
 import ChatItem from "./ChatItem";
 import Input from "./Input";
 import { useResponsive } from "../../../hooks/useResponsive";
-import { useParams } from "react-router-dom";
 import { useMessages } from "../hooks/useMessages";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useUser } from "feature/auth/context";
 import { CustomAvatar } from "components/custom-avatar";
+import { useRouter } from "next/router";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
-  const { id: chatGroupId } = useParams();
+  const router = useRouter();
+  const { id, type } = router.query;
   const user = useUser();
 
-  const { messages, pagination, loadNext } = useMessages(chatGroupId);
+  const { messages, pagination, loadNext, chatGroup } = useMessages(type, id);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
       <Header>
-        <Stack direction="row" spacing={2}>
-          <CustomAvatar />
-          <div>
-            <Typography variant="subtitle2">Name</Typography>
-            <Typography variant="caption">Name</Typography>
-          </div>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <CustomAvatar name={chatGroup.data?.name} />
+          <Typography variant="subtitle2">{chatGroup.data?.name}</Typography>
         </Stack>
         {mobile && (
           <IconButton>
@@ -46,12 +44,18 @@ const ChatWindow = () => {
           dataLength={messages.length}
         >
           {messages?.map((message) => (
-            <ChatItem key={message.id} name={message.name} content={message.content} time="8 hours ago" guest />
+            <ChatItem
+              key={message.id}
+              name={message.user?.firstName}
+              content={message.content}
+              time="8 hours ago"
+              guest={message.user?.id !== user.id}
+            />
           ))}
         </InfiniteScroll>
       </ChatContainer>
-      <Divider/>
-      <Input chatGroupId={chatGroupId} userId={user.id} />
+      <Divider />
+      <Input chatGroupId={chatGroup.data?.id} userId={user.id} />
     </Box>
   );
 };

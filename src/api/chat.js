@@ -29,14 +29,8 @@ export const getChatGroupById = (id) => {
     .limit(2, { foreignTable: "userChatGroups" });
 };
 
-export const getChatGroups = (userId) => {
-  return supabase
-    .from("chat_groups")
-    .select(
-      "name,id,type, user: user_chat_groups(*), userChatGroups: user_chat_groups(user: users(id, firstName, lastName))"
-    )
-    .eq("user.userId", userId)
-    .limit(2, { foreignTable: "userChatGroups" });
+export const getUserChatGroups = () => {
+  return supabase.rpc("get_user_chat_groups").throwOnError();
 };
 
 export const sendMessage = (content, media, userId, chatGroupId) => {
@@ -46,6 +40,19 @@ export const sendMessage = (content, media, userId, chatGroupId) => {
     userId,
     chatGroupId,
   });
+};
+
+export const searchChat = async (searchText) => {
+  const groupSearchResponse = await supabase.rpc("search_chat_groups", { search_text: `%${searchText}%` });
+  const usersResponse = await supabase
+    .from("users")
+    .select("id, firstName, lastName, image")
+    .or(`firstName.ilike.%${searchText}%, lastName.ilike.%${searchText}%, email.ilike.%${searchText}%`);
+  return { groups: groupSearchResponse.data || [], users: usersResponse.data || [] };
+};
+
+export const getPrivateChatGroupByReceiver = (receiverId) => {
+  return supabase.rpc("get_or_create_private_chat_group_by_receiver", { receiver_id: receiverId });
 };
 
 export const subscribeToMessages = (chatGroupId, handleUpdateMessages) => {
@@ -58,6 +65,7 @@ export const subscribeToMessages = (chatGroupId, handleUpdateMessages) => {
     )
     .subscribe();
 };
+
 export const unsubscribeToMessages = () => {
   supabase.removeChannel("public:chat_messages");
 };

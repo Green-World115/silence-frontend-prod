@@ -39,9 +39,9 @@ export const ChatItemContent = styled("div")`
 
 export const ChatItemText = styled("div")`
   background-color: ${(props) =>
-    props.guest ? props.theme.palette.grey[200] : alpha(props.theme.palette.secondary.main, 0.5)};
+    props.guest ? props.theme.palette.grey[200] : alpha(props.theme.palette.secondary.main, 0.3)};
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
-  padding: ${(props) => props.theme.spacing(1)};
+  padding: ${(props) => props.theme.spacing(1.2, 1)};
   display: inline-block;
 `;
 

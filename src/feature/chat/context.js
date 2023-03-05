@@ -1,7 +1,6 @@
-import { useUser } from "feature/auth/context";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { createContext, useContext } from "react";
 import * as chatApi from "../../api/chat";
-import { mapChatList } from "./map";
 const ChatContext = createContext(null);
 
 const ChatProvider = ({ children }) => {
@@ -18,19 +17,14 @@ export const useChat = () => {
 };
 
 export const useChatProvider = () => {
-  const [chatList, setChatList] = useState([]);
+  const chatGroups = useQuery({
+    queryKey: ["chat-groups"],
+    queryFn: () => chatApi.getUserChatGroups(),
+    select: (data) => data.data,
+    refetchOnWindowFocus: false,
+  });
 
-  const user = useUser();
-
-  useEffect(() => {
-    const getChatList = async () => {
-      const { data, error } = await chatApi.getChatGroups(user.id);
-      setChatList(mapChatList(data));
-    };
-    if (user?.id) getChatList();
-  }, [user?.id]);
-
-  return { chatList };
+  return { chatGroups };
 };
 
 export default ChatProvider;

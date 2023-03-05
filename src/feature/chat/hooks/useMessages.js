@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import * as chatApi from "api/chat";
+import { useQuery } from "@tanstack/react-query";
 
-export const useMessages = (chatGroupId) => {
+export const useMessages = (type, id) => {
   const [messages, setMessages] = useState([]);
   const [pagination, setPagination] = useState({ totalPages: 1, currentPage: 1 });
-  const [name, setName] = useState("");
+
+  const chatGroup = useQuery({
+    queryKey: ["chat-group", id],
+    queryFn: () => chatApi.getPrivateChatGroupByReceiver(id),
+    select: (data) => data.data,
+    enabled: !!id,
+    refetchOnWindowFocus: false,
+  });
+
+  const chatGroupId = chatGroup.data?.id;
 
   const getMessages = async (page = 1) => {
     const { data, count, error } = await chatApi.getMessages(chatGroupId, page);
-    if (error) console.log(error);
-    else {
-      setPagination({ totalPages: Math.ceil(count / 10), currentPage: page });
-      if (page === 1) setMessages(data);
-      else setMessages([...messages, ...data]);
-    }
-  };
-
-  const getGroupDetails = async (page = 1) => {
-    const { data, count, error } = await chatApi.getChatGroupById(chatGroupId);
     if (error) console.log(error);
     else {
       setPagination({ totalPages: Math.ceil(count / 10), currentPage: page });
@@ -31,7 +31,7 @@ export const useMessages = (chatGroupId) => {
   };
 
   const handleUpdateMessages = (data) => {
-    setMessages((state) => [data.new, ...state]);
+    setMessages((state) => [{ ...data.new, user: { id: data.new.userId } }, ...state]);
   };
 
   useEffect(() => {
@@ -43,5 +43,5 @@ export const useMessages = (chatGroupId) => {
     // return () => chatApi.unsubscribeToMessages();
   }, [chatGroupId]);
 
-  return { messages, pagination, loadNext };
+  return { messages, pagination, loadNext, chatGroup };
 };
