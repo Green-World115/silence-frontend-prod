@@ -9,13 +9,13 @@ import { CustomAvatar } from "components/custom-avatar";
 import { Divider } from "@mui/material";
 import { useRouter } from "next/router";
 
-const Item = ({ name, userId }) => {
+const Item = ({ name, receiverId }) => {
   const router = useRouter();
 
-  const handleRedirect = () => router.push(`/chat/private/${userId}`);
+  const handleRedirect = () => router.push(`/chat/private/${receiverId}`);
 
   return (
-    <div key={userId}>
+    <div>
       <ListItem alignItems="flex-start" disablePadding>
         <ListItemButton onClick={handleRedirect} disableRipple>
           <ListItemAvatar>

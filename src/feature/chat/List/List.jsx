@@ -5,21 +5,20 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import Divider from "@mui/material/Divider";
 import { TextField, Typography, useTheme } from "@mui/material";
-import { useChat } from "../context";
 import { useSearch } from "../hooks/useSearch";
 import Item from "./Item";
-import { Container, ListContainer, SearchContainer, SectionTitle } from "./styled";
-const users = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+import { Container, ListContainer, NotFoundContainer, SearchContainer, SectionTitle } from "./styled";
+import Skeleton from "./Skeleton";
+import isEmpty from "lodash/isEmpty";
 
 const List = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [searchText, setSearchText] = useState(null);
-  const { chatGroups } = useChat();
+  const [searchText, setSearchText] = useState("");
 
-  const search = useSearch(searchText);
+  const { data, isLoading } = useSearch(searchText);
 
   const handleChangeSearch = (e) => setSearchText(e.target.value);
 
@@ -30,34 +29,34 @@ const List = () => {
       </SearchContainer>
       <Divider component="div" />
       <ListContainer>
-        <MuiList disablePadding>
-          {!searchText && (
-            <>
-              {chatGroups?.data?.map((chat) => (
-                <Item name={chat.name} userId={chat.userId} />
-              ))}
-            </>
-          )}
-
-          {searchText && (
-            <>
-              {search.data?.groups?.length > 0 && (
-                <SectionTitle>
-                  <Typography variant="subtitle1">Chat</Typography>
-                </SectionTitle>
-              )}
-              {search?.data?.groups?.map((chat) => (
-                <Item name={chat.name} userId={chat.userId} />
-              ))}
+        {isLoading ? (
+          <Skeleton />
+        ) : (
+          <MuiList disablePadding>
+            {!isEmpty(data?.groups) && searchText && (
+              <SectionTitle>
+                <Typography variant="subtitle1">Chat</Typography>
+              </SectionTitle>
+            )}
+            {data?.groups?.map((group) => (
+              <Item name={group.name} receiverId={group.receiverId} />
+            ))}
+            {!isEmpty(data?.users) && searchText && (
               <SectionTitle>
                 <Typography variant="subtitle1">Users</Typography>
               </SectionTitle>
-              {search?.data?.users?.map((user) => (
-                <Item name={user.firstName} userId={user.id} />
-              ))}
-            </>
-          )}
-        </MuiList>
+            )}
+            {data?.users?.map((user) => (
+              <Item name={user.firstName} receiverId={user.id} />
+            ))}
+          </MuiList>
+        )}
+
+        {!isLoading && isEmpty(data.groups) && isEmpty(data.users) && searchText && (
+          <NotFoundContainer>
+            <Typography>No user or chat found</Typography>
+          </NotFoundContainer>
+        )}
       </ListContainer>
     </Container>
   );

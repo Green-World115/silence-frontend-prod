@@ -50,3 +50,10 @@ export const InputContainer = styled("div")`
   display: flex;
   align-items: center;
 `;
+
+export const EmptyContainer = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;

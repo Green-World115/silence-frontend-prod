@@ -22,3 +22,11 @@ export const SectionTitle = styled("div")`
   padding:${props => props.theme.spacing(1,2)};
   background-color: ${props => props.theme.palette.grey[200]};
 `;
+
+export const NotFoundContainer = styled("div")`
+  padding:${props => props.theme.spacing(5,2)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+`;

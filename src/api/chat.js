@@ -29,10 +29,6 @@ export const getChatGroupById = (id) => {
     .limit(2, { foreignTable: "userChatGroups" });
 };
 
-export const getUserChatGroups = () => {
-  return supabase.rpc("get_user_chat_groups").throwOnError();
-};
-
 export const sendMessage = (content, media, userId, chatGroupId) => {
   return supabase.from("chat_messages").insert({
     content,
@@ -42,13 +38,25 @@ export const sendMessage = (content, media, userId, chatGroupId) => {
   });
 };
 
-export const searchChat = async (searchText) => {
+export const searchChat = async (userId, searchText) => {
+  console.log(searchText);
   const groupSearchResponse = await supabase.rpc("search_chat_groups", { search_text: `%${searchText}%` });
-  const usersResponse = await supabase
-    .from("users")
-    .select("id, firstName, lastName, image")
-    .or(`firstName.ilike.%${searchText}%, lastName.ilike.%${searchText}%, email.ilike.%${searchText}%`);
-  return { groups: groupSearchResponse.data || [], users: usersResponse.data || [] };
+
+  if (groupSearchResponse.error) throw groupSearchResponse.error;
+
+  let usersResponse;
+
+  if (searchText) {
+    const receiverIds = groupSearchResponse.data.map((group) => group.receiverId);
+    receiverIds.push(userId);
+    usersResponse = await supabase
+      .from("users")
+      .select("id, firstName, lastName, image")
+      .or(`firstName.ilike.%${searchText}%, lastName.ilike.%${searchText}%, email.ilike.%${searchText}%`)
+      .not("id", "in", `(${receiverIds.join(",")})`);
+  }
+
+  return { groups: groupSearchResponse?.data || [], users: usersResponse?.data || [] };
 };
 
 export const getPrivateChatGroupByReceiver = (receiverId) => {

@@ -16,9 +16,9 @@ const GuestChatItem = ({ content, time, avatar, name, guest }) => {
         />
       )}
       <ChatItemContent guest={guest}>
-        <Typography variant="caption" mb={1} color="text.secondary">
+        {/* <Typography variant="caption" mb={1} color="text.secondary">
           {time}
-        </Typography>
+        </Typography> */}
         <ChatItemText guest={guest}>
           <Typography variant="body2">{content}</Typography>
         </ChatItemText>

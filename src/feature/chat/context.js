@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
-import * as chatApi from "../../api/chat";
 const ChatContext = createContext(null);
 
 const ChatProvider = ({ children }) => {
@@ -17,14 +15,14 @@ export const useChat = () => {
 };
 
 export const useChatProvider = () => {
-  const chatGroups = useQuery({
-    queryKey: ["chat-groups"],
-    queryFn: () => chatApi.getUserChatGroups(),
-    select: (data) => data.data,
-    refetchOnWindowFocus: false,
-  });
+  // const chatGroups = useQuery({
+  //   queryKey: ["chat-groups"],
+  //   queryFn: () => chatApi.getUserChatGroups(),
+  //   select: (data) => data.data,
+  //   refetchOnWindowFocus: false,
+  // });
 
-  return { chatGroups };
+  // return { chatGroups };
 };
 
 export default ChatProvider;

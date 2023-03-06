@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IconButton, InputBase } from "@mui/material";
 import React from "react";
 import { InputContainer } from "./styled";
-import SendIcon from "@mui/icons-material/Send";
+import { Icon } from "@iconify/react";
 import * as chatApi from "api/chat";
 import { useSnackbar } from "notistack";
 const Input = ({ userId, chatGroupId }) => {
@@ -19,8 +19,8 @@ const Input = ({ userId, chatGroupId }) => {
   return (
     <InputContainer>
       <InputBase fullWidth placeholder="Type message" value={value} onChange={handleChange} />
-      <IconButton size="small" onClick={handleSend}>
-        <SendIcon />
+      <IconButton color="primary" disabled={!value} onClick={handleSend}>
+        <Icon icon="material-symbols:send" fontSize={30} />
       </IconButton>
     </InputContainer>
   );
