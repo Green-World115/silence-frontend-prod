@@ -12,11 +12,15 @@ import { useUser } from "feature/auth/context";
 import { CustomAvatar } from "components/custom-avatar";
 import { useRouter } from "next/router";
 import HeaderSkeleton from "./Skeleton";
+import get from "lodash/get";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
   const router = useRouter();
-  const [type, id] = router.query?.query;
+
+  const type = get(router, "query.query[0]");
+  const id = get(router, "query.query[1]");
+
   const user = useUser();
 
   const { messages, pagination, loadNext, chatGroup } = useMessages(type, id);
