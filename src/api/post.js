@@ -12,17 +12,23 @@ export const getGroupsByUserId = (userId) => {
 };
 
 export const getGroupById = (groupId) => {
-  return supabase.from("post_groups").select("id, name, avatar, category: post_group_categories(id, name)").eq("id", groupId).limit(1).throwOnError().single();
+  return supabase
+    .from("post_groups")
+    .select("id, name, avatar, category: post_group_categories(id, name)")
+    .eq("id", groupId)
+    .limit(1)
+    .throwOnError()
+    .single();
 };
 
 export const getGroupCategories = () => {
   return supabase.from("post_group_categories").select("id, name").throwOnError();
 };
 
-export const createGroup = ({ name, description, createdBy, allowInvitation, categoryId }) => {
+export const createGroup = ({ name, description, createdBy, allowInvitation }) => {
   return supabase
     .from("post_groups")
-    .insert({ name, description, createdBy, allowInvitation, categoryId })
+    .insert({ name, description, createdBy, allowInvitation, categoryId: 2 })
     .select()
     .single();
 };

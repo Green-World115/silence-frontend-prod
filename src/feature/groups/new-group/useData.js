@@ -13,10 +13,12 @@ export const useData = () => {
 
   const user = useUser();
 
-  const getUsers = async (symptoms, causes) => {
+  const getUsers = async (searchText, symptoms, causes) => {
     setLoading({ ...loading, users: true });
-    const userRes = await userApi.getUsersBySymptomsAndCauses(symptoms, causes);
-    setUsers(userRes.data.filter((item) => item.id !== user.id));
+    const userResponse = await userApi.searchUsersBySymptomsAndCauses(searchText, symptoms, causes);
+    if (!userResponse.error) {
+      setUsers(userResponse.data.filter((item) => item.id !== user.id));
+    }
     setLoading({ ...loading, users: false });
   };
 
@@ -31,15 +33,4 @@ export const useData = () => {
   }, []);
 
   return { symptoms, users, loadingUser: loading.users, loadingSymptoms: loading.symptoms, getUsers };
-};
-
-export const useCategories = () => {
-  const categories = useQuery({
-    queryKey: ["group-categories"],
-    queryFn: () => postApi.getGroupCategories(),
-    select: (data) => data?.data?.map((item) => ({ id: item.id, label: item.name })),
-    initialData: [],
-  });
-
-  return categories;
 };

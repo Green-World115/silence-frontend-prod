@@ -12,8 +12,6 @@ import groupRoles from "constants/groupRoles";
 import { useSnackbar } from "notistack";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RHFUploadAvatar } from "components/hook-forms/RHFUpload";
-import { useCategories } from "./useData";
-import RHFAutocomplete from "components/hook-forms/RHFAutocomplete";
 import { schema } from "./schema";
 
 const NewGroup = () => {
@@ -22,7 +20,6 @@ const NewGroup = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-  const categories = useCategories();
 
   const {
     control,
@@ -30,7 +27,7 @@ const NewGroup = () => {
     setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: { users: [], name: "", description: "", allowInvitation: false },
+    defaultValues: { users: [],searchText: "", name: "", description: "", allowInvitation: false },
     resolver: yupResolver(schema),
   });
 
@@ -57,7 +54,6 @@ const NewGroup = () => {
       description: data.description,
       createdBy: user.id,
       allowInvitation: data.allowInvitation,
-      categoryId: data.category.id,
     });
 
     if (createGroupResponse.error) {
@@ -92,34 +88,14 @@ const NewGroup = () => {
               <RHFUploadAvatar name="avatar" control={control} onDrop={handleDrop} />
               <RHFTextField control={control} name="name" label="Name" />
               <RHFTextField control={control} name="description" label="Description" multiline minRows={3} />
-              <RHFAutocomplete
-                control={control}
-                name="category"
-                loading={categories.isLoading}
-                options={categories.data || []}
-                renderInput={(props) => (
-                  <div>
-                    <FormLabel sx={{ mb: 0.1 }}>Category</FormLabel>
-                    <TextField
-                      {...props}
-                      size="small"
-                      margin="dense"
-                      error={!!errors.category?.message}
-                      helperText={errors.category?.message}
-                    />
-                  </div>
-                )}
-              />
 
-              <div>
-                <RHFSwitch
-                  name="allowInvitation"
-                  control={control}
-                  label="Can members send invite to other people?"
-                  labelPlacement="start"
-                  sx={{ mx: 0, width: "100%", justifyContent: "space-between" }}
-                />
-              </div>
+              <RHFSwitch
+                name="allowInvitation"
+                control={control}
+                label="Can members send invite to other people?"
+                labelPlacement="start"
+                sx={{ mx: 0, width: "100%", justifyContent: "space-between" }}
+              />
             </Stack>
           </Card>
         </Grid>

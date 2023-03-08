@@ -17,6 +17,7 @@ import { Container, UserContainer } from "./styled";
 import { useUser } from "feature/auth/context";
 import { useRouter } from "next/router";
 import Collapse from "./Collapse";
+import { CustomAvatar } from "components/custom-avatar";
 const drawerWidth = 240;
 
 const Sidebar = ({ window }) => {
@@ -35,29 +36,33 @@ const Sidebar = ({ window }) => {
 
   const drawer = (
     <Container>
-      <UserContainer>
-        <Avatar alt="Remy" />
-        <Box ml={2} sx={{ overflow: "hidden", textOverflow: "ellipsis", color: "#ffffff" }}>
-          <Typography variant="body2" color="#ffffff">
-            {user?.firstName}
-          </Typography>
-          <Typography variant="caption">{user?.email}</Typography>
-        </Box>
-      </UserContainer>
-      <List disablePadding>
-        <ListItem disablePadding title="Home" icon={<HomeIcon />} path="/" />
-        <ListItem disablePadding title="Meeting room" path="/groups" icon={<TextsmsIcon />} />
-        <ListItem disablePadding title="Content" icon={<ContentPasteIcon />} />
-        <ListItem disablePadding title="Live streams" icon={<VideocamIcon />} />
+      <Box>
+        <UserContainer>
+          <CustomAvatar name={user?.firstName} />
+          <Box ml={2} sx={{ overflow: "hidden", textOverflow: "ellipsis", color: "#ffffff" }}>
+            <Typography variant="body2" color="#ffffff">
+              {user?.firstName}
+            </Typography>
+            <Typography variant="caption">{user?.email}</Typography>
+          </Box>
+        </UserContainer>
+        <List disablePadding>
+          <ListItem disablePadding title="Home" icon={<HomeIcon />} path="/" />
+          <ListItem disablePadding title="Meeting room" path="/groups" icon={<TextsmsIcon />} />
+          <ListItem disablePadding title="Chat" path="/chat" icon={<TextsmsIcon />} />
+          {/* <ListItem disablePadding title="Content" icon={<ContentPasteIcon />} /> */}
+          {/* <ListItem disablePadding title="Live streams" icon={<VideocamIcon />} /> */}
 
-        <Collapse title="User" icon={<AccountBoxIcon />}>
-          <ListItem disablePadding title="Profile" path="/profile" />
-          <ListItem disablePadding title="Symptoms" path="/profile/symptoms" />
-        </Collapse>
+          <Collapse title="User" icon={<AccountBoxIcon />}>
+            <ListItem disablePadding title="Profile" path="/profile" />
+            <ListItem disablePadding title="Symptoms" path="/profile/symptoms" />
+          </Collapse>
 
-        <ListItem disablePadding title="Settings" icon={<SettingsIcon />} />
-      </List>
-      <Button variant="contained" size="large" fullWidth onClick={handleLogout}>
+          {/* <ListItem disablePadding title="Settings" icon={<SettingsIcon />} /> */}
+        </List>
+      </Box>
+
+      <Button variant="contained" color="inherit" fullWidth onClick={handleLogout} sx={{ mt: 10 }}>
         Log out
       </Button>
     </Container>

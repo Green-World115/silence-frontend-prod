@@ -26,14 +26,12 @@ export const getUserById = async (userId) => {
     .single();
 };
 
-export const getUsersBySymptomsAndCauses = async (symptoms, causes) => {
-  return await supabase
-    .from("users")
-    .select("id, firstName, lastName, image, user_symptoms!inner(*)")
-    .or("value->left.gt.0, value->right.gt.0, value->value.gt.0, value->value.eq.true", {
-      foreignTable: "user_symptoms",
-    })
-    .or(`symptomId.in.(${symptoms.join(",")}),causes.ov.{${causes.join(",")}}`, { foreignTable: "user_symptoms" });
+export const searchUsersBySymptomsAndCauses = async (searchText = "", symptoms, causes) => {
+  return await supabase.rpc("search_users_by_symptoms_or_causes", {
+    search_text: searchText,
+    v_symptoms: [],
+    v_causes: [],
+  });
 };
 
 export const confirmUser = async (userId) => {

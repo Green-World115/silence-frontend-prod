@@ -9,9 +9,9 @@ const General = () => {
 
   return (
     <Grid container spacing={4}>
-      <Grid item xs={12} md={3}>
+      {/* <Grid item xs={12} md={3}>
         <Avatar />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12} md={9}>
         {!loading && <Info initialValues={profile} />}
       </Grid>

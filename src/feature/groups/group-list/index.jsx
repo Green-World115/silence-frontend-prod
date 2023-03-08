@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import GroupItem from "./GroupItem";
 import { useGroupList } from "./useGroupList";
 import map from "lodash/map";
+import groupBy from "lodash/groupBy";
 
 const GroupList = () => {
   const { groups, handleDecline, handleJoin } = useGroupList();
@@ -20,7 +21,7 @@ const GroupList = () => {
         <Button onClick={handleNewGroup}>New Group</Button>
       </Stack>
 
-      {map(groups, (items, key) => (
+      {map(groupBy(groups, "categoryName"), (items, key) => (
         <Box mb={5}>
           <Typography variant="h5" mb={2}>
             {key}

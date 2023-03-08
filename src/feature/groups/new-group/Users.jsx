@@ -1,5 +1,15 @@
 import React from "react";
-import { Box, Card, Checkbox, FormControlLabel, FormGroup, FormLabel, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useData } from "./useData";
 import { Controller, useForm } from "react-hook-form";
 import Button from "components/Button";
@@ -7,25 +17,40 @@ import map from "lodash/map";
 import causes from "constants/causes";
 import { CustomAvatar } from "components/custom-avatar";
 import xor from "lodash/xor";
+import some from "lodash/some";
 
-import { UserContainer } from "./styled";
+import { AvatarContainer, RemoveButton, UserContainer } from "./styled";
+import { Close } from "@mui/icons-material";
+import RHFTextField from "components/hook-forms/RHFTextField";
 
 const Users = ({ onChange, value }) => {
   const { symptoms, users, loadingSymptoms, loadingUser, getUsers } = useData();
 
   const { control, handleSubmit } = useForm({ defaultValues: { symptoms: [], causes: [] } });
 
-  const submit = handleSubmit((data) => getUsers(data.symptoms, data.causes));
+  const handleRemoveUser = (id) => onChange(value?.filter((item) => item.id !== id));
 
-  //add reset functionalities
+  const submit = handleSubmit((data) => getUsers(data.searchText, data.symptoms, data.causes));
 
   return (
     <Card sx={{ p: 3 }}>
       <Typography variant="h6">Find people to invite</Typography>
-      <Typography mb={3} variant="body2" color="text.secondary">
+      <Typography variant="body2" color="text.secondary">
         Use this section to profile the people you want to mass invite
       </Typography>
+
+      <Stack direction="row" sx={{ mt: 2, mb: 6 }} display="flex" flexWrap="wrap" gap={2}>
+        {value.map((user) => (
+          <Box position="relative">
+            <RemoveButton size="small" onClick={() => handleRemoveUser(user.id)}>
+              <Close fontSize="small" />
+            </RemoveButton>
+            <CustomAvatar name={user.firstName} />
+          </Box>
+        ))}
+      </Stack>
       <Stack spacing={2}>
+        <RHFTextField control={control} name="searchText" label="Name or email" placeholder="" />
         <div>
           <FormLabel>Symptoms</FormLabel>
           <FormGroup row>
@@ -76,6 +101,7 @@ const Users = ({ onChange, value }) => {
             ))}
           </FormGroup>
         </div>
+
         <Box display="flex" justifyContent="flex-end">
           <Button onClick={submit} loading={loadingUser}>
             Generate Users
@@ -84,18 +110,32 @@ const Users = ({ onChange, value }) => {
 
         {users.length > 0 && (
           <UserContainer>
-            {users?.map((user) => (
-              <Stack key={user.id} direction="row" alignItems="center" spacing={1} sx={{ p: 1 }}>
-                <Checkbox
-                  onChange={(e) => {
-                    e.target.checked ? onChange([user.id, ...value]) : onChange(xor(value, [user.id]));
-                  }}
-                  checked={value?.includes[user.id]}
-                />
-                <CustomAvatar name={user.firstName + user.lastName} src={user.image} />
-                <Typography variant="subtitle2">{`${user.firstName} ${user.lastName || ""}`}</Typography>
-              </Stack>
-            ))}
+            {users?.map((user) => {
+              const selected = some(value, user);
+              return (
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  key={user.id}
+                  spacing={1}
+                  sx={{ py: 1, px: 2 }}
+                >
+                  <Stack spacing={2} direction="row" alignItems="center">
+                    <CustomAvatar name={user.firstName + user.lastName} src={user.image} />
+                    <Typography variant="subtitle2">{`${user.firstName} ${user.lastName || ""}`}</Typography>
+                  </Stack>
+                  <Button
+                    size="small"
+                    variant={selected ? "contained" : "outlined"}
+                    onClick={() => onChange([user, ...value])}
+                    disabled={selected}
+                  >
+                    {selected ? "Added" : "Add"}
+                  </Button>
+                </Box>
+              );
+            })}
           </UserContainer>
         )}
       </Stack>

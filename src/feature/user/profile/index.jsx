@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import General from "./General";
@@ -23,6 +23,12 @@ const Profile = () => {
       <Box mt={4}>
         <TabPanel value={tab} index={0}>
           <General />
+        </TabPanel>
+        <TabPanel value={tab} index={1}>
+          <Typography>Coming soon</Typography>
+        </TabPanel>
+        <TabPanel value={tab} index={2}>
+          <Typography>Coming soon</Typography>
         </TabPanel>
       </Box>
     </div>

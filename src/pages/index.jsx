@@ -1,9 +1,14 @@
+import { Typography } from "@mui/material";
 import DashboardLayout from "components/DashboardLayout";
 import React from "react";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 const Index = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Typography>Coming soon</Typography>
+    </div>
+  );
 };
 
 export default Index;

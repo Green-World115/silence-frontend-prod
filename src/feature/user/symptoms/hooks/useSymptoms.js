@@ -17,7 +17,7 @@ export const useSymptoms = (activeTab) => {
 
       const [symptomsResponse, userSymptomsResponse] = await Promise.all([
         symptomApi.getSymptoms(),
-        symptomApi.getUserSymptoms(user?.id),
+        symptomApi.getAllUserSymptoms(user?.id),
       ]);
 
       const formattedSymptoms = symptomsResponse.data?.map((symptom) => ({
@@ -45,7 +45,7 @@ export const useSymptoms = (activeTab) => {
 
     const getTab1 = async () => {
       setLoading(true);
-      const userSymptomsResponse = await symptomApi.getUserSymptoms(user?.id);
+      const userSymptomsResponse = await symptomApi.getSelectedUserSymptoms(user?.id);
 
       const formattedSymptoms = userSymptomsResponse.data?.map((userSymptom) => ({
         symptomName: userSymptom.symptom.name,

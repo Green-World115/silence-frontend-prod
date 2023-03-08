@@ -5,6 +5,10 @@ export const Container = styled("div")`
   padding: 20px;
   background-color: ${(props) => props.theme.palette.primary.main};
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: ${props =>props.theme.spacing(5)};
 `;
 export const UserContainer = styled("div")`
   padding: ${(props) => props.theme.spacing(2)};
@@ -13,7 +17,6 @@ export const UserContainer = styled("div")`
   margin-bottom: 50px;
   display: flex;
 `;
-
 export const StyledListItem = styled(ListItem)`
   margin-bottom: 10px;
   align-items: center;
