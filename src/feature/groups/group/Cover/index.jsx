@@ -8,11 +8,12 @@ const Cover = ({ name, category, avatar, activeTab, onChangeTab }) => {
     <CoverContainer>
       <AvatarContainer>
         <CustomAvatar
-          src="https://www.dropbox.com/s/iv3vsr5k6ib2pqx/avatar_default.jpg?dl=1"
-          name={"test"}
+          src={avatar}
+          name={name}
           sx={{
             width: { xs: 100, md: 120 },
             height: { xs: 100, md: 120 },
+            fontSize: 42,
           }}
         />
         <NameContainer>

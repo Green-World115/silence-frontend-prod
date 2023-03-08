@@ -19,7 +19,7 @@ import { CustomAvatar } from "components/custom-avatar";
 import xor from "lodash/xor";
 import some from "lodash/some";
 
-import { AvatarContainer, RemoveButton, UserContainer } from "./styled";
+import { RemoveButton, UserContainer } from "./styled";
 import { Close } from "@mui/icons-material";
 import RHFTextField from "components/hook-forms/RHFTextField";
 

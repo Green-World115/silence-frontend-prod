@@ -29,8 +29,8 @@ export const getUserById = async (userId) => {
 export const searchUsersBySymptomsAndCauses = async (searchText = "", symptoms, causes) => {
   return await supabase.rpc("search_users_by_symptoms_or_causes", {
     search_text: searchText,
-    v_symptoms: [],
-    v_causes: [],
+    v_symptoms: symptoms,
+    v_causes: causes,
   });
 };
 

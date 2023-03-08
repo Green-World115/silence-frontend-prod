@@ -62,7 +62,7 @@ const Causes = ({ initialValues }) => {
               renderOption={(props, option) => <li {...props}>{option}</li>}
               freeSolo
               multiple
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField {...params} size="small" />}
               key={index}
             />
           </Grid>

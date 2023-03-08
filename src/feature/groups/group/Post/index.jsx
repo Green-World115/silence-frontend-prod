@@ -5,7 +5,7 @@ import Comments from "../Comments";
 import NewComment from "../NewComment";
 
 const Post = ({ id, firstName, lastName, text, image, commentCount, time }) => {
-  const name = `${firstName} ${lastName}`;
+  const name = `${firstName} ${lastName || ""}`;
 
   return (
     <Card>

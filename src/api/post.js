@@ -28,7 +28,13 @@ export const getGroupCategories = () => {
 export const createGroup = ({ name, description, createdBy, allowInvitation }) => {
   return supabase
     .from("post_groups")
-    .insert({ name, description, createdBy, allowInvitation, categoryId: 2 })
+    .insert({
+      name,
+      description,
+      createdBy,
+      allowInvitation,
+      categoryId: process.env.NEXT_PUBLIC_DEFAULT_POST_GROUP_CATEGORY_ID,
+    })
     .select()
     .single();
 };
