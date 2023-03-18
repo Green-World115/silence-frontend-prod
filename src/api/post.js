@@ -54,13 +54,20 @@ export const createPost = ({ userId, groupId, text, media = [] }) => {
   return supabase.from("posts").insert({ userId, postGroupId: groupId, text, media }).throwOnError();
 };
 
+export const deletePost = (id) => {
+  return supabase.from("posts").delete().eq("id", id).throwOnError();
+};
+
 export const getPostsByGroup = async (groupId, page = 1) => {
   const { from, to } = getPagination(page, 5);
   const { data, count } = await supabase
     .from("posts")
-    .select("id, text, media, createdAt, user:users(id, firstName, lastName, image), comments: post_comments(count)", {
-      count: "exact",
-    })
+    .select(
+      "id, postGroupId, text, media, createdAt, user:users(id, firstName, lastName, image), comments: post_comments(count)",
+      {
+        count: "exact",
+      }
+    )
     .eq("postGroupId", groupId)
     .order("createdAt", { ascending: false })
     .range(from, to)

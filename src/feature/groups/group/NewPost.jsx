@@ -20,10 +20,15 @@ const NewPost = () => {
     onError: (e) => console.log(e),
     onSuccess: () => {
       setValue("");
+
       queryClient.invalidateQueries(["posts", groupId]);
     },
   });
   const handleSubmit = () => post.mutate({ userId: user.id, groupId, text: value, media: [] });
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter" && value.trim()) handleSubmit();
+  };
 
   return (
     <Card sx={{ p: 3, mb: 2 }}>
@@ -39,6 +44,7 @@ const NewPost = () => {
           p: 2,
         }}
         onChange={handleChange}
+        onKeyDown={handleEnter}
       />
       <Box display="flex" justifyContent="flex-end" mt={2}>
         <Button disabled={!value || post.isLoading} onClick={handleSubmit} loading={post.isLoading}>

@@ -66,6 +66,7 @@ const BasicInformation = ({ initialValues, onNext }) => {
         <Grid item xs={12} md={6}>
           <Stack spacing={2}>
             <RHFTextField name="firstName" control={control} label="First Name" />
+            <RHFTextField name="lastName" control={control} label="Last Name" />
             <RHFTextField name="email" control={control} label="Email" disabled />
             <RHFTextField name="age" control={control} label="Age" type="number" />
             <RHFTextField name="location" control={control} label="Location" />

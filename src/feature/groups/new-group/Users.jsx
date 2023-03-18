@@ -36,7 +36,8 @@ const Users = ({ onChange, value }) => {
     <Card sx={{ p: 3 }}>
       <Typography variant="h6">Find people to invite</Typography>
       <Typography variant="body2" color="text.secondary">
-        Use this section to profile the people you want to mass invite
+        Use this section to find other members by searching their names, and/or group invite members based on their
+        symptoms and causes
       </Typography>
 
       <Stack direction="row" sx={{ mt: 2, mb: 6 }} display="flex" flexWrap="wrap" gap={2}>
@@ -50,7 +51,7 @@ const Users = ({ onChange, value }) => {
         ))}
       </Stack>
       <Stack spacing={2}>
-        <RHFTextField control={control} name="searchText" label="Name or email" placeholder="" />
+        <RHFTextField control={control} name="searchText" label="Search by name" placeholder="" />
         <div>
           <FormLabel>Symptoms</FormLabel>
           <FormGroup row>

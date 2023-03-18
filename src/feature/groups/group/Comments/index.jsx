@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { CustomAvatar } from "components/custom-avatar";
-import { Content } from "./styled";
 import Button from "components/Button";
-import { useComments } from "../useComments";
+import { useComments } from "../use-comments";
+import Comment from "./Comment";
 
 export const Comments = ({ postId, commentCount }) => {
   const [showComments, setShowComments] = useState(false);
 
   const toggleComment = () => setShowComments(!showComments);
-
   const comments = useComments(postId, showComments);
 
   return (
@@ -27,20 +25,15 @@ export const Comments = ({ postId, commentCount }) => {
       {showComments && (
         <Stack spacing={2} sx={{ mt: 3 }}>
           {comments?.data?.map((comment) => (
-            <Stack direction="row" spacing={2}>
-              <CustomAvatar name={`${comment.user.firstName} ${comment.user.lastName}`} />
-              <Box width="100%">
-                <Content>
-                  <Typography variant="subtitle2">{`${comment.user.firstName} ${comment.user.lastName}`}</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {comment.text}
-                  </Typography>
-                </Content>
-                <Typography variant="caption" color="text.secondary" display="">
-                  {comment.time} ago
-                </Typography>
-              </Box>
-            </Stack>
+            <Comment
+              key={comment.id}
+              id={comment.id}
+              userId={comment.user.id}
+              postId={postId}
+              name={`${comment.user.firstName} ${comment.user.lastName}`}
+              text={comment.text}
+              time={comment.time}
+            />
           ))}
         </Stack>
       )}

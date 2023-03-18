@@ -5,6 +5,7 @@ import { InputContainer } from "./styled";
 import { Icon } from "@iconify/react";
 import * as chatApi from "api/chat";
 import { useSnackbar } from "notistack";
+
 const Input = ({ userId, chatGroupId }) => {
   const [value, setValue] = useState("");
   const { enqueueSnackbar } = useSnackbar();
@@ -16,10 +17,14 @@ const Input = ({ userId, chatGroupId }) => {
     else setValue("");
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") handleSend();
+  };
+
   return (
     <InputContainer>
-      <InputBase fullWidth placeholder="Type message" value={value} onChange={handleChange} />
-      <IconButton color="primary" disabled={!value} onClick={handleSend}>
+      <InputBase fullWidth placeholder="Type message" value={value} onChange={handleChange} onKeyDown={handleEnter} />
+      <IconButton color="primary" disabled={!value?.trim()} onClick={handleSend}>
         <Icon icon="material-symbols:send" fontSize={30} />
       </IconButton>
     </InputContainer>

@@ -3,7 +3,7 @@ import Button from "components/Button";
 import React from "react";
 import NewPost from "./NewPost";
 import Post from "./Post";
-import { usePosts } from "./usePosts";
+import { usePosts } from "./use-posts";
 
 const Posts = () => {
   const posts = usePosts();
@@ -22,6 +22,8 @@ const Posts = () => {
                 <Post
                   key={post.id}
                   id={post.id}
+                  groupId={post.postGroupId}
+                  userId={post.user.id}
                   firstName={post.user.firstName}
                   lastName={post.user.lastName}
                   image={post.user.image}
