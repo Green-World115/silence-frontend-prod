@@ -22,6 +22,10 @@ const NewComment = ({ postId }) => {
   const handleSubmit = () => comment.mutate({ userId: user.id, postId, text: value });
   const handleChange = (e) => setValue(e.target.value);
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") handleSubmit();
+  };
+
   return (
     <Stack direction="row" spacing={2} alignItems="center">
       <CustomAvatar name="test" />
@@ -36,6 +40,7 @@ const NewComment = ({ postId }) => {
           px: 2,
         }}
         onChange={handleChange}
+        onKeyDown={handleEnter}
       />
       <Box sx={{ minWidth: 2 }}>
         <IconButton color="primary" disabled={!value} onClick={handleSubmit}>

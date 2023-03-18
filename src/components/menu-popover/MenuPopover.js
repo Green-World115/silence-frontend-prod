@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Popover } from '@mui/material';
 //
 import getPosition from './getPosition';
-import { StyledArrow } from './styles';
+import { StyledArrow } from './styled';
 
 // ----------------------------------------------------------------------
 

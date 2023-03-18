@@ -3,17 +3,16 @@ import * as userApi from "api/user";
 
 export const dashboardGetServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx);
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data } = await supabase.rpc("get_session");
 
-  if (session) {
-    const { data } = await userApi.getUserById(session.user.id);
 
+  console.log(data);
+
+  if (data) {
     if (data && data?.isAccountComplete) {
       return {
         props: {
-          initialSession: { ...session, user: data },
+          initialSession: data,
         },
       };
     } else if (data && !data?.isAccountComplete) {

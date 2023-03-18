@@ -8,7 +8,7 @@ import { StyledListItem } from "./styled";
 export const ListItem = ({ title, icon, path }) => {
   const router = useRouter();
 
-  const handleNavigation = () => router.push(path);
+  const handleNavigation = () => router.push(path, path, { shallow: true });
   return (
     <StyledListItem disablePadding sx={{ color: "#ffffff" }}>
       <ListItemButton onClick={handleNavigation}>

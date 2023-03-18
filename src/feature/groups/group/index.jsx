@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Cover from "./Cover";
 import Posts from "./Posts";
-import { useGroup } from "./useGroup";
+import { useGroup } from "./use-group";
 
 const tabs = [
   { component: <Posts />, name: "Posts", value: "posts" },

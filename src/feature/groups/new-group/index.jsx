@@ -27,7 +27,7 @@ const NewGroup = () => {
     setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: { users: [],searchText: "", name: "", description: "", allowInvitation: false },
+    defaultValues: { users: [], searchText: "", name: "", description: "", allowInvitation: false },
     resolver: yupResolver(schema),
   });
 
@@ -76,9 +76,15 @@ const NewGroup = () => {
   return (
     <Box width="100%">
       <Stack direction="row" justifyContent="space-between" sx={{ mb: 5 }}>
-        <Typography variant="h5" fontWeight="bold">
-          Create Group
-        </Typography>
+        <div>
+          <Typography variant="h5" fontWeight="bold" mb={1}>
+            Create Group
+          </Typography>
+          <Typography variant="body2" color="text.secondary" maxWidth={500}>
+            *This is a private group, once created, only you and those you invite will be able to see and access this
+            group
+          </Typography>
+        </div>
       </Stack>
 
       <Grid container spacing={5}>

@@ -6,13 +6,9 @@ const AuthProvider = ({ children, initialSession }) => {
   const [session, setSession] = useState(initialSession);
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, _session) => {
-      console.log((event));
+      console.log(event);
       if (_session && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED")) {
-        setSession({ ...session, user: { ...session?.user, ..._session.user } });
-      }
-
-      if (event == "PASSWORD_RECOVERY") {
-        console.log("recovery");
+        setSession({ ...session?.user, ..._session.user });
       }
 
       if (event === "SIGNED_OUT") {
@@ -29,7 +25,7 @@ export const useUser = () => {
   if (!authContext) {
     throw new Error("authContext has to be used within <AuthContext.Provider>");
   }
-  return authContext?.session?.user ?? null;
+  return authContext?.session ?? null;
 };
 
 export default AuthProvider;
