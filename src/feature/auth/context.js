@@ -4,9 +4,13 @@ const AuthContext = createContext(null);
 
 const AuthProvider = ({ children, initialSession }) => {
   const [session, setSession] = useState(initialSession);
+
+  useEffect(() => {
+    setSession(initialSession);
+  }, [initialSession]);
+
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, _session) => {
-      console.log(event);
       if (_session && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED")) {
         setSession({ ...session?.user, ..._session.user });
       }
