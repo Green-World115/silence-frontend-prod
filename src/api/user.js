@@ -42,3 +42,10 @@ export const confirmUser = async (userId) => {
     })
     .eq("id", userId);
 };
+
+export const searchUserByName = (searchText) => {
+  return supabase
+    .from("users")
+    .select("id, firstName, lastName")
+    .or(`firstName.ilike.%${searchText}%,lastName.ilike.%${searchText}%`);
+};

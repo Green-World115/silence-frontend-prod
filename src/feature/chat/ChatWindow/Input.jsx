@@ -18,7 +18,7 @@ const Input = ({ userId, chatGroupId }) => {
   };
 
   const handleEnter = (e) => {
-    if (e.key === "Enter") handleSend();
+    if (e.key === "Enter" && !value.trimEnd()) handleSend();
   };
 
   return (

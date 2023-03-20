@@ -4,14 +4,20 @@ import { CustomAvatar } from "components/custom-avatar";
 import MenuPopover from "components/menu-popover";
 import ConfirmDialog from "components/confirm-dialog";
 import Button from "components/Button";
-import { Content } from "./styled";
+import { Content, StyledContentEditable } from "./styled";
 import MoreVert from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
+
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 import useToggle from "hooks/useToggle";
 import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
 import { useDeleteComment } from "../use-group-action";
+import { MentionNode } from "components/mentions-plugin/MentionNode";
+import MentionsPlugin from "components/mentions-plugin";
 
 export const Comment = ({ id, userId, postId, name, text, time }) => {
   const [openPopover, setOpenPopover] = useState(null);
@@ -38,9 +44,12 @@ export const Comment = ({ id, userId, postId, name, text, time }) => {
             <Typography variant="subtitle2" fontSize={13}>
               {name}
             </Typography>
-            <Typography variant="body2" fontSize={13} color="text.secondary">
-              {text}
-            </Typography>
+            <LexicalComposer initialConfig={{ editorState: text, nodes: [MentionNode], editable: false }}>
+              <Box sx={{ width: "100%" }}>
+                <PlainTextPlugin contentEditable={<StyledContentEditable />} />
+                <MentionsPlugin />
+              </Box>
+            </LexicalComposer>
           </Content>
 
           {canDelete && (
