@@ -23,8 +23,8 @@ const Login = () => {
     if (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     } else {
-      const userResponse = await userApi.getUserById(data.session.user.id);
-      if (!userResponse.data?.isAccountComplete) router.push("/create-account");
+      const sessionResponse = await authApi.getSession();
+      if (!sessionResponse.data?.isAccountComplete) router.push("/create-account");
       else router.push("/");
     }
 

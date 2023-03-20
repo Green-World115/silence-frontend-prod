@@ -29,3 +29,7 @@ export const changePassword = async (password) => {
   if (error) throw error;
   else return data;
 };
+
+export const getSession = async () => {
+  return supabase.rpc("get_session");
+};
