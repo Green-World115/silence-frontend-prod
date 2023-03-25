@@ -10,7 +10,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 import useToggle from "hooks/useToggle";
 import { useUser } from "feature/auth/context";
@@ -19,7 +18,7 @@ import { useDeleteComment } from "../use-group-action";
 import { MentionNode } from "components/mentions-plugin/MentionNode";
 import MentionsPlugin from "components/mentions-plugin";
 
-export const Comment = ({ id, userId, postId, name, text, time }) => {
+export const Comment = ({ id, userId, postId, name, text, content, time }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
 
@@ -44,12 +43,16 @@ export const Comment = ({ id, userId, postId, name, text, time }) => {
             <Typography variant="subtitle2" fontSize={13}>
               {name}
             </Typography>
-            <LexicalComposer initialConfig={{ editorState: text, nodes: [MentionNode], editable: false }}>
-              <Box sx={{ width: "100%" }}>
-                <PlainTextPlugin contentEditable={<StyledContentEditable />} />
-                <MentionsPlugin />
-              </Box>
-            </LexicalComposer>
+            {content ? (
+              <LexicalComposer initialConfig={{ editorState: content, nodes: [MentionNode], editable: false }}>
+                <Box sx={{ width: "100%" }}>
+                  <PlainTextPlugin contentEditable={<StyledContentEditable />} />
+                  <MentionsPlugin />
+                </Box>
+              </LexicalComposer>
+            ) : (
+              <Typography>{text}</Typography>
+            )}
           </Content>
 
           {canDelete && (
@@ -75,7 +78,6 @@ export const Comment = ({ id, userId, postId, name, text, time }) => {
           Delete
         </MenuItem>
       </MenuPopover>
-
       <ConfirmDialog
         open={showConfirmDelete}
         title="Delete comment"

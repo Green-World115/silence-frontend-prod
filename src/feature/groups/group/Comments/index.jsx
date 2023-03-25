@@ -33,6 +33,7 @@ export const Comments = ({ postId, commentCount }) => {
               name={`${comment.user.firstName} ${comment.user.lastName}`}
               text={comment.text}
               time={comment.time}
+              content={comment.content}
             />
           ))}
         </Stack>

@@ -31,7 +31,7 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCo
   };
 
   return (
-    <Card sx={{ overflow: "visible", position: "relative" }}>
+    <Card>
       <CardHeader
         disableTypography
         avatar={<CustomAvatar name={name} src={image} />}
