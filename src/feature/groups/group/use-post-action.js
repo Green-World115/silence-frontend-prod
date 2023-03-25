@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import * as postApi from "api/post";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -23,4 +23,18 @@ export const usePosts = () => {
   });
 
   return post;
+};
+
+export const useCreatePost = (groupId) => {
+  const queryClient = useQueryClient();
+
+  const createPostMutation = useMutation({
+    mutationFn: postApi.createPost,
+    onError: (e) => console.log(e),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["posts", groupId]);
+    },
+  });
+
+  return createPostMutation;
 };

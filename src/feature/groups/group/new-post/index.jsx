@@ -1,30 +1,29 @@
 import React, { useState } from "react";
-import { Card, InputBase } from "@mui/material";
+import { Card, IconButton, InputBase } from "@mui/material";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { Box } from "@mui/system";
 import Button from "components/Button";
 import { useUser } from "feature/auth/context";
 import { useRouter } from "next/router";
-import * as postApi from "api/post";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCreatePost } from "../use-post-action";
+import Upload from "./Upload";
+import useToggle from "hooks/useToggle";
+
 const NewPost = () => {
   const user = useUser();
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { id: groupId } = router.query;
   const [value, setValue] = useState("");
+  const [files, setFiles] = useState([]);
+  const [showFiles, toggleFiles] = useToggle(false);
+
+  const createPostMutation = useCreatePost(groupId);
 
   const handleChange = (e) => setValue(e.target.value);
-  const post = useMutation({
-    mutationFn: postApi.createPost,
-    onError: (e) => console.log(e),
-    onSuccess: () => {
-      setValue("");
 
-      queryClient.invalidateQueries(["posts", groupId]);
-    },
-  });
-  const handleSubmit = () => post.mutate({ userId: user.id, groupId, text: value, media: [] });
+  const handleSubmit = () =>
+    createPostMutation.mutate({ userId: user.id, groupId, text: value, media: [] }, { onSuccess: () => setValue("") });
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && value.trim()) handleSubmit();
@@ -46,8 +45,20 @@ const NewPost = () => {
         onChange={handleChange}
         onKeyDown={handleEnter}
       />
+      {!showFiles && (
+        <Box display="flex" justifyContent="flex-end" mt={2}>
+          <IconButton onClick={toggleFiles}>
+            <AddPhotoAlternateIcon />
+          </IconButton>
+        </Box>
+      )}
+      {showFiles && <Upload onChangeFiles={setFiles} files={files} />}
       <Box display="flex" justifyContent="flex-end" mt={2}>
-        <Button disabled={!value || post.isLoading} onClick={handleSubmit} loading={post.isLoading}>
+        <Button
+          disabled={!value.trim() || createPostMutation.isLoading}
+          onClick={handleSubmit}
+          loading={createPostMutation.isLoading}
+        >
           Post
         </Button>
       </Box>

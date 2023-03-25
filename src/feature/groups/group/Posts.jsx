@@ -1,9 +1,9 @@
 import { Box, Grid, Stack } from "@mui/material";
 import Button from "components/Button";
 import React from "react";
-import NewPost from "./NewPost";
+import NewPost from "./new-post";
 import Post from "./Post";
-import { usePosts } from "./use-posts";
+import { usePosts } from "./use-post-action";
 
 const Posts = () => {
   const posts = usePosts();

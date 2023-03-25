@@ -108,7 +108,7 @@ export default function MentionsPlugin({ options, onQueryChange }) {
         menuRenderFn={(anchorElementRef, { selectOptionAndCleanUp, setHighlightedIndex }) => {
           if (anchorElementRef.current && options.length > 0)
             return (
-              <MenuPopover open={anchorElementRef.current} disabledArrow arrow="top-left">
+              <MenuPopover open={anchorElementRef.current} disabledArrow arrow="top-left" sx={{ minWidth: "200px" }}>
                 {options.map((option, index) => (
                   <MenuItem
                     key={index}
