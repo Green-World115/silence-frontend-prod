@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+  MenuItem,
+  CardMedia,
+  Box,
+} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CustomAvatar } from "components/custom-avatar";
 import Comments from "../Comments";
@@ -12,7 +23,9 @@ import useToggle from "hooks/useToggle";
 import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
 import { useDeletePost } from "../use-group-action";
-const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCount, time }) => {
+import config from "@config/index";
+import Image from "next/image";
+const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCount, time, media }) => {
   const name = `${firstName} ${lastName || ""}`;
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
@@ -29,6 +42,8 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCo
   const handleConfirmDelete = () => {
     deleteMutation.mutate(null, { onSuccess: () => toggleConfirmDelete() });
   };
+
+  console.log(`${config.supabaseStorageUrl}/public/${media[0]}`);
 
   return (
     <Card>
@@ -56,6 +71,15 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCo
       <CardContent>
         <Stack spacing={3}>
           <Typography variant="body1">{text}</Typography>
+
+          <Image
+            src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
+            width="0"
+            height="0"
+            sizes="100vw"
+            style={{ width: "100%", height: "auto" }}
+          />
+
           <Divider />
           <Comments postId={id} commentCount={commentCount} />
           <NewComment postId={id} />

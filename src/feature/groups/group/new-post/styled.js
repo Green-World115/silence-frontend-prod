@@ -28,9 +28,10 @@ export const UploadContainer = styled("div")`
 export const ImageContainer = styled("div")`
   position: relative;
   display: flex;
-  height: 100px;
-  width: 33%;
+  height: 300px;
+  width: 100%;
   overflow: hidden;
+  object-fit: contain;
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
   border: 1px solid;
   border-color: ${(props) => `${props.theme.palette.divider}`};

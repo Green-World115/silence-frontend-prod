@@ -22,8 +22,18 @@ const NewPost = () => {
 
   const handleChange = (e) => setValue(e.target.value);
 
-  const handleSubmit = () =>
-    createPostMutation.mutate({ userId: user.id, groupId, text: value, media: [] }, { onSuccess: () => setValue("") });
+  const handleSubmit = () => {
+    createPostMutation.mutate(
+      { userId: user.id, groupId, text: value, files },
+      {
+        onSuccess: () => {
+          setValue("");
+          setFiles([]);
+          toggleFiles(false);
+        },
+      }
+    );
+  };
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && value.trim()) handleSubmit();

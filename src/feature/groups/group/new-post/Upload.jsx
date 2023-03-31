@@ -10,7 +10,7 @@ import uniqueId from "lodash/uniqueId";
 const Upload = ({ files, onChangeFiles }) => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: true,
-    maxFiles: 3,
+    maxFiles: 1,
     accept: { "image/*": [] },
     onDropAccepted: (acceptedFiles) => {
       const addedFiles = acceptedFiles.map((file) =>
@@ -31,10 +31,10 @@ const Upload = ({ files, onChangeFiles }) => {
 
   return (
     <Container spacing={2}>
-      {files.length !== 3 && (
+      {files.length !== 1 && (
         <UploadContainer {...getRootProps()}>
           <AddPhotoAlternateIcon />
-          <Typography variant="subtitle1">Add photos</Typography>
+          <Typography variant="subtitle1">Add photo</Typography>
           <Typography variant="caption" color="text.secondary">
             or drag and drop
           </Typography>

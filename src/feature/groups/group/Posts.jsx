@@ -30,6 +30,7 @@ const Posts = () => {
                   text={post.text}
                   commentCount={post.commentCount}
                   time={post.time}
+                  media={post.media}
                 />
               ))}
             </React.Fragment>

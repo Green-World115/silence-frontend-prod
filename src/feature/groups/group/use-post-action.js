@@ -1,6 +1,8 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import * as postApi from "api/post";
+import * as fileApi from "api/file";
+
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 export const usePosts = () => {
@@ -29,7 +31,16 @@ export const useCreatePost = (groupId) => {
   const queryClient = useQueryClient();
 
   const createPostMutation = useMutation({
-    mutationFn: postApi.createPost,
+    mutationFn: async (data) => {
+      const media = [];
+      for (let i = 0; i < data.files.length; i++) {
+        const file = data.files[i];
+        const { data: response, error } = await fileApi.uploadPostImage(data.userId, file);
+        if (error) throw error;
+        media.push(`${response.path}`);
+      }
+      await postApi.createPost({ ...data, media });
+    },
     onError: (e) => console.log(e),
     onSuccess: () => {
       queryClient.invalidateQueries(["posts", groupId]);

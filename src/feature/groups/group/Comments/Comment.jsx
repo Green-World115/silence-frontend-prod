@@ -9,7 +9,8 @@ import MoreVert from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 
 import useToggle from "hooks/useToggle";
 import { useUser } from "feature/auth/context";
@@ -46,8 +47,9 @@ export const Comment = ({ id, userId, postId, name, text, content, time }) => {
             {content ? (
               <LexicalComposer initialConfig={{ editorState: content, nodes: [MentionNode], editable: false }}>
                 <Box sx={{ width: "100%" }}>
-                  <PlainTextPlugin contentEditable={<StyledContentEditable />} />
-                  <MentionsPlugin />
+                  <RichTextPlugin contentEditable={<StyledContentEditable />} />
+
+                  {/* <LinkPlugin /> */}
                 </Box>
               </LexicalComposer>
             ) : (
