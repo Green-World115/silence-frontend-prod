@@ -20,13 +20,13 @@ export const getServerSideProps = async (ctx) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (session) {
-    const { data } = await userApi.getUserById(session.user.id);
+  const { data } = await supabase.rpc("get_session");
 
+  if (data) {
     if (data && !data?.isAccountComplete) {
       return {
         props: {
-          initialSession: { ...session, user: data },
+          initialSession: data,
         },
       };
     } else if (data) {

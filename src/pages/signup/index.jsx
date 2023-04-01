@@ -16,13 +16,9 @@ export default SignUpPage;
 
 export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx);
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data } = await supabase.rpc("get_session");
 
-  if (session) {
-    const { data } = await userApi.getUserById(session.user.id);
-
+  if (data) {
     if (data && !data?.isAccountComplete) {
       return {
         redirect: {
