@@ -29,7 +29,7 @@ const NewPost = () => {
         onSuccess: () => {
           setValue("");
           setFiles([]);
-          toggleFiles(false);
+          if (showFiles) toggleFiles();
         },
       }
     );

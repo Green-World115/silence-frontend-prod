@@ -8,8 +8,9 @@ import { Badge, Box, Stack } from "@mui/material";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import { Search, ToolBar } from "./styled";
-import { useResponsive } from "../../hooks/useResponsive";
+import { useResponsive } from "../../../hooks/useResponsive";
 import { useRouter } from "next/router";
+import NotificationsPopover from "./NotificationsPopover";
 
 export default function SearchAppBar() {
   const { tab } = useResponsive();
@@ -25,10 +26,6 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
         )}
-        {/* <Search>
-          <SearchIcon sx={{ mr: 1 }} />
-          <InputBase fullWidth placeholder="Search" />
-        </Search> */}
 
         <Box flexGrow={1} />
 
@@ -38,11 +35,7 @@ export default function SearchAppBar() {
               <ChatBubbleOutlineOutlinedIcon color="primary" />
             </Badge>
           </IconButton>
-          <IconButton>
-            <Badge color="primary">
-              <NotificationsNoneOutlinedIcon color="primary" />
-            </Badge>
-          </IconButton>
+          <NotificationsPopover />
         </Stack>
       </ToolBar>
     </AppBar>

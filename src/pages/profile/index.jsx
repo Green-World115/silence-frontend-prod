@@ -1,4 +1,4 @@
-import DashboardLayout from "components/DashboardLayout";
+import DashboardLayout from "components/dashboard-layout";
 import Profile from "feature/user/profile";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 

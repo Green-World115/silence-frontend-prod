@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import DashboardLayout from "components/DashboardLayout";
+import DashboardLayout from "components/dashboard-layout";
 import React from "react";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 

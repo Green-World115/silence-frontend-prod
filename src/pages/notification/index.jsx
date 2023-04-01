@@ -1,4 +1,4 @@
-import DashboardLayout from "components/DashboardLayout";
+import DashboardLayout from "components/dashboard-layout";
 import Notification from "feature/notification";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 

@@ -1,4 +1,4 @@
-import DashboardLayout from "components/DashboardLayout";
+import DashboardLayout from "components/dashboard-layout";
 import GroupList from "feature/groups/group-list";
 import React from "react";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";

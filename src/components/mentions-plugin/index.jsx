@@ -82,7 +82,7 @@ export default function MentionsPlugin({ options, onQueryChange }) {
   const onSelectOption = useCallback(
     (selectedOption, nodeToReplace, closeMenu) => {
       editor.update(() => {
-        const mentionNode = $createMentionNode(selectedOption.name);
+        const mentionNode = $createMentionNode(selectedOption);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }

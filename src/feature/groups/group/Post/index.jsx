@@ -1,20 +1,9 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  IconButton,
-  Stack,
-  Typography,
-  MenuItem,
-  CardMedia,
-  Box,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CustomAvatar } from "components/custom-avatar";
 import Comments from "../Comments";
-import NewComment from "../NewComment";
+import NewComment from "../new-comment";
 import MenuPopover from "components/menu-popover";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmDialog from "components/confirm-dialog";
@@ -72,13 +61,16 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCo
         <Stack spacing={3}>
           <Typography variant="body1">{text}</Typography>
 
-          <Image
-            src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
-            width="0"
-            height="0"
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
-          />
+          {media.length > 0 && (
+            <Image
+              src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
+              width="0"
+              height="0"
+              sizes="100vw"
+              style={{ width: "100%", height: "auto" }}
+              alt="post-image"
+            />
+          )}
 
           <Divider />
           <Comments postId={id} commentCount={commentCount} />
