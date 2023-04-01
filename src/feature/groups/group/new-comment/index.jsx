@@ -30,7 +30,7 @@ const NewComment = ({ postId }) => {
   const commentMutation = useComment(postId);
 
   const isEmpty = useMemo(() => !editorState?.root?.children[0]?.children[0]?.text?.trim(), [editorState]);
-  const handleSubmit = () => commentMutation.mutate({ userId: user.id, postId, content: JSON.stringify(editorState) });
+  const handleSubmit = () => commentMutation.mutate({ userId: user.id, postId, content: editorState });
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && !isEmpty) handleSubmit();

@@ -25,7 +25,7 @@ export class MentionNode extends TextNode {
     return new MentionNode(node.__mention, node.__text, node.__key);
   }
   static importJSON(serializedNode) {
-    const node = $createMentionNode(serializedNode.mentionName);
+    const node = $createMentionNode(serializedNode.mention);
     node.setTextContent(serializedNode.text);
     node.setFormat(serializedNode.format);
     node.setDetail(serializedNode.detail);
@@ -34,15 +34,15 @@ export class MentionNode extends TextNode {
     return node;
   }
 
-  constructor(mentionName, text, key) {
-    super(text ?? mentionName, key);
-    this.__mention = mentionName;
+  constructor(mention, text, key) {
+    super(text ?? mention.name, key);
+    this.__mention = mention;
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      mentionName: this.__mention,
+      mention: this.__mention,
       type: "mention",
       version: 1,
     };
@@ -90,8 +90,8 @@ export class MentionNode extends TextNode {
   }
 }
 
-export function $createMentionNode(mentionName) {
-  const mentionNode = new MentionNode(mentionName);
+export function $createMentionNode(mention) {
+  const mentionNode = new MentionNode(mention);
   mentionNode.setMode("segmented").toggleDirectionless();
   return mentionNode;
 }

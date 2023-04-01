@@ -23,4 +23,11 @@ const deletePost = async (id) => {
   if (!head(data)) throw new ApiError("Post not found", httpStatus.NOT_FOUND);
   return null;
 };
+
+
+const createPost = () => {
+  
+}
+
+
 export default { deletePost, getPost };
