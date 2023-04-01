@@ -1,23 +1,25 @@
-import { Box, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
+import {
+  Box,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemSecondaryAction,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import notificationType from "constants/notification-type";
 import React from "react";
 import { formatToNow } from "utils/date-formatter";
+import { Indicator } from "./styled";
 
 const NotificationItem = ({ notification }) => {
   const { type, read, createdAt, user } = notification;
   return (
-    <ListItemButton
-      sx={{
-        py: 1.5,
-        px: 2.5,
-        mt: "1px",
-      }}
-    >
+    <ListItemButton sx={{ py: 1 }}>
       <ListItemAvatar>
         <CustomAvatar name={user.firstName} src={user.avatar} />
       </ListItemAvatar>
-
       <ListItemText
         disableTypography
         primary={formatNotification(type, user)}
@@ -27,6 +29,11 @@ const NotificationItem = ({ notification }) => {
           </Typography>
         }
       />
+      {!read && (
+        <ListItemSecondaryAction>
+          <Indicator />
+        </ListItemSecondaryAction>
+      )}
     </ListItemButton>
   );
 };

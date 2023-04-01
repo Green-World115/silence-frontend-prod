@@ -9,3 +9,10 @@ export const Search = styled("div")`
   flex-grow: 1;
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
 `;
+
+export const Indicator = styled("div")`
+  height: 10px;
+  width: 10px;
+  background-color: ${(props) => props.theme.palette.primary.main};
+  border-radius: 5px;
+`;
