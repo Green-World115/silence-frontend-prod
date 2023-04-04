@@ -5,7 +5,7 @@ import * as React from "react";
 
 import { $createMentionNode } from "./MentionNode";
 import MenuPopover from "components/menu-popover";
-import { MenuItem, Stack, Typography } from "@mui/material";
+import { MenuItem, Stack, Typography, Popper, Paper } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 
 const PUNCTUATION = "\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";
@@ -108,25 +108,34 @@ export default function MentionsPlugin({ options, onQueryChange }) {
         menuRenderFn={(anchorElementRef, { selectOptionAndCleanUp, setHighlightedIndex }) => {
           if (anchorElementRef.current && options.length > 0)
             return (
-              <MenuPopover open={anchorElementRef.current} disabledArrow arrow="top-left" sx={{ minWidth: "200px" }}>
-                {options.map((option, index) => (
-                  <MenuItem
-                    key={index}
-                    onClick={() => {
-                      setHighlightedIndex(index);
-                      selectOptionAndCleanUp(option);
-                    }}
-                    onMouseEnter={() => {
-                      setHighlightedIndex(index);
-                    }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                      <CustomAvatar name={option.name} sx={{ height: 30, width: 30, fontSize: "10px" }} />
-                      <Typography variant="body2"> {option.name}</Typography>
-                    </Stack>
-                  </MenuItem>
-                ))}
-              </MenuPopover>
+              <Popper
+                open={Boolean(anchorElementRef.current)}
+                anchorEl={anchorElementRef.current}
+                disabledArrow
+                placement="bottom-start"
+                sx={{ minWidth: "200px" }}
+              >
+                <Paper elevation={2} sx={{ p: 1 }}>
+                  {options.map((option, index) => (
+                    <MenuItem
+                      key={index}
+                      onClick={() => {
+                        setHighlightedIndex(index);
+                        selectOptionAndCleanUp(option);
+                      }}
+                      sx={{ borderRadius: 0.75 }}
+                      onMouseEnter={() => {
+                        setHighlightedIndex(index);
+                      }}
+                    >
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        <CustomAvatar name={option.name} sx={{ height: 30, width: 30, fontSize: "10px" }} />
+                        <Typography variant="body2"> {option.name}</Typography>
+                      </Stack>
+                    </MenuItem>
+                  ))}
+                </Paper>
+              </Popper>
             );
           return null;
         }}
