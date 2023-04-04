@@ -1,22 +1,21 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import Info from "./Info";
-import { useProfile } from "../hooks/useProfile";
+import { useProfile } from "../hooks/use-profile";
 import Avatar from "./Avatar";
 
 const General = () => {
-  const { profile, loading } = useProfile();
+  const { profileQuery } = useProfile();
 
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} md={3}>
-        <Avatar />
+        {!profileQuery.isLoading && <Avatar avatar={profileQuery.data?.avatar} />}
       </Grid>
       <Grid item xs={12} md={9}>
-        {!loading && <Info initialValues={profile} />}
+        {!profileQuery.isLoading && <Info initialValues={profileQuery.data} />}
       </Grid>
     </Grid>
   );
 };
-
 export default General;

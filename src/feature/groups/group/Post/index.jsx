@@ -32,7 +32,6 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCo
     deleteMutation.mutate(null, { onSuccess: () => toggleConfirmDelete() });
   };
 
-  console.log(`${config.supabaseStorageUrl}/public/${media[0]}`);
 
   return (
     <Card>

@@ -85,7 +85,7 @@ export const addComment = ({ userId, postId, content }) => {
 export const getCommentsByPost = (postId) => {
   return supabase
     .from("post_comments")
-    .select("id, text, content, createdAt, user: users(id, firstName, lastName, image)")
+    .select("id, text, content, createdAt, user: users(id, firstName, lastName, avatar)")
     .eq("postId", postId)
     .throwOnError();
 };

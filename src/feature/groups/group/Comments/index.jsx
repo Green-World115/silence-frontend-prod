@@ -31,6 +31,7 @@ export const Comments = ({ postId, commentCount }) => {
               userId={comment.user.id}
               postId={postId}
               name={`${comment.user.firstName} ${comment.user.lastName}`}
+              avatar={comment.user.avatar}
               text={comment.text}
               time={comment.time}
               content={comment.content}

@@ -18,8 +18,9 @@ import roles from "constants/roles";
 import { useDeleteComment } from "../use-group-action";
 import { MentionNode } from "components/mentions-plugin/MentionNode";
 import MentionsPlugin from "components/mentions-plugin";
+import config from "@config/index";
 
-export const Comment = ({ id, userId, postId, name, text, content, time }) => {
+export const Comment = ({ id, userId, postId, name, text, content, time, avatar }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
 
@@ -37,7 +38,7 @@ export const Comment = ({ id, userId, postId, name, text, content, time }) => {
   };
   return (
     <Stack direction="row" spacing={2}>
-      <CustomAvatar name={name} />
+      <CustomAvatar name={name} src={`${config.supabaseStorageUrl}/public/users/${avatar}`} />
       <Box>
         <Box display="flex" alignItems="center">
           <Content>

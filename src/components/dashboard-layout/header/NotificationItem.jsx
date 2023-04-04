@@ -12,13 +12,14 @@ import notificationType from "constants/notification-type";
 import React from "react";
 import { formatToNow } from "utils/date-formatter";
 import { Indicator } from "./styled";
+import config from "@config/index";
 
 const NotificationItem = ({ notification }) => {
   const { type, read, createdAt, user } = notification;
   return (
     <ListItemButton sx={{ py: 1 }}>
       <ListItemAvatar>
-        <CustomAvatar name={user.firstName} src={user.avatar} />
+        <CustomAvatar name={user.firstName} src={`${config.supabaseStorageUrl}/public/users/${user.avatar}`} />
       </ListItemAvatar>
       <ListItemText
         disableTypography

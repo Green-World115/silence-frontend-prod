@@ -24,16 +24,18 @@ const NotificationsPopover = () => {
       <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 340, p: 0 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ py: 2, px: 2.5 }}>
           <Typography variant="subtitle1">Notifications</Typography>
-          <Button variant="text" onClick={handleReadAll} size="small">
-            Read all
-          </Button>
+          {unreadCount > 0 && (
+            <Button variant="text" onClick={handleReadAll} size="small">
+              Read all
+            </Button>
+          )}
         </Stack>
         <Divider sx={{ borderStyle: "dashed" }} />
 
         <Scrollbar sx={{ height: { xs: 360, sm: 460, overflow: "auto" } }}>
           <List disablePadding>
             {notificationQuery.data?.map((notification) => (
-              <NotificationItem notification={notification} />
+              <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
         </Scrollbar>

@@ -18,6 +18,7 @@ import { useUser } from "feature/auth/context";
 import { useRouter } from "next/router";
 import Collapse from "./Collapse";
 import { CustomAvatar } from "components/custom-avatar";
+import config from "@config/index";
 const drawerWidth = 240;
 
 const Sidebar = ({ window }) => {
@@ -38,7 +39,7 @@ const Sidebar = ({ window }) => {
     <Container>
       <Box>
         <UserContainer>
-          <CustomAvatar name={user?.firstName} />
+          <CustomAvatar name={user?.firstName} src={`${config.supabaseStorageUrl}/public/users/${user.avatar}`} />
           <Box ml={2} sx={{ overflow: "hidden", textOverflow: "ellipsis", color: "#ffffff" }}>
             <Typography variant="body2" color="#ffffff">
               {user?.firstName}
