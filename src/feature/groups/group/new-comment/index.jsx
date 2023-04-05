@@ -13,6 +13,8 @@ import { MentionNode } from "components/mentions-plugin/MentionNode";
 import { useSearchUser } from "../use-search-user";
 import { useComment } from "../use-comment";
 import { InputContainer, StyledContentEditable } from "./styled";
+import imageUrls from "constants/image-urls";
+import { useResponsive } from "hooks/useResponsive";
 
 const editorConfig = {
   onError(error) {
@@ -26,6 +28,7 @@ const NewComment = ({ postId }) => {
   const user = useUser();
   const [searchText, setSearchText] = useState("");
 
+  const { mobile } = useResponsive();
   const searchUserQuery = useSearchUser(searchText);
   const commentMutation = useComment(postId);
 
@@ -38,7 +41,9 @@ const NewComment = ({ postId }) => {
 
   return (
     <Stack direction="row" spacing={2} alignItems="center">
-      <CustomAvatar name={user.firstName} />
+      {!mobile && (
+        <CustomAvatar name={user.firstName} src={user.avatar && `${imageUrls.AVATAR_BASE_URL}/${user.avatar}`} />
+      )}
       <LexicalComposer initialConfig={editorConfig}>
         <InputContainer>
           <PlainTextPlugin contentEditable={<StyledContentEditable onKeyDown={handleEnter} />} />
@@ -46,7 +51,6 @@ const NewComment = ({ postId }) => {
           <OnChangePlugin onChange={(e) => setEditorState(e.toJSON())} />
         </InputContainer>
       </LexicalComposer>
-
       <Box sx={{ minWidth: 2 }}>
         <IconButton color="primary" disabled={isEmpty} onClick={handleSubmit}>
           <Icon icon="material-symbols:send" fontSize={30} />

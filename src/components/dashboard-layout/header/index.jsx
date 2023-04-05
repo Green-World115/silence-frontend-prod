@@ -12,7 +12,7 @@ import { useResponsive } from "../../../hooks/useResponsive";
 import { useRouter } from "next/router";
 import NotificationsPopover from "./NotificationsPopover";
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ onToggleNav }) {
   const { tab } = useResponsive();
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export default function SearchAppBar() {
     <AppBar elevation={0} color="inherit" position="relative">
       <ToolBar sx={{ justifyContent: "space-between" }}>
         {tab && (
-          <IconButton size="large" edge="start" color="inherit">
+          <IconButton size="large" edge="start" color="inherit" onClick={onToggleNav}>
             <MenuIcon />
           </IconButton>
         )}

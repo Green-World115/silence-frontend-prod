@@ -26,6 +26,7 @@ const Posts = () => {
                   userId={post.user.id}
                   firstName={post.user.firstName}
                   lastName={post.user.lastName}
+                  avatar={post.user.avatar}
                   image={post.user.image}
                   text={post.text}
                   commentCount={post.commentCount}

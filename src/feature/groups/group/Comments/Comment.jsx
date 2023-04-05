@@ -10,15 +10,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 
 import useToggle from "hooks/useToggle";
 import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
 import { useDeleteComment } from "../use-group-action";
 import { MentionNode } from "components/mentions-plugin/MentionNode";
-import MentionsPlugin from "components/mentions-plugin";
-import config from "@config/index";
+import imageUrls from "constants/image-urls";
 
 export const Comment = ({ id, userId, postId, name, text, content, time, avatar }) => {
   const [openPopover, setOpenPopover] = useState(null);
@@ -38,7 +36,7 @@ export const Comment = ({ id, userId, postId, name, text, content, time, avatar 
   };
   return (
     <Stack direction="row" spacing={2}>
-      <CustomAvatar name={name} src={`${config.supabaseStorageUrl}/public/users/${avatar}`} />
+      <CustomAvatar name={name} src={avatar && `${imageUrls.AVATAR_BASE_URL}/${avatar}`} />
       <Box>
         <Box display="flex" alignItems="center">
           <Content>

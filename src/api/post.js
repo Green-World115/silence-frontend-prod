@@ -5,7 +5,7 @@ export const getGroupsByUserId = (userId) => {
   return supabase
     .from("post_groups")
     .select(
-      "id, name,category: post_group_categories(id, name), userPostGroup: user_post_groups!inner(*,isAccepted), users:user_post_groups(user: users(firstName, image)), userCount: user_post_groups(count), postCount: posts(count)"
+      "id, name,category: post_group_categories(id, name), userPostGroup: user_post_groups!inner(*,isAccepted), users:user_post_groups(user: users(firstName, avatar)), userCount: user_post_groups(count), postCount: posts(count)"
     )
     .eq("user_post_groups.userId", userId)
     .limit(3, { foreignTable: "user_post_groups" });
@@ -63,7 +63,7 @@ export const getPostsByGroup = async (groupId, page = 1) => {
   const { data, count } = await supabase
     .from("posts")
     .select(
-      "id, postGroupId, text, media, createdAt, user:users(id, firstName, lastName, image), comments: post_comments(count)",
+      "id, postGroupId, text, media, createdAt, user:users(id, firstName, lastName, avatar), comments: post_comments(count)",
       {
         count: "exact",
       }

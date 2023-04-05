@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
-import Sidebar from "../Sidebar";
 import Header from "./header";
+import NavVertical from "./nav/NavVertical";
 
 const DashboardLayout = ({ children, maxWidth, title }) => {
+  const [openNav, setOpenNav] = useState(false);
+
+  const toggleNav = () => setOpenNav(!openNav);
+
   return (
     <Box sx={{ display: "flex" }}>
-      <Sidebar />
+      <NavVertical open={openNav} onClose={toggleNav} />
       <Box sx={{ maxHeight: "100%", width: "100%" }}>
-        <Header />
+        <Header onToggleNav={toggleNav} />
         <Box
           component="main"
           sx={{

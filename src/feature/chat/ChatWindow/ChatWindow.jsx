@@ -42,7 +42,10 @@ const ChatWindow = () => {
               <HeaderSkeleton />
             ) : (
               <Stack direction="row" spacing={2} alignItems="center">
-                <CustomAvatar name={chatGroup.data?.name} />
+                <CustomAvatar
+                  name={chatGroup.data?.name}
+                  src={chatGroup.data?.avatar && `${imageUrls.AVATAR_BASE_URL}/${chatGroup.data?.avatar}`}
+                />
                 <Typography variant="subtitle2">{chatGroup.data?.name}</Typography>
               </Stack>
             )}
@@ -66,6 +69,7 @@ const ChatWindow = () => {
                 <ChatItem
                   key={message.id}
                   name={message.user?.firstName}
+                  avatar={message.user?.avatar}
                   content={message.content}
                   time="8 hours ago"
                   guest={message.user?.id !== user.id}

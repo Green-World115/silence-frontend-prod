@@ -14,7 +14,8 @@ import roles from "constants/roles";
 import { useDeletePost } from "../use-group-action";
 import config from "@config/index";
 import Image from "next/image";
-const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCount, time, media }) => {
+import imageUrls from "constants/image-urls";
+const Post = ({ id, groupId, userId, firstName, lastName, text, avatar, commentCount, time, media }) => {
   const name = `${firstName} ${lastName || ""}`;
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
@@ -32,12 +33,11 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, image, commentCo
     deleteMutation.mutate(null, { onSuccess: () => toggleConfirmDelete() });
   };
 
-
   return (
     <Card>
       <CardHeader
         disableTypography
-        avatar={<CustomAvatar name={name} src={image} />}
+        avatar={<CustomAvatar name={name} src={`${imageUrls.AVATAR_BASE_URL}/${avatar}`} />}
         title={
           <Typography color="inherit" variant="subtitle2">
             {name}

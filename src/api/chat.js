@@ -5,7 +5,7 @@ export const getMessages = (chatGroupId, page = 1) => {
   const { from, to } = getPagination(page, 10);
   return supabase
     .from("chat_messages")
-    .select("*, user:users(firstName,id)", { count: "exact" })
+    .select("*, user:users(firstName, id, avatar)", { count: "exact" })
     .eq("chatGroupId", chatGroupId)
     .order("createdAt", { ascending: false })
     .range(from, to);

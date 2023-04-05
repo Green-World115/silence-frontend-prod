@@ -2,8 +2,9 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import React from "react";
 import { ChatItemContent, ChatItemText, ChatItemContainer } from "./styled";
+import imageUrls from "constants/image-urls";
 
-const GuestChatItem = ({ content, time, avatar, name, guest }) => {
+const ChatItem = ({ content, time, avatar, name, guest }) => {
   return (
     <ChatItemContainer guest={guest}>
       {guest && (
@@ -11,8 +12,8 @@ const GuestChatItem = ({ content, time, avatar, name, guest }) => {
           size="sm"
           name={name}
           alt={name}
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 30, height: 30, mr: 2 }}
+          src={avatar && `${imageUrls.AVATAR_BASE_URL}/${avatar}`}
+          sx={{ width: 30, height: 30, mr: 2, fontSize: 16 }}
         />
       )}
       <ChatItemContent guest={guest}>
@@ -27,4 +28,4 @@ const GuestChatItem = ({ content, time, avatar, name, guest }) => {
   );
 };
 
-export default GuestChatItem;
+export default ChatItem;
