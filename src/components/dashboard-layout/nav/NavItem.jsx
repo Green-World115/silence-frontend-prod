@@ -80,7 +80,7 @@ export default function NavItem({ item, depth, open, active, isExternalLink, ...
 
     // Default
     return (
-      <Link component={NextLink} href={path} underline="none">
+      <Link component={NextLink}  href={path} underline="none" >
         {renderContent}
       </Link>
     );

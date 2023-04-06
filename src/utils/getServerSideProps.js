@@ -5,6 +5,8 @@ export const dashboardGetServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx);
   const { data } = await supabase.rpc("get_session");
 
+  console.log(ctx.req);
+
   if (data) {
     if (data && data?.isAccountComplete) {
       return {
