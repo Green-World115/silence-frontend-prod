@@ -4,7 +4,7 @@ import { Box, Stack } from "@mui/system";
 import GroupIcon from "@mui/icons-material/Group";
 import { ChatContainer, EmptyContainer, Header } from "./styled";
 import ChatItem from "./ChatItem";
-import Input from "./Input";
+import NewMessage from "./new-message";
 import { useResponsive } from "../../../hooks/useResponsive";
 import { useMessages } from "../hooks/useMessages";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -78,7 +78,7 @@ const ChatWindow = () => {
             </InfiniteScroll>
           </ChatContainer>
           <Divider />
-          <Input chatGroupId={chatGroup.data?.id} userId={user.id} />
+          <NewMessage chatGroupId={chatGroup.data?.id} userId={user.id} />
         </>
       )}
     </Box>
