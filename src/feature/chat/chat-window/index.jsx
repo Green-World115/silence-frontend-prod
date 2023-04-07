@@ -4,9 +4,9 @@ import { Box, Stack } from "@mui/system";
 import GroupIcon from "@mui/icons-material/Group";
 import { ChatContainer, EmptyContainer, Header } from "./styled";
 import ChatItem from "./ChatItem";
-import NewMessage from "./new-message";
+import NewMessage from "./NewMessage";
 import { useResponsive } from "../../../hooks/useResponsive";
-import { useMessages } from "../hooks/useMessages";
+import { useMessages } from "../hooks/use-messages";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useUser } from "feature/auth/context";
 import { CustomAvatar } from "components/custom-avatar";
@@ -24,6 +24,8 @@ const ChatWindow = () => {
   const user = useUser();
 
   const { messages, pagination, loadNext, chatGroup } = useMessages(type, id);
+
+  console.log(messages);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
@@ -73,6 +75,7 @@ const ChatWindow = () => {
                   content={message.content}
                   time="8 hours ago"
                   guest={message.user?.id !== user.id}
+                  media={message.media}
                 />
               ))}
             </InfiniteScroll>

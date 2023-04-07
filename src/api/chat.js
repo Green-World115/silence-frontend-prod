@@ -30,12 +30,15 @@ export const getChatGroupById = (id) => {
 };
 
 export const sendMessage = (content, media, userId, chatGroupId) => {
-  return supabase.from("chat_messages").insert({
-    content,
-    media,
-    userId,
-    chatGroupId,
-  });
+  return supabase
+    .from("chat_messages")
+    .insert({
+      content,
+      media,
+      userId,
+      chatGroupId,
+    })
+    .throwOnError();
 };
 
 export const searchChat = async (userId, searchText) => {

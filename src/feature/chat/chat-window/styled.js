@@ -1,4 +1,4 @@
-import { alpha, styled } from "@mui/material";
+import { alpha, styled, IconButton } from "@mui/material";
 
 export const Header = styled("div")`
   padding: ${(props) => props.theme.spacing(2)};
@@ -56,4 +56,26 @@ export const EmptyContainer = styled("div")`
   align-items: center;
   justify-content: center;
   height: 100%;
+`;
+
+export const ImageContainer = styled("div")`
+  position: relative;
+  min-height: 300px;
+  margin-bottom: ${(props) => props.theme.spacing(2)};
+`;
+
+export const CloseButton = styled(IconButton)`
+  position: absolute;
+  top: ${(props) => props.theme.spacing(2)};
+  right: ${(props) => props.theme.spacing(2)};
+  z-index: 1;
+`;
+
+export const ChatImageContainer = styled("div")`
+  position: relative;
+  height: 200px;
+  width: 400px;
+  max-width: 80vw;
+  border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
+  overflow: hidden;
 `;
