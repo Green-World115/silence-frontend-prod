@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import Button from "components/Button";
 import { useUser } from "feature/auth/context";
 import { useRouter } from "next/router";
-import { useCreatePost } from "../use-post-action";
+import { useCreatePost } from "../hooks/use-post-action";
 import Upload from "./Upload";
 import useToggle from "hooks/useToggle";
 

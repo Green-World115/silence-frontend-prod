@@ -10,12 +10,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { AutoLinkNode } from "@lexical/link";
 
 import useToggle from "hooks/useToggle";
 import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
-import { useDeleteComment } from "../use-group-action";
-import { MentionNode } from "components/mentions-plugin/MentionNode";
+import { useDeleteComment } from "../hooks/use-group-action";
+import { MentionNode } from "components/lexical/mentions-plugin/MentionNode";
 import imageUrls from "constants/image-urls";
 
 export const Comment = ({ id, userId, postId, name, text, content, time, avatar }) => {
@@ -44,7 +45,9 @@ export const Comment = ({ id, userId, postId, name, text, content, time, avatar 
               {name}
             </Typography>
             {content ? (
-              <LexicalComposer initialConfig={{ editorState: content, nodes: [MentionNode], editable: false }}>
+              <LexicalComposer
+                initialConfig={{ editorState: content, nodes: [MentionNode, AutoLinkNode], editable: false }}
+              >
                 <Box sx={{ width: "100%" }}>
                   <RichTextPlugin contentEditable={<StyledContentEditable />} />
 

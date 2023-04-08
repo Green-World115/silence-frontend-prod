@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import Cover from "./Cover";
+import Cover from "./cover";
 import Posts from "./Posts";
-import { useGroup } from "./use-group";
+import { useGroup } from "./hooks/use-group";
 
 const tabs = [
   { component: <Posts />, name: "Posts", value: "posts" },

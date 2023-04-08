@@ -9,7 +9,7 @@ export const useComment = (postId) => {
 
   const commentMutation = useMutation({
     mutationFn: async (data) => {
-      await postApi.addComment(data);
+      await postApi.addComment({ userId: data.userId, postId: data.postId, content: JSON.stringify(data.content) });
       const mentions = data.content.root.children[0].children.filter((item) => item.type === "mention");
       if (mentions.length > 0) {
         const mentionIds = mentions.map((mention) => mention.mention.id);

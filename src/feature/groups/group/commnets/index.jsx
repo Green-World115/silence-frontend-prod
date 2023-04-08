@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Button from "components/Button";
-import { useComments } from "../use-comments";
+import { useComments } from "../hooks/use-comments";
 import Comment from "./Comment";
 
 export const Comments = ({ postId, commentCount }) => {

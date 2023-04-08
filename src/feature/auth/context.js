@@ -12,10 +12,8 @@ const AuthProvider = ({ children, initialSession }) => {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, _session) => {
       if (_session && (event === "SIGNED_IN" || event === "TOKEN_REFRESHED")) {
-        console.log(_session);
-        setSession({ ...session?.user, ..._session.user });
+        setSession((state) => ({ ...state, ..._session.user }));
       }
-
       if (event === "SIGNED_OUT") {
         setSession(null);
       }
