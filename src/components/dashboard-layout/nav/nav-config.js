@@ -3,14 +3,17 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Groups2Icon from "@mui/icons-material/Groups2";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import SourceIcon from "@mui/icons-material/Source";
-// routes
+import SlideshowIcon from "@mui/icons-material/Slideshow";
+
 const navConfig = [
   {
     items: [
       { title: "Home", path: "/", icon: <HomeIcon /> },
       { title: "Content", path: "/content", icon: <SourceIcon /> },
+      { title: "Live Stream", path: "/live-stream", icon: <SlideshowIcon /> },
       { title: "Meeting Room", path: "/groups", icon: <Groups2Icon /> },
       { title: "Chat", path: "/chat", icon: <ChatBubbleIcon /> },
+
       {
         title: "User",
         path: "/user",

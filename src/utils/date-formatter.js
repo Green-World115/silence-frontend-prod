@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 
 export function formatToNow(date) {
   return date
@@ -7,3 +7,7 @@ export function formatToNow(date) {
       })
     : "";
 }
+
+export const formateDateTime = (date) => {
+  return format(date, "MM/dd/yyyy kk:mm");
+};
