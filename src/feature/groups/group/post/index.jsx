@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CustomAvatar } from "components/custom-avatar";
-import Comments from "../commnets";
+import Comments from "../comments";
 import NewComment from "../new-comment";
 import MenuPopover from "components/menu-popover";
 import DeleteIcon from "@mui/icons-material/Delete";

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Stack } from "@mui/material";
+import map from "lodash/map";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Button from "components/Button";
@@ -24,7 +25,7 @@ export const Comments = ({ postId, commentCount }) => {
       </Button>
       {showComments && (
         <Stack spacing={2} sx={{ mt: 3 }}>
-          {comments?.data?.map((comment) => (
+          {map(comments?.data, (comment) => (
             <Comment
               key={comment.id}
               id={comment.id}
@@ -33,8 +34,9 @@ export const Comments = ({ postId, commentCount }) => {
               name={`${comment.user.firstName} ${comment.user.lastName}`}
               avatar={comment.user.avatar}
               text={comment.text}
-              time={comment.time}
+              createdAt={comment.createdAt}
               content={comment.content}
+              replies={comment.replies}
             />
           ))}
         </Stack>

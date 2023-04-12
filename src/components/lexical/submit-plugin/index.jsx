@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { CLEAR_EDITOR_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
 import { KEY_ENTER_COMMAND } from "lexical";
-import { $isRootTextContentEmptyCurry } from "@lexical/text";
 
 const SubmitPlugin = ({ onSubmit, component }) => {
   const [editor] = useLexicalComposerContext();
@@ -17,10 +16,7 @@ const SubmitPlugin = ({ onSubmit, component }) => {
       KEY_ENTER_COMMAND,
       (e) => {
         if (e?.key === "Enter") {
-          const isComposing = editor.isComposing();
-          const editorState = editor.getEditorState();
-          const isEmpty = editorState.read($isRootTextContentEmptyCurry(isComposing, true));
-          onSubmit(editorState.toJSON(), isEmpty);
+          onSubmit();
         }
         return true;
       },

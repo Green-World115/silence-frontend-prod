@@ -11,7 +11,6 @@ import customShadows from "./customShadows";
 import componentsOverride from "./overrides";
 import GlobalStyles from "./globalStyles";
 
-
 ThemeProvider.propTypes = {
   children: PropTypes.node,
 };
@@ -21,7 +20,7 @@ export default function ThemeProvider({ children }) {
     () => ({
       palette: palette("light"),
       typography,
-      shape: { borderRadius: 8 },
+      shape: { borderRadius: 10 },
       shadows: shadows("light"),
       customShadows: customShadows("light"),
     }),

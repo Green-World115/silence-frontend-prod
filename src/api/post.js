@@ -78,14 +78,14 @@ export const getPostsByGroup = async (groupId, page = 1) => {
   return { data, nextCursor };
 };
 
-export const addComment = ({ userId, postId, content }) => {
-  return supabase.from("post_comments").insert({ userId, postId, content }).throwOnError();
+export const addComment = ({ userId, postId, parentCommentId, content }) => {
+  return supabase.from("post_comments").insert({ userId, postId, parentCommentId, content }).throwOnError();
 };
 
 export const getCommentsByPost = (postId) => {
   return supabase
     .from("post_comments")
-    .select("id, text, content, createdAt, user: users(id, firstName, lastName, avatar)")
+    .select("id, parentCommentId, text, content, createdAt, user: users(id, firstName, lastName, avatar)")
     .eq("postId", postId)
     .throwOnError();
 };
