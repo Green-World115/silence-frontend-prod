@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Cover from "./cover";
-import Posts from "./Posts";
+import Posts from "./posts";
 import { useGroup } from "./hooks/use-group";
+import Members from "./members";
 
 const tabs = [
   { component: <Posts />, name: "Posts", value: "posts" },
-  { component: <div />, name: "Members", value: "members" },
+  { component: <Members />, name: "Members", value: "members" },
 ];
 
 const Group = () => {

@@ -21,6 +21,15 @@ export const getGroupById = (groupId) => {
     .single();
 };
 
+export const getGroupMember = (groupId, userId) => {
+  return supabase
+    .from("user_post_groups")
+    .select("role, user:users(id, firstName, lastName, role, avatar)")
+    .eq("postGroupId", groupId)
+
+    .throwOnError();
+};
+
 export const getGroupCategories = () => {
   return supabase.from("post_group_categories").select("id, name").throwOnError();
 };

@@ -16,7 +16,9 @@ const Account = ({ user }) => {
         <Typography variant="body2" color="#ffffff">
           {user?.firstName}
         </Typography>
-        <Typography variant="caption">{user?.email}</Typography>
+        <Typography variant="caption" component="div">
+          {user?.email}
+        </Typography>
       </Box>
     </UserContainer>
   );
