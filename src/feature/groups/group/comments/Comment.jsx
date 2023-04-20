@@ -19,10 +19,9 @@ import { useDeleteComment } from "../hooks/use-group-action";
 import { MentionNode } from "components/lexical/mentions-plugin/MentionNode";
 import imageUrls from "constants/image-urls";
 import NewComment from "../new-comment";
-import { formatDistance } from "date-fns";
 import { formatToNow } from "utils/date-formatter";
 
-export const Comment = ({ id, userId, postId, name, text, content, createdAt, replies, avatar, isReply }) => {
+export const Comment = ({ id, userId, postId, name, text, content, createdAt, replies, avatar, level }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
   const [showReply, toggleShowReply] = useToggle(false);
@@ -72,7 +71,7 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
           )}
         </Box>
         <CommentInfo direction="row" spacing={1}>
-          {!isReply && (
+          {level < 3 && (
             <Link variant="caption" sx={{ cursor: "pointer" }} onClick={toggleShowReply}>
               Reply
             </Link>
@@ -82,7 +81,7 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
           </Typography>
         </CommentInfo>
 
-        <Stack spacing={1} sx={{ mt: 1 }}>
+        <Stack spacing={0}>
           {replies?.map((reply) => (
             <Comment
               key={reply.id}
@@ -94,11 +93,14 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
               text={reply.text}
               createdAt={reply.createdAt}
               content={reply.content}
-              isReply={true}
+              replies={reply.replies}
+              level={level + 1}
             />
           ))}
         </Stack>
-        {showReply && <NewComment postId={postId} parentCommentId={id} placeholder={`Reply to ${name}`} />}
+        {showReply && (
+          <NewComment postId={postId} parentCommentId={id} placeholder={`Reply to ${name}`} sx={{ mb: 2 }} />
+        )}
       </Box>
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} arrow="top-center" sx={{ width: 140 }}>

@@ -8,7 +8,7 @@ import imageUrls from "constants/image-urls";
 import { useResponsive } from "hooks/useResponsive";
 import CommentInput from "../comment-input";
 
-const NewComment = ({ postId, parentCommentId, placeholder }) => {
+const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
   const user = useUser();
 
   const { mobile } = useResponsive();
@@ -19,7 +19,7 @@ const NewComment = ({ postId, parentCommentId, placeholder }) => {
   };
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} alignItems="center" sx={sx}>
       {!mobile && (
         <CustomAvatar
           sx={{ height: 32, width: 32 }}

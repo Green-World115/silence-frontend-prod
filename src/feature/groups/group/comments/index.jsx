@@ -24,8 +24,8 @@ export const Comments = ({ postId, commentCount }) => {
         Comments {commentCount ? `(${commentCount})` : ""}
       </Button>
       {showComments && (
-        <Stack spacing={2} sx={{ mt: 3 }}>
-          {map(comments?.data, (comment) => (
+        <Stack spacing={1} sx={{ mt: 3 }}>
+          {comments.data?.map((comment) => (
             <Comment
               key={comment.id}
               id={comment.id}
@@ -37,6 +37,7 @@ export const Comments = ({ postId, commentCount }) => {
               createdAt={comment.createdAt}
               content={comment.content}
               replies={comment.replies}
+              level={1}
             />
           ))}
         </Stack>

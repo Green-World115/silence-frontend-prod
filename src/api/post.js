@@ -87,5 +87,6 @@ export const getCommentsByPost = (postId) => {
     .from("post_comments")
     .select("id, parentCommentId, text, content, createdAt, user: users(id, firstName, lastName, avatar)")
     .eq("postId", postId)
+    .order("createdAt", { ascending: true })
     .throwOnError();
 };
