@@ -10,8 +10,8 @@ const navConfig = [
     items: [
       { title: "Home", path: "/", icon: <HomeIcon /> },
       { title: "Content", path: "/content", icon: <SourceIcon /> },
-      { title: "Live Stream", path: "/live-stream", icon: <SlideshowIcon /> },
-      { title: "Meeting Room", path: "/groups", icon: <Groups2Icon /> },
+      { title: "Live Streams", path: "/live-stream", icon: <SlideshowIcon /> },
+      { title: "Meeting Rooms", path: "/groups", icon: <Groups2Icon /> },
       { title: "Chat", path: "/chat", icon: <ChatBubbleIcon /> },
 
       {
