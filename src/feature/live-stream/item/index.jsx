@@ -15,6 +15,7 @@ import { isAfter } from "date-fns";
 import copy from "copy-to-clipboard";
 import { useSnackbar } from "notistack";
 import Comments from "../comments";
+import isPast from "date-fns/isPast";
 
 const Item = ({ data }) => {
   const { id, title, description, dateTime, link } = data;
@@ -25,6 +26,7 @@ const Item = ({ data }) => {
 
   const user = useUser();
   const isAdmin = user.role === roles.ADMIN;
+  const isCommentingDisabled = isPast(new Date(dateTime));
 
   const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);
   const handleClosePopover = () => setOpenPopover(null);
@@ -57,12 +59,8 @@ const Item = ({ data }) => {
       <Stack direction="row" spacing={0.5} alignItems="center" my={2}>
         <AccessTimeIcon fontSize="small" variant="body2" fontWeight="semibold" />
         <Typography>{formateDateTime(new Date(dateTime))}</Typography>
-        <Typography
-          color={isAfter(new Date(dateTime), new Date()) ? "success.main" : "error.main"}
-          pl={1}
-          fontWeight={500}
-        >
-          {formatToNow(new Date(dateTime))}
+        <Typography color={isPast(new Date(dateTime)) ? "error.main" : "success.main"} pl={1} fontWeight={500}>
+          {formatToNow(dateTime)}
         </Typography>
       </Stack>
       <Stack direction="row" spacing={2}>
@@ -74,7 +72,7 @@ const Item = ({ data }) => {
         </Button>
       </Stack>
       <Divider sx={{ my: 2 }} />
-      <Comments liveStreamId={id} />
+      <Comments liveStreamId={id} isCommentingDisabled={isCommentingDisabled} />
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} arrow="right-bottom" sx={{ width: 140 }}>
         <MenuItem

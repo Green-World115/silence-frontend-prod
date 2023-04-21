@@ -8,7 +8,7 @@ import { useComments } from "../hooks/use-comment";
 import Comment from "./Comment";
 import { formatName } from "utils/user";
 
-const Comments = ({ liveStreamId }) => {
+const Comments = ({ liveStreamId, isCommentingDisabled }) => {
   const [showComments, toggleComments] = useToggle();
 
   const commentsQuery = useComments(liveStreamId, showComments);
@@ -32,7 +32,7 @@ const Comments = ({ liveStreamId }) => {
             />
           ))}
         </Stack>
-        <NewComment liveStreamId={liveStreamId} />
+        {!isCommentingDisabled && <NewComment liveStreamId={liveStreamId} />}{" "}
       </Collapse>
     </Box>
   );
