@@ -5,7 +5,7 @@ import RHFTextField from "components/hook-forms/RHFTextField";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { schema } from "./schema";
-import { useAddLiveStream } from "../hooks/use-actions";
+import { useAddLiveStream } from "../hooks/use-live-streams";
 
 const New = ({ open, onClose }) => {
   const { control, handleSubmit, reset } = useForm({ resolver: yupResolver(schema) });

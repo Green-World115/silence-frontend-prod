@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, IconButton, MenuItem, Stack, Typography } from "@mui/material";
+import { Card, Divider, IconButton, MenuItem, Stack, Typography } from "@mui/material";
 import { formatToNow, formateDateTime } from "utils/date-formatter";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -9,11 +9,12 @@ import useToggle from "hooks/useToggle";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
-import { useDeleteLiveStreams } from "../hooks/use-actions";
+import { useDeleteLiveStreams } from "../hooks/use-live-streams";
 import Button from "components/Button";
 import { isAfter } from "date-fns";
 import copy from "copy-to-clipboard";
 import { useSnackbar } from "notistack";
+import Comments from "../comments";
 
 const Item = ({ data }) => {
   const { id, title, description, dateTime, link } = data;
@@ -43,7 +44,7 @@ const Item = ({ data }) => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h6" fontWeight={600}>
           {title}
-        </Typography>{" "}
+        </Typography>
         {isAdmin && (
           <IconButton onClick={handleOpenPopover}>
             <MoreVertIcon />
@@ -72,6 +73,8 @@ const Item = ({ data }) => {
           Copy link
         </Button>
       </Stack>
+      <Divider sx={{ my: 2 }} />
+      <Comments liveStreamId={id} />
 
       <MenuPopover open={openPopover} onClose={handleClosePopover} arrow="right-bottom" sx={{ width: 140 }}>
         <MenuItem

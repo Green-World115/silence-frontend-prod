@@ -4,7 +4,7 @@ import Button from "components/Button";
 import Item from "./item";
 import New from "./new";
 import useToggle from "hooks/useToggle";
-import { useLiveStreams } from "./hooks/use-actions";
+import { useLiveStreams } from "./hooks/use-live-streams";
 import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
 

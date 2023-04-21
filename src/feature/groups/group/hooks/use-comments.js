@@ -10,14 +10,12 @@ const formatComments = (data) => {
 };
 
 export const useComments = (postId, showComments) => {
-  const comments = useQuery({
+  const commentsQuery = useQuery({
     queryKey: ["comments", postId],
     queryFn: () => postApi.getCommentsByPost(postId),
     select: (data) => formatComments(data.data),
     enabled: !!showComments,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   });
 
-  return comments;
+  return commentsQuery;
 };

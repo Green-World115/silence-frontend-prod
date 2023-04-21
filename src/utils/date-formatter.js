@@ -1,9 +1,10 @@
 import { format, formatDistanceToNow } from "date-fns";
+import { truncate } from "lodash";
 
 export function formatToNow(date) {
   return date
     ? formatDistanceToNow(new Date(date), {
-        addSuffix: false,
+        addSuffix: truncate,
       })
     : "";
 }

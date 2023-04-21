@@ -27,10 +27,7 @@ const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
           src={user.avatar && `${imageUrls.AVATAR_BASE_URL}/${user.avatar}`}
         />
       )}
-
-      <>
-        <CommentInput onSubmit={handleSubmit} placeholder={placeholder} />
-      </>
+      <CommentInput onSubmit={handleSubmit} placeholder={placeholder} />
     </Stack>
   );
 };

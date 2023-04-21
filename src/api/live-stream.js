@@ -22,3 +22,19 @@ export const addLiveStream = ({ title, description, link, dateTime }) => {
 export const deleteLiveStream = (id) => {
   return supabase.from("live_streams").delete().eq("id", id).throwOnError();
 };
+
+export const addComment = ({ userId, liveStreamId, parentCommentId, content }) => {
+  return supabase
+    .from("live_stream_comments")
+    .insert({ userId, liveStreamId, parentCommentId, content })
+    .throwOnError();
+};
+
+export const getComments = (liveStreamId) => {
+  return supabase
+    .from("live_stream_comments")
+    .select("id, parentCommentId, content, createdAt, user: users(id, firstName, lastName, avatar)")
+    .eq("liveStreamId", liveStreamId)
+    .order("createdAt", { ascending: true })
+    .throwOnError();
+};
