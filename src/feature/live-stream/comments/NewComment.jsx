@@ -20,7 +20,7 @@ const NewComment = ({ parentCommentId, liveStreamId }) => {
   };
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 2 }}>
+    <Stack direction="row" spacing={1} alignItems="center">
       <CustomAvatar
         sx={{ height: 32, width: 32 }}
         name={formatName(user)}

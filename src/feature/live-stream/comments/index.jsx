@@ -31,8 +31,8 @@ const Comments = ({ liveStreamId }) => {
               content={comment.content}
             />
           ))}
-          <NewComment liveStreamId={liveStreamId} />
         </Stack>
+        <NewComment liveStreamId={liveStreamId} />
       </Collapse>
     </Box>
   );
