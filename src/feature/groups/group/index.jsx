@@ -24,6 +24,7 @@ const Group = () => {
         onChangeTab={handleChangeTab}
         name={group.data?.name}
         category={group?.data?.category?.name}
+        cover={group?.data?.cover}
       />
       {tabs.map((tab) => tab.value === activeTab && <div key={tab.value}> {tab.component} </div>)}
     </Box>

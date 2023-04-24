@@ -24,3 +24,14 @@ export const uploadUserAvatar = (userId, file) => {
 export const deleteUserAvatar = (file) => {
   return supabase.storage.from("users").remove(file);
 };
+
+export const deleteGroupCover = (file) => {
+  return supabase.storage.from("groups").remove(file);
+};
+
+export const uploadGroupCover = (groupId, file) => {
+  return supabase.storage.from("groups").upload(`${groupId}/${file.name}`, file, {
+    cacheControl: "3600",
+    upsert: true,
+  });
+};

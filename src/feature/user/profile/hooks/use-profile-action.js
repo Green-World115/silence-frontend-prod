@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import * as userApi from "api/user";
 import { useSnackbar } from "notistack";
-import * as fileApi from "api/file";
+
+
 import { useUser } from "feature/auth/context";
 
 export const useUpdateProfile = () => {

@@ -1,9 +1,12 @@
+import React from "react";
 import { Divider, Tab, Tabs, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
-import React from "react";
-import { AvatarContainer, CoverContainer, CoverPhoto, NameContainer } from "./styled";
-
-const Cover = ({ name, category, avatar, activeTab, onChangeTab }) => {
+import { AvatarContainer, CoverContainer, EditAvatarButton, NameContainer } from "./styled";
+import CoverPhoto from "./CoverPhoto";
+import { useRouter } from "next/router";
+const Cover = ({ name, category, avatar, cover, activeTab, onChangeTab }) => {
+  const router = useRouter();
+  const { id: groupId } = router.query;
   return (
     <CoverContainer>
       <AvatarContainer>
@@ -25,7 +28,9 @@ const Cover = ({ name, category, avatar, activeTab, onChangeTab }) => {
           </Typography>
         </NameContainer>
       </AvatarContainer>
-      <CoverPhoto></CoverPhoto>
+
+      <CoverPhoto groupId={groupId} cover={cover} />
+
       <Divider />
       <Tabs
         value={activeTab}

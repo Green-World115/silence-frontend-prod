@@ -24,7 +24,7 @@ const Avatar = ({ avatar }) => {
     },
   });
 
-  const image = file?.preview || `${config.avatarBaseUrl}${avatar}`;
+  const image = file?.preview || `${config.avatarBaseUrl}/${avatar}`;
 
   return (
     <Paper elevation={3}>

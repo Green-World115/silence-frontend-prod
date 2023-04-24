@@ -14,7 +14,7 @@ export const getGroupsByUserId = (userId) => {
 export const getGroupById = (groupId) => {
   return supabase
     .from("post_groups")
-    .select("id, name, avatar, category: post_group_categories(id, name)")
+    .select("id, name, avatar, cover, category: post_group_categories(id, name)")
     .eq("id", groupId)
     .limit(1)
     .throwOnError()
@@ -47,6 +47,11 @@ export const createGroup = ({ name, description, createdBy, allowInvitation }) =
     .select()
     .single();
 };
+
+export const updateGroup = (id, { cover }) => {
+  return supabase.from("post_groups").update({ cover }).eq("id", id);
+};
+
 export const addUsersToGroup = (users) => {
   return supabase.from("user_post_groups").upsert(users);
 };
