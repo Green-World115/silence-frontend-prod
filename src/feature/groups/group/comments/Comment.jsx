@@ -17,9 +17,9 @@ import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
 import { useDeleteComment } from "../hooks/use-group-action";
 import { MentionNode } from "components/lexical/mentions-plugin/MentionNode";
-import imageUrls from "constants/image-urls";
 import NewComment from "../new-comment";
 import { formatToNow } from "utils/date-formatter";
+import config from "@config/index";
 
 export const Comment = ({ id, userId, postId, name, text, content, createdAt, replies, avatar, level }) => {
   const [openPopover, setOpenPopover] = useState(null);
@@ -40,11 +40,7 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
   };
   return (
     <Stack direction="row" spacing={1}>
-      <CustomAvatar
-        sx={{ height: 32, width: 32 }}
-        name={name}
-        src={avatar && `${imageUrls.AVATAR_BASE_URL}/${avatar}`}
-      />
+      <CustomAvatar sx={{ height: 32, width: 32 }} name={name} src={avatar && `${config.avatarBaseUrl}${avatar}`} />
       <Box width="100%">
         <Box display="flex" alignItems="center">
           <Content>

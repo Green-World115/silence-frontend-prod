@@ -1,6 +1,6 @@
 import { Paper, Avatar as MuiAvatar, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { Content, UplodContainer } from "./styled";
+import { Content, UploadContainer } from "./styled";
 import { useDropzone } from "react-dropzone";
 import config from "@config/index";
 import { useUpdateAvatar } from "../hooks/use-profile-action";
@@ -15,24 +15,24 @@ const Avatar = ({ avatar }) => {
     maxFiles: 1,
     accept: { "image/*": [] },
     onDropAccepted: (acceptedFiles) => {
-      const aceeptedFile = acceptedFiles[0];
-      Object.assign(aceeptedFile, {
-        preview: URL.createObjectURL(aceeptedFile),
+      const acceptedFile = acceptedFiles[0];
+      Object.assign(acceptedFile, {
+        preview: URL.createObjectURL(acceptedFile),
       });
-      setFile(aceeptedFile);
-      updateAvatarMutation.mutate(aceeptedFile);
+      setFile(acceptedFile);
+      updateAvatarMutation.mutate(acceptedFile);
     },
   });
 
-  const image = file?.preview || `${config.supabaseStorageUrl}/public/users/${avatar}`;
+  const image = file?.preview || `${config.avatarBaseUrl}${avatar}`;
 
   return (
     <Paper elevation={3}>
       <Content>
-        <UplodContainer {...getRootProps()}>
+        <UploadContainer {...getRootProps()}>
           <input {...getInputProps()} />
           <MuiAvatar src={image} sx={{ height: "100%", width: "100%" }} />
-        </UplodContainer>
+        </UploadContainer>
         {updateAvatarMutation.isLoading && (
           <Typography variant="caption" mt={2}>
             Uploading...

@@ -14,7 +14,6 @@ import roles from "constants/roles";
 import { useDeletePost } from "../hooks/use-group-action";
 import config from "@config/index";
 import Image from "next/image";
-import imageUrls from "constants/image-urls";
 const Post = ({ id, groupId, userId, firstName, lastName, text, avatar, commentCount, time, media }) => {
   const name = `${firstName} ${lastName || ""}`;
   const [openPopover, setOpenPopover] = useState(null);
@@ -37,7 +36,7 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, avatar, commentC
     <Card>
       <CardHeader
         disableTypography
-        avatar={<CustomAvatar name={name} src={`${imageUrls.AVATAR_BASE_URL}/${avatar}`} />}
+        avatar={<CustomAvatar name={name} src={`${config.avatarBaseUrl}${avatar}`} />}
         title={
           <Typography color="inherit" variant="subtitle2">
             {name}

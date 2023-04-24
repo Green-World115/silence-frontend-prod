@@ -4,9 +4,9 @@ import React from "react";
 import { useUser } from "feature/auth/context";
 
 import { useComment } from "../hooks/use-comment";
-import imageUrls from "constants/image-urls";
 import { useResponsive } from "hooks/useResponsive";
 import CommentInput from "../comment-input";
+import config from "@config/index";
 
 const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
   const user = useUser();
@@ -24,7 +24,7 @@ const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
         <CustomAvatar
           sx={{ height: 32, width: 32 }}
           name={user.firstName}
-          src={user.avatar && `${imageUrls.AVATAR_BASE_URL}/${user.avatar}`}
+          src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
         />
       )}
       <CommentInput onSubmit={handleSubmit} placeholder={placeholder} />

@@ -1,8 +1,7 @@
-import { Avatar, Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import React from "react";
 import { ChatItemContent, ChatItemText, ChatItemContainer, ChatImageContainer } from "./styled";
-import imageUrls from "constants/image-urls";
 import config from "@config/index";
 import Image from "next/image";
 
@@ -14,7 +13,7 @@ const ChatItem = ({ content, time, avatar, name, guest, media }) => {
           size="sm"
           name={name}
           alt={name}
-          src={avatar && `${imageUrls.AVATAR_BASE_URL}/${avatar}`}
+          src={avatar && `${config.avatarBaseUrl}${avatar}`}
           sx={{ width: 30, height: 30, mr: 2, fontSize: 16 }}
         />
       )}
@@ -26,11 +25,7 @@ const ChatItem = ({ content, time, avatar, name, guest, media }) => {
           {media ? (
             <Box>
               <ChatImageContainer>
-                <Image
-                  src={`${config.supabaseStorageUrl}/public/users/${media}`}
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
+                <Image src={`${config.supabaseStorageUrl}/public/users/${media}`} fill style={{ objectFit: "cover" }} />
               </ChatImageContainer>
               {content && (
                 <Typography variant="body2" mt={1}>

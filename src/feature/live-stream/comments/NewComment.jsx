@@ -5,7 +5,7 @@ import { useUser } from "feature/auth/context";
 import { Stack } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import { formatName } from "utils/user";
-import imageUrls from "constants/image-urls";
+import config from "@config/index";
 
 const NewComment = ({ parentCommentId, liveStreamId }) => {
   const user = useUser();
@@ -24,7 +24,7 @@ const NewComment = ({ parentCommentId, liveStreamId }) => {
       <CustomAvatar
         sx={{ height: 32, width: 32 }}
         name={formatName(user)}
-        src={user.avatar && `${imageUrls.AVATAR_BASE_URL}/${user.avatar}`}
+        src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
       />
 
       <CommentInput onSubmit={handleSubmit} />

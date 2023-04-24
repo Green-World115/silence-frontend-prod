@@ -8,7 +8,7 @@ export const Content = styled("div")`
   justify-content: center;
 `;
 
-export const UplodContainer = styled("div")`
+export const UploadContainer = styled("div")`
   height: 120px;
   width: 120px;
   border-radius: 60px;

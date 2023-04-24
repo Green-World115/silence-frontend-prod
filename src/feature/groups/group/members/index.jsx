@@ -1,10 +1,10 @@
 import React from "react";
 import { useMembers } from "../hooks/use-group";
-import { Card, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Card, Grid, Stack, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
-import imageUrls from "constants/image-urls";
 import { formatName } from "utils/user";
 import roles from "constants/roles";
+import config from "@config/index";
 
 const Members = () => {
   const membersQuery = useMembers();
@@ -16,7 +16,7 @@ const Members = () => {
             {membersQuery.data?.map((member) => (
               <Stack direction="row" spacing={2}>
                 <CustomAvatar
-                  src={member.avatar && `${imageUrls.AVATAR_BASE_URL}/${member.avatar}`}
+                  src={member.avatar && `${config.avatarBaseUrl}${member.avatar}`}
                   alr="avatar"
                   name={formatName(member)}
                 />

@@ -4,7 +4,7 @@ import { CustomAvatar, CustomAvatarGroup } from "components/custom-avatar";
 import { useRouter } from "next/router";
 import React from "react";
 import { Container, DetailsContainer, UserContainer } from "./styled";
-import imageUrls from "constants/image-urls";
+import config from "@config/index";
 
 const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, postCount }) => {
   const router = useRouter();
@@ -31,10 +31,7 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, 
           <UserContainer>
             <CustomAvatarGroup max={5}>
               {users?.map((user) => (
-                <CustomAvatar
-                  name={user.firstName}
-                  src={user.avatar && `${imageUrls.AVATAR_BASE_URL}/${user.avatar}`}
-                />
+                <CustomAvatar name={user.firstName} src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`} />
               ))}
             </CustomAvatarGroup>
             <Typography variant="subtitle1">{userCount} members</Typography>

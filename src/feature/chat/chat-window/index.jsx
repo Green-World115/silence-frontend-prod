@@ -13,6 +13,7 @@ import { CustomAvatar } from "components/custom-avatar";
 import { useRouter } from "next/router";
 import HeaderSkeleton from "./Skeleton";
 import get from "lodash/get";
+import config from "@config/index";
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
@@ -46,7 +47,7 @@ const ChatWindow = () => {
               <Stack direction="row" spacing={2} alignItems="center">
                 <CustomAvatar
                   name={chatGroup.data?.name}
-                  src={chatGroup.data?.avatar && `${imageUrls.AVATAR_BASE_URL}/${chatGroup.data?.avatar}`}
+                  src={chatGroup.data?.avatar && `${config.avatarBaseUrl}${chatGroup.data?.avatar}`}
                 />
                 <Typography variant="subtitle2">{chatGroup.data?.name}</Typography>
               </Stack>
