@@ -20,7 +20,7 @@ const NotificationItem = ({ notification }) => {
   return (
     <ListItemButton sx={{ py: 1 }}>
       <ListItemAvatar>
-        <CustomAvatar name={user.firstName} src={`${config.avatarBaseUrl}${user.avatar}`} />
+        <CustomAvatar name={user.firstName} src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`} alt="avatar" />
       </ListItemAvatar>
       <ListItemText
         disableTypography

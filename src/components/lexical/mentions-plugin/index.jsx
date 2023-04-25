@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import * as React from "react";
 
 import { $createMentionNode } from "./MentionNode";
-import MenuPopover from "components/menu-popover";
 import { MenuItem, Stack, Typography, Popper, Paper } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 

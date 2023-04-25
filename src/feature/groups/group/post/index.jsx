@@ -36,7 +36,7 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, avatar, commentC
     <Card>
       <CardHeader
         disableTypography
-        avatar={<CustomAvatar name={name} src={`${config.avatarBaseUrl}${avatar}`} />}
+        avatar={<CustomAvatar name={name} src={avatar && `${config.avatarBaseUrl}${avatar}`} />}
         title={
           <Typography color="inherit" variant="subtitle2">
             {name}

@@ -25,6 +25,7 @@ const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
           sx={{ height: 32, width: 32 }}
           name={user.firstName}
           src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
+          alt="avatar"
         />
       )}
       <CommentInput onSubmit={handleSubmit} placeholder={placeholder} />

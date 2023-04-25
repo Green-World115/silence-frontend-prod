@@ -40,7 +40,12 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
   };
   return (
     <Stack direction="row" spacing={1}>
-      <CustomAvatar sx={{ height: 32, width: 32 }} name={name} src={avatar && `${config.avatarBaseUrl}${avatar}`} />
+      <CustomAvatar
+        sx={{ height: 32, width: 32 }}
+        name={name}
+        src={avatar && `${config.avatarBaseUrl}${avatar}`}
+        alt="avatar"
+      />
       <Box width="100%">
         <Box display="flex" alignItems="center">
           <Content>
