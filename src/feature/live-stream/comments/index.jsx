@@ -16,7 +16,7 @@ const Comments = ({ liveStreamId, isCommentingDisabled }) => {
   return (
     <Box>
       <Link onClick={toggleComments} sx={{ cursor: "pointer", py: 2 }}>
-        Comments
+        Post A Question Prior To The Live Stream
       </Link>
       <Collapse in={showComments}>
         <Stack spacing={1} sx={{ py: 2 }}>
