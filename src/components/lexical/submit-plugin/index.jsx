@@ -16,6 +16,7 @@ const SubmitPlugin = ({ onSubmit, component }) => {
       KEY_ENTER_COMMAND,
       (e) => {
         if (e?.key === "Enter") {
+          e.preventDefault();
           onSubmit();
         }
         return true;

@@ -5,8 +5,8 @@ import { useUser } from "feature/auth/context";
 
 import { useComment } from "../hooks/use-comment";
 import { useResponsive } from "hooks/useResponsive";
-import CommentInput from "../comment-input";
 import config from "@config/index";
+import CommentInput from "components/comment-input";
 
 const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
   const user = useUser();
