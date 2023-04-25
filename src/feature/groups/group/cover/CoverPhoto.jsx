@@ -27,6 +27,8 @@ const CoverPhoto = ({ groupId, cover }) => {
 
   const image = file?.preview || (cover && `${config.groupBaseUrl}${cover}`) || null;
 
+  console.log(image);
+
   return (
     <CoverPhotoContainer>
       <EditAvatarButton
@@ -38,7 +40,7 @@ const CoverPhoto = ({ groupId, cover }) => {
         <input {...getInputProps()} />
         {updateCoverMutation.isLoading ? "Uploading" : "Edit"}
       </EditAvatarButton>
-      {image && <Image src={image} fill style={{ objectFit: "cover" }} />}
+      {image && <Image src={image} alt="cover" fill style={{ objectFit: "cover" }} />}
     </CoverPhotoContainer>
   );
 };

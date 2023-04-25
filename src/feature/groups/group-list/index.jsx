@@ -22,7 +22,7 @@ const GroupList = () => {
       </Stack>
 
       {map(groupBy(groups, "categoryName"), (items, key) => (
-        <Box mb={5}>
+        <Box key={key} mb={5}>
           <Typography variant="h5" mb={2}>
             {key}
           </Typography>

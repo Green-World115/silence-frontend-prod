@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import { Badge, Avatar } from "@mui/material";
+import Image from "next/image";
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +20,7 @@ const getColorByName = (name) => {
 
 // ----------------------------------------------------------------------
 
-const CustomAvatar = forwardRef(({ color, name = "", BadgeProps, children, sx, ...other }, ref) => {
+const CustomAvatar = forwardRef(({ color, name = "", BadgeProps, children, src, alt, sx, ...other }, ref) => {
   const theme = useTheme();
 
   const charAtName = getCharAtName(name);
@@ -33,6 +34,7 @@ const CustomAvatar = forwardRef(({ color, name = "", BadgeProps, children, sx, .
       <Avatar ref={ref} sx={sx} {...other}>
         {name && charAtName}
         {children}
+        {src && <Image src={src} fill alt={alt} />}
       </Avatar>
     ) : (
       <Avatar
@@ -47,6 +49,7 @@ const CustomAvatar = forwardRef(({ color, name = "", BadgeProps, children, sx, .
       >
         {name && charAtName}
         {children}
+        {src && <Image src={src} fill alt={alt} />}
       </Avatar>
     );
 

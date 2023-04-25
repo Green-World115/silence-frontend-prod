@@ -30,8 +30,13 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, 
         <DetailsContainer>
           <UserContainer>
             <CustomAvatarGroup max={5}>
-              {users?.map((user) => (
-                <CustomAvatar name={user.firstName} src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`} />
+              {users?.map((user, key) => (
+                <CustomAvatar
+                  key={key}
+                  name={user.firstName}
+                  src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
+                  alt="avatar"
+                />
               ))}
             </CustomAvatarGroup>
             <Typography variant="subtitle1">{userCount} members</Typography>
