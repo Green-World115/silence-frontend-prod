@@ -15,7 +15,7 @@ const SubmitPlugin = ({ onSubmit, component }) => {
     return editor.registerCommand(
       KEY_ENTER_COMMAND,
       (e) => {
-        if (e?.key === "Enter") {
+        if (e?.key === "Enter" && !e?.shiftKey) {
           e.preventDefault();
           onSubmit();
         }
