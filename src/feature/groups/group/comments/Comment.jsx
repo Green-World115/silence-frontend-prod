@@ -20,18 +20,23 @@ import { MentionNode } from "components/lexical/mentions-plugin/MentionNode";
 import NewComment from "../new-comment";
 import { formatToNow } from "utils/date-formatter";
 import config from "@config/index";
+import UserInfo from "components/user-info";
+import { formatName } from "utils/user";
 
-export const Comment = ({ id, userId, postId, name, text, content, createdAt, replies, avatar, level }) => {
+export const Comment = ({ id, user, postId, text, content, createdAt, replies, level }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
   const [showReply, toggleShowReply] = useToggle(false);
+  const [showUserinfo, setShowUserinfo] = useState(null);
 
-  const user = useUser();
+  const currentUser = useUser();
 
-  const canDelete = user.role === roles.ADMIN || user.id === userId;
+  const canDelete = currentUser.role === roles.ADMIN || currentUser.id === user.id;
 
   const handleClosePopover = () => setOpenPopover(null);
   const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);
+  const handleOpenUserInfo = (event) => setShowUserinfo(event.currentTarget);
+  const handleCloseUserInfo = () => setShowUserinfo(null);
 
   const deleteMutation = useDeleteComment(id, postId);
 
@@ -40,17 +45,20 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
   };
   return (
     <Stack direction="row" spacing={1}>
+      <UserInfo open={showUserinfo} onClose={handleCloseUserInfo} userId={user?.id} />
       <CustomAvatar
-        sx={{ height: 32, width: 32 }}
-        name={name}
-        src={avatar && `${config.avatarBaseUrl}${avatar}`}
+        onClick={handleOpenUserInfo}
+        role="button"
+        sx={{ height: 32, width: 32, cursor: "pointer" }}
+        name={formatName(user)}
+        src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
         alt="avatar"
       />
       <Box width="100%">
         <Box display="flex" alignItems="center">
           <Content>
             <Typography variant="subtitle2" fontSize={13}>
-              {name}
+              {formatName(user)}
             </Typography>
             {content ? (
               <LexicalComposer
@@ -87,10 +95,8 @@ export const Comment = ({ id, userId, postId, name, text, content, createdAt, re
             <Comment
               key={reply.id}
               id={reply.id}
-              userId={reply.user.id}
+              user={reply.user}
               postId={postId}
-              name={`${reply.user.firstName} ${reply.user.lastName}`}
-              avatar={reply.user.avatar}
               text={reply.text}
               createdAt={reply.createdAt}
               content={reply.content}

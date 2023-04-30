@@ -24,9 +24,7 @@ const Comments = ({ liveStreamId, isCommentingDisabled }) => {
             <Comment
               key={comment.id}
               id={comment.id}
-              userId={comment.user.id}
-              name={formatName(comment.user)}
-              avatar={comment.user.avatar}
+              user={comment.user}
               createdAt={comment.createdAt}
               content={comment.content}
             />

@@ -22,12 +22,8 @@ const Posts = () => {
                 <Post
                   key={post.id}
                   id={post.id}
+                  user={post.user}
                   groupId={post.postGroupId}
-                  userId={post.user.id}
-                  firstName={post.user.firstName}
-                  lastName={post.user.lastName}
-                  avatar={post.user.avatar}
-                  image={post.user.image}
                   text={post.text}
                   commentCount={post.commentCount}
                   time={post.time}

@@ -29,10 +29,8 @@ export const Comments = ({ postId, commentCount }) => {
             <Comment
               key={comment.id}
               id={comment.id}
-              userId={comment.user.id}
+              user={comment.user}
               postId={postId}
-              name={`${comment.user.firstName} ${comment.user.lastName}`}
-              avatar={comment.user.avatar}
               text={comment.text}
               createdAt={comment.createdAt}
               content={comment.content}

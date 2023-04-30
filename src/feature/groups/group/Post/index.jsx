@@ -14,17 +14,21 @@ import roles from "constants/roles";
 import { useDeletePost } from "../hooks/use-group-action";
 import config from "@config/index";
 import Image from "next/image";
-const Post = ({ id, groupId, userId, firstName, lastName, text, avatar, commentCount, time, media }) => {
-  const name = `${firstName} ${lastName || ""}`;
+import UserInfo from "components/user-info";
+import { formatName } from "utils/user";
+const Post = ({ id, groupId, user, text, commentCount, time, media }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
+  const [showUserinfo, setShowUserinfo] = useState(null);
 
-  const user = useUser();
+  const currentUser = useUser();
 
-  const canDelete = user.role === roles.ADMIN || user.id === userId;
+  const canDelete = currentUser.role === roles.ADMIN || currentUser.id === user.id;
 
   const handleClosePopover = () => setOpenPopover(null);
   const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);
+  const handleOpenUserInfo = (event) => setShowUserinfo(event.currentTarget);
+  const handleCloseUserInfo = () => setShowUserinfo(null);
 
   const deleteMutation = useDeletePost(id, groupId);
 
@@ -34,12 +38,21 @@ const Post = ({ id, groupId, userId, firstName, lastName, text, avatar, commentC
 
   return (
     <Card>
+      <UserInfo open={showUserinfo} onClose={handleCloseUserInfo} userId={user.id} />
       <CardHeader
         disableTypography
-        avatar={<CustomAvatar name={name} src={avatar && `${config.avatarBaseUrl}${avatar}`} />}
+        avatar={
+          <CustomAvatar
+            onClick={handleOpenUserInfo}
+            role="button"
+            sx={{ cursor: "pointer" }}
+            name={formatName(user)}
+            src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
+          />
+        }
         title={
           <Typography color="inherit" variant="subtitle2">
-            {name}
+            {formatName(user)}
           </Typography>
         }
         subheader={

@@ -34,7 +34,7 @@ const CustomAvatar = forwardRef(({ color, name = "", BadgeProps, children, src, 
       <Avatar ref={ref} sx={sx} {...other}>
         {name && charAtName}
         {children}
-        {src && <Image src={src} fill alt={alt} />}
+        {src && <Image src={src} fill alt={alt} style={{ objectFit: "cover" }} />}
       </Avatar>
     ) : (
       <Avatar
@@ -49,7 +49,7 @@ const CustomAvatar = forwardRef(({ color, name = "", BadgeProps, children, src, 
       >
         {name && charAtName}
         {children}
-        {src && <Image src={src} fill alt={alt} />}
+        {src && <Image src={src} fill alt={alt} style={{ objectFit: "cover" }} />}
       </Avatar>
     );
 
