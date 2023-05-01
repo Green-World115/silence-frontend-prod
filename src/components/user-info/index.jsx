@@ -34,7 +34,7 @@ const UserInfo = ({ open, onClose, userId }) => {
                   <Typography variant="caption" color="text.secondary">
                     {symptom?.value?.value
                       ? `${symptom?.value?.value}%`
-                      : `L ${symptom?.value?.left}%, R ${symptom?.value?.left}%`}
+                      : `L ${symptom?.value?.left}%, R ${symptom?.value?.right}%`}
                   </Typography>
                 </Typography>
                 <Typography variant="caption" color="text.disabled">
