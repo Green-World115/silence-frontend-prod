@@ -15,7 +15,7 @@ const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
   const commentMutation = useComment(postId);
 
   const handleSubmit = (editorState) => {
-    commentMutation.mutate({ userId: user.id, parentCommentId, postId, content: editorState.toJSON() });
+    commentMutation.mutate({ parentCommentId, postId, content: JSON.stringify(editorState.toJSON()) });
   };
 
   return (

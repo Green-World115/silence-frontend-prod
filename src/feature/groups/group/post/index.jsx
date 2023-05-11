@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem, Box } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CustomAvatar } from "components/custom-avatar";
 import Comments from "../comments";
@@ -16,7 +16,13 @@ import config from "@config/index";
 import Image from "next/image";
 import UserInfo from "components/user-info";
 import { formatName } from "utils/user";
-const Post = ({ id, groupId, user, text, commentCount, time, media }) => {
+import { MentionNode } from "components/lexical/mentions-plugin/MentionNode";
+import { AutoLinkNode } from "@lexical/link";
+import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
+import { StyledContentEditable } from "./styled";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+
+const Post = ({ id, groupId, user, text, content, commentCount, time, media }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
   const [showUserinfo, setShowUserinfo] = useState(null);
@@ -70,7 +76,16 @@ const Post = ({ id, groupId, user, text, commentCount, time, media }) => {
       />
       <CardContent>
         <Stack spacing={3}>
-          <Typography variant="body1">{text}</Typography>
+          {text && <Typography variant="body1">{text}</Typography>}
+          {content && (
+            <LexicalComposer
+              initialConfig={{ editorState: content, nodes: [MentionNode, AutoLinkNode], editable: false }}
+            >
+              <Box sx={{ width: "100%" }}>
+                <PlainTextPlugin contentEditable={<StyledContentEditable />} />
+              </Box>
+            </LexicalComposer>
+          )}
 
           {media.length > 0 && (
             <Image

@@ -64,8 +64,8 @@ export const declineGroupInvitation = (userId, groupId) => {
   return supabase.from("user_post_groups").delete().match({ userId, postGroupId: groupId });
 };
 
-export const createPost = ({ userId, groupId, text, media = [] }) => {
-  return supabase.from("posts").insert({ userId, postGroupId: groupId, text, media }).throwOnError();
+export const createPost = ({ userId, groupId, content, media = [] }) => {
+  return supabase.from("posts").insert({ userId, postGroupId: groupId, content, media }).throwOnError();
 };
 
 export const deletePost = (id) => {
@@ -77,7 +77,7 @@ export const getPostsByGroup = async (groupId, page = 1) => {
   const { data, count } = await supabase
     .from("posts")
     .select(
-      "id, postGroupId, text, media, createdAt, user:users(id, firstName, lastName, avatar), comments: post_comments(count)",
+      "id, postGroupId, text,content, media, createdAt, user:users(id, firstName, lastName, avatar), comments: post_comments(count)",
       {
         count: "exact",
       }

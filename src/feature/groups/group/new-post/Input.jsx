@@ -50,7 +50,7 @@ const editorConfig = {
   nodes: [MentionNode, AutoLinkNode],
 };
 
-const NewPost = React.forwardRef(() => {
+const Input = React.forwardRef(() => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const [showFiles, toggleFiles] = useToggle(false);
@@ -131,4 +131,4 @@ const NewPost = React.forwardRef(() => {
   );
 });
 
-export default NewPost;
+export default Input;

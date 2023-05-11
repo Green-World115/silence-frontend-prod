@@ -1,5 +1,5 @@
 import { Stack, styled } from "@mui/material";
-import Image from "next/image";
+import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 
 export const Container = styled(Stack)`
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
@@ -35,4 +35,35 @@ export const ImageContainer = styled("div")`
   border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
   border: 1px solid;
   border-color: ${(props) => `${props.theme.palette.divider}`};
+`;
+
+export const StyledContentEditable = styled(ContentEditable)`
+  padding: ${(props) => props.theme.spacing(2, 2, 2, 2)};
+  border-radius: ${(props) => `${props.theme.shape.borderRadius}px`};
+  border: ${(props) => `solid 1px ${props.theme.palette.grey[300]}`};
+  outline: none;
+  flex-grow: 1;
+  border: none;
+  background-color: ${(props) => props.theme.palette.grey[200]};
+  min-height: 150px;
+  p {
+    margin: 0;
+  }
+`;
+
+export const InputContainer = styled("div")`
+  position: relative;
+  display: flex;
+  width: 100%;
+`;
+
+export const Placeholder = styled("div")`
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  user-select: none;
+  display: inline-block;
+  pointer-events: none;
+  display: flex;
+  padding: ${(props) => props.theme.spacing(2, 2, 2, 2)};
 `;

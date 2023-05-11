@@ -43,7 +43,7 @@ const NotificationItem = ({ notification }) => {
 export default NotificationItem;
 
 const formatNotification = (type, user) => {
-  if (type === notificationType.MENTION_IN_COMMENT) {
+  if (type === notificationType.COMMENT_MENTION) {
     return (
       <Typography variant="body2">
         <Typography component="span" variant="body2" fontWeight={600}>

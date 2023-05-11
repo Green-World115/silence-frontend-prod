@@ -1,9 +1,13 @@
 import { Box, Grid, Stack } from "@mui/material";
 import Button from "components/Button";
 import React from "react";
-import NewPost from "../new-post";
 import Post from "../post";
 import { usePosts } from "../hooks/use-post-action";
+import dynamic from "next/dynamic";
+
+const NewPost = dynamic(() => import("../new-post"), {
+  ssr: false,
+});
 
 const Posts = () => {
   const posts = usePosts();
@@ -25,6 +29,7 @@ const Posts = () => {
                   user={post.user}
                   groupId={post.postGroupId}
                   text={post.text}
+                  content={post.content}
                   commentCount={post.commentCount}
                   time={post.time}
                   media={post.media}
