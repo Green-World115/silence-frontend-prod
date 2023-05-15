@@ -4,6 +4,7 @@ import * as postApi from "api/post";
 import * as fileApi from "api/file";
 
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import apiClient from "services/api-client";
 
 export const usePosts = () => {
   const router = useRouter();
@@ -39,7 +40,9 @@ export const useCreatePost = (groupId) => {
         if (error) throw error;
         media.push(`${response.path}`);
       }
-      await postApi.createPost({ ...data, media });
+      delete data.files;
+      data.media = media;
+      await apiClient.post("/posts", data);
     },
     onError: (e) => console.log(e),
     onSuccess: () => {

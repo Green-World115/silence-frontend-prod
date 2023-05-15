@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import * as notificationApi from "@api/notification";
-import { useUser } from "feature/auth/context";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from 'react';
+import * as notificationApi from '@api/notification';
+import { useUser } from 'feature/auth/context';
+import { useMutation, useQuery } from '@tanstack/react-query';
 export const useNotifications = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const user = useUser();
 
   const notificationQuery = useQuery({
-    queryKey: ["notifications", user.id],
+    queryKey: ['notifications', user.id],
     queryFn: () => notificationApi.getNotifications(user.id),
     select: (data) => data.data,
   });
@@ -15,6 +15,10 @@ export const useNotifications = () => {
   const readAllMutation = useMutation({
     mutationFn: () => notificationApi.readAllNotification(user.id),
     onSuccess: () => setUnreadCount(0),
+  });
+
+  const readMutation = useMutation({
+    mutationFn: (id) => notificationApi.readNotification(id),
   });
 
   useEffect(() => {
@@ -31,5 +35,5 @@ export const useNotifications = () => {
     // return () => notificationApi.unsubscribeNotifications();
   }, []);
 
-  return { unreadCount, notificationQuery, readAllMutation };
+  return { unreadCount, readMutation, notificationQuery, readAllMutation };
 };

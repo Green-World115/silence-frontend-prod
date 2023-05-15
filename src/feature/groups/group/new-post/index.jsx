@@ -14,7 +14,7 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { $isRootTextContentEmptyCurry } from "@lexical/text";
 import { Box, Card, IconButton, Typography } from "@mui/material";
 import { CLEAR_EDITOR_COMMAND } from "lexical";
-import { InputContainer, Placeholder, Send, StyledContentEditable } from "./styled";
+import { InputContainer, Placeholder, StyledContentEditable } from "./styled";
 import useToggle from "hooks/useToggle";
 import Button from "components/Button";
 import { useCreatePost } from "../hooks/use-post-action";
@@ -57,7 +57,6 @@ const NewPost = React.forwardRef(() => {
   const [files, setFiles] = useState([]);
 
   const editorRef = useRef();
-  const user = useUser();
 
   const router = useRouter();
   const { id: groupId } = router.query;
@@ -81,7 +80,7 @@ const NewPost = React.forwardRef(() => {
       const editorState = editor.getEditorState();
 
       createPostMutation.mutate(
-        { userId: user.id, groupId, content: JSON.stringify(editorState.toJSON()), files },
+        { postGroupId:groupId, content: JSON.stringify(editorState.toJSON()), files },
         {
           onSuccess: () => {
             editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);

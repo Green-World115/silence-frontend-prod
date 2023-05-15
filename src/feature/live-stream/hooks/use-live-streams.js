@@ -1,10 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import * as liveStreamApi from "api/live-stream";
-import { useSnackbar } from "notistack";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import * as liveStreamApi from 'api/live-stream';
+import { useSnackbar } from 'notistack';
+import apiClient from 'services/api-client';
 
 export const useLiveStreams = () => {
   const liveStreamsQuery = useQuery({
-    queryKey: ["live-streams"],
+    queryKey: ['live-streams'],
     queryFn: liveStreamApi.getLiveStreams,
     select: (data) => data.data,
   });
@@ -17,11 +18,11 @@ export const useDeleteLiveStreams = (id) => {
   const deleteLiveStreamMutation = useMutation({
     mutationFn: () => liveStreamApi.deleteLiveStream(id),
     onSuccess: () => {
-      enqueueSnackbar("Live stream removed", { variant: "success" });
-      queryClient.invalidateQueries({ queryKey: ["live-streams"] });
+      enqueueSnackbar('Live stream removed', { variant: 'success' });
+      queryClient.invalidateQueries({ queryKey: ['live-streams'] });
     },
     onError: () => {
-      enqueueSnackbar("Failed to delete live stream", { variant: "error" });
+      enqueueSnackbar('Failed to delete live stream', { variant: 'error' });
     },
   });
 
@@ -32,13 +33,13 @@ export const useAddLiveStream = () => {
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const addLiveStreamMutation = useMutation({
-    mutationFn: liveStreamApi.addLiveStream,
+    mutationFn: (data) => apiClient.post('live-streams', data),
     onSuccess: () => {
-      enqueueSnackbar("Live stream added", { variant: "success" });
-      queryClient.invalidateQueries({ queryKey: ["live-streams"] });
+      enqueueSnackbar('Live stream added', { variant: 'success' });
+      queryClient.invalidateQueries({ queryKey: ['live-streams'] });
     },
     onError: () => {
-      enqueueSnackbar("Failed to add live stream", { variant: "error" });
+      enqueueSnackbar('Failed to add live stream', { variant: 'error' });
     },
   });
 
