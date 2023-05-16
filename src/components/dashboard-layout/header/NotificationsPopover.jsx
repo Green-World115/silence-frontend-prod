@@ -21,7 +21,7 @@ const NotificationsPopover = () => {
   return (
     <div>
       <IconButton onClick={handleOpenPopover}>
-        <Badge color="warning" badgeContent={unreadCount}>
+        <Badge color="error" badgeContent={unreadCount}>
           <NotificationsNoneOutlinedIcon color="primary" />
         </Badge>
       </IconButton>
