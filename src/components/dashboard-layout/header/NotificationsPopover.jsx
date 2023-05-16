@@ -21,7 +21,7 @@ const NotificationsPopover = () => {
   return (
     <div>
       <IconButton onClick={handleOpenPopover}>
-        <Badge color="primary" badgeContent={unreadCount}>
+        <Badge color="secondary" badgeContent={unreadCount}>
           <NotificationsNoneOutlinedIcon color="primary" />
         </Badge>
       </IconButton>
@@ -57,7 +57,7 @@ const NotificationsPopover = () => {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth variant="text">
-            See all notification
+            See all notifications
           </Button>
         </Box>
       </MenuPopover>
