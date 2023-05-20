@@ -7,8 +7,8 @@ export const useNotifications = () => {
   const user = useUser();
 
   const notificationQuery = useQuery({
-    queryKey: ['notifications', user.id],
-    queryFn: () => notificationApi.getNotifications(user.id),
+    queryKey: ['recent-notifications'],
+    queryFn: () => notificationApi.getRecentNotifications(user.id),
     select: (data) => data.data,
   });
 

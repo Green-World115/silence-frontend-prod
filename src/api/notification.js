@@ -1,7 +1,8 @@
 import { supabase } from 'utils/superbase-client';
 import notificationType from 'constants/notification-type';
+import { getPagination } from 'utils/pagination';
 
-export const getNotifications = (userId) => {
+export const getRecentNotifications = (userId) => {
   return supabase
     .from('notifications')
     .select(
@@ -59,4 +60,25 @@ export const subscribeToNotifications = (userId, handleUpdateNotifications) => {
 
 export const unsubscribeNotifications = () => {
   supabase.removeChannel('public:notifications');
+};
+
+export const getNotifications = async (userId, page = 1) => {
+  const { from, to } = getPagination(page, 10);
+  const { data, count } = await supabase
+    .from('notifications')
+    .select(
+      'id, read, url, createdAt, type, notifier: users!notifications_notifierId_fkey(id, firstName, lastName, avatar)',
+      {
+        count: 'exact',
+      }
+    )
+    .eq('userId', userId)
+    .order('createdAt', { ascending: false })
+    .range(from, to)
+    .throwOnError();
+
+  const totalPages = Math.ceil(count / 10);
+  const nextCursor = totalPages > page && page + 1;
+
+  return { data, nextCursor };
 };

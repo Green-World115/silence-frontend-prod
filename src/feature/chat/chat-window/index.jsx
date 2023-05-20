@@ -1,35 +1,32 @@
-import * as React from "react";
-import { Divider, IconButton, Typography } from "@mui/material";
-import { Box, Stack } from "@mui/system";
-import GroupIcon from "@mui/icons-material/Group";
-import { ChatContainer, EmptyContainer, Header } from "./styled";
-import ChatItem from "./ChatItem";
-import NewMessage from "./NewMessage";
-import { useResponsive } from "../../../hooks/useResponsive";
-import { useMessages } from "../hooks/use-messages";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useUser } from "feature/auth/context";
-import { CustomAvatar } from "components/custom-avatar";
-import { useRouter } from "next/router";
-import HeaderSkeleton from "./Skeleton";
-import get from "lodash/get";
-import config from "@config/index";
+import { Divider, IconButton, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/system';
+import GroupIcon from '@mui/icons-material/Group';
+import { ChatContainer, EmptyContainer, Header } from './styled';
+import ChatItem from './ChatItem';
+import NewMessage from './NewMessage';
+import { useResponsive } from '../../../hooks/useResponsive';
+import { useMessages } from '../hooks/use-messages';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useUser } from 'feature/auth/context';
+import { CustomAvatar } from 'components/custom-avatar';
+import { useRouter } from 'next/router';
+import HeaderSkeleton from './Skeleton';
+import get from 'lodash/get';
+import config from '@config/index';
 
 const ChatWindow = () => {
   const { mobile } = useResponsive();
   const router = useRouter();
 
-  const type = get(router, "query.query[0]");
-  const id = get(router, "query.query[1]");
+  const type = get(router, 'query.query[0]');
+  const id = get(router, 'query.query[1]');
 
   const user = useUser();
 
   const { messages, pagination, loadNext, chatGroup } = useMessages(type, id);
 
-  console.log(messages);
-
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       {!id && (
         <EmptyContainer>
           <Typography variant="h5" color="text.secondary">
@@ -62,10 +59,10 @@ const ChatWindow = () => {
             <InfiniteScroll
               scrollableTarget="chat-container"
               next={loadNext}
-              style={{ display: "flex", flexDirection: "column-reverse" }}
+              style={{ display: 'flex', flexDirection: 'column-reverse' }}
               inverse={true}
               hasMore={pagination.totalPages > pagination.currentPage}
-              scrollThreshold={"20px"}
+              scrollThreshold={'20px'}
               dataLength={messages.length}
             >
               {messages?.map((message) => (

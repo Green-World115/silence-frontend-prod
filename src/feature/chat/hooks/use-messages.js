@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
-import * as chatApi from "api/chat";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from 'react';
+import * as chatApi from 'api/chat';
+import { useQuery } from '@tanstack/react-query';
+import { useUser } from 'feature/auth/context';
 
 export const useMessages = (type, id) => {
   const [messages, setMessages] = useState([]);
   const [pagination, setPagination] = useState({ totalPages: 1, currentPage: 1 });
 
+  const user = useUser();
+
   const chatGroup = useQuery({
-    queryKey: ["chat-group", id],
+    queryKey: ['chat-group', id],
     queryFn: () => chatApi.getPrivateChatGroupByReceiver(id),
     select: (data) => data.data,
     enabled: !!id,
@@ -35,10 +38,14 @@ export const useMessages = (type, id) => {
   };
 
   useEffect(() => {
-    if (chatGroupId) {
-      getMessages();
-    }
-    chatApi.subscribeToMessages(chatGroupId, handleUpdateMessages);
+    const init = async () => {
+      if (chatGroupId) {
+        getMessages();
+        await chatApi.markAsRead(chatGroupId, user.id);
+      }
+      chatApi.subscribeToChatGroupMessages(chatGroupId, handleUpdateMessages);
+    };
+    init();
 
     // return () => chatApi.unsubscribeToMessages();
   }, [chatGroupId]);

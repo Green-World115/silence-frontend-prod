@@ -9,10 +9,11 @@ import { CustomAvatar } from 'components/custom-avatar';
 import notificationType from 'constants/notification-type';
 import React from 'react';
 import { formatToNow } from 'utils/date-formatter';
-import { AvatarContainer, Indicator } from './styled';
 import config from '@config/index';
 import { useRouter } from 'next/router';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import { AvatarContainer, Indicator } from './styled';
+
 const NotificationItem = ({ notification, onRead }) => {
   const { type, read, url, createdAt, notifier } = notification;
 
