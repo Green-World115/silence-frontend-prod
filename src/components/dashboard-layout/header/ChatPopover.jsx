@@ -7,12 +7,12 @@ import { useChatMessages } from './hooks/use-chat-messages';
 const ChatPopover = () => {
   const router = useRouter();
   const handleChat = () => router.push('/chat');
-  useChatMessages();
+  const { unreadCount } = useChatMessages();
 
   return (
     <div>
       <IconButton onClick={handleChat}>
-        <Badge color="primary" badgeContent={2}>
+        <Badge color="primary" badgeContent={unreadCount}>
           <ChatBubbleOutlineOutlinedIcon color="primary" />
         </Badge>
       </IconButton>

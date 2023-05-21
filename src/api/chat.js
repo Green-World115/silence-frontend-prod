@@ -123,3 +123,7 @@ export const subscribeToUserChatMessages = async (userId, handleUpdateMessages) 
 export const unsubscribeToMessages = () => {
   supabase.removeChannel('public:chat_messages');
 };
+
+export const getUnreadChatGroups = () => {
+  return supabase.rpc('get_unread_chat_groups');
+};
