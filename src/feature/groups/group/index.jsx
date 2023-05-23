@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import Cover from "./Cover";
-import Posts from "./Posts";
-import { useGroup } from "./use-group";
+import Cover from "./cover";
+import Posts from "./posts";
+import { useGroup } from "./hooks/use-group";
+import Members from "./members";
 
 const tabs = [
   { component: <Posts />, name: "Posts", value: "posts" },
-  { component: <div />, name: "Members", value: "members" },
+  { component: <Members />, name: "Members", value: "members" },
 ];
 
 const Group = () => {
@@ -23,6 +24,7 @@ const Group = () => {
         onChangeTab={handleChangeTab}
         name={group.data?.name}
         category={group?.data?.category?.name}
+        cover={group?.data?.cover}
       />
       {tabs.map((tab) => tab.value === activeTab && <div key={tab.value}> {tab.component} </div>)}
     </Box>

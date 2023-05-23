@@ -1,16 +1,18 @@
 import { supabase } from "../utils/superbase-client";
 
-export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location, hideLocationAge }) => {
+export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location, hideLocationAge, avatar }) => {
   return await supabase
     .from("users")
     .update({
       firstName,
       lastName,
+      avatar,
       age,
       location,
       hideLocationAge,
     })
-    .eq("id", userId);
+    .eq("id", userId)
+    .throwOnError();
 };
 
 export const getUserByEmail = async (email) => {
@@ -20,7 +22,7 @@ export const getUserByEmail = async (email) => {
 export const getUserById = async (userId) => {
   return await supabase
     .from("users")
-    .select("id,email, firstName, lastName,age, location, hideLocationAge, isAccountComplete")
+    .select("id,email, firstName, avatar, lastName,age, location, hideLocationAge, isAccountComplete")
     .eq("id", userId)
     .limit(1)
     .single();
@@ -41,4 +43,11 @@ export const confirmUser = async (userId) => {
       isAccountComplete: true,
     })
     .eq("id", userId);
+};
+
+export const searchUserByName = (searchText) => {
+  return supabase
+    .from("users")
+    .select("id, firstName, lastName")
+    .or(`firstName.ilike.%${searchText}%,lastName.ilike.%${searchText}%`);
 };

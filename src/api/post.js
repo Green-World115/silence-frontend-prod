@@ -5,7 +5,7 @@ export const getGroupsByUserId = (userId) => {
   return supabase
     .from("post_groups")
     .select(
-      "id, name,category: post_group_categories(id, name), userPostGroup: user_post_groups!inner(*,isAccepted), users:user_post_groups(user: users(firstName, image)), userCount: user_post_groups(count), postCount: posts(count)"
+      "id, name,category: post_group_categories(id, name), userPostGroup: user_post_groups!inner(*,isAccepted), users:user_post_groups(user: users(firstName, avatar)), userCount: user_post_groups(count), postCount: posts(count)"
     )
     .eq("user_post_groups.userId", userId)
     .limit(3, { foreignTable: "user_post_groups" });
@@ -14,11 +14,20 @@ export const getGroupsByUserId = (userId) => {
 export const getGroupById = (groupId) => {
   return supabase
     .from("post_groups")
-    .select("id, name, avatar, category: post_group_categories(id, name)")
+    .select("id, name, avatar, cover, category: post_group_categories(id, name)")
     .eq("id", groupId)
     .limit(1)
     .throwOnError()
     .single();
+};
+
+export const getGroupMember = (groupId, userId) => {
+  return supabase
+    .from("user_post_groups")
+    .select("role, user:users(id, firstName, lastName, role, avatar)")
+    .eq("postGroupId", groupId)
+
+    .throwOnError();
 };
 
 export const getGroupCategories = () => {
@@ -38,6 +47,11 @@ export const createGroup = ({ name, description, createdBy, allowInvitation }) =
     .select()
     .single();
 };
+
+export const updateGroup = (id, { cover }) => {
+  return supabase.from("post_groups").update({ cover }).eq("id", id);
+};
+
 export const addUsersToGroup = (users) => {
   return supabase.from("user_post_groups").upsert(users);
 };
@@ -50,8 +64,8 @@ export const declineGroupInvitation = (userId, groupId) => {
   return supabase.from("user_post_groups").delete().match({ userId, postGroupId: groupId });
 };
 
-export const createPost = ({ userId, groupId, text, media = [] }) => {
-  return supabase.from("posts").insert({ userId, postGroupId: groupId, text, media }).throwOnError();
+export const createPost = ({ userId, groupId, content, media = [] }) => {
+  return supabase.from("posts").insert({ userId, postGroupId: groupId, content, media }).throwOnError();
 };
 
 export const deletePost = (id) => {
@@ -63,7 +77,7 @@ export const getPostsByGroup = async (groupId, page = 1) => {
   const { data, count } = await supabase
     .from("posts")
     .select(
-      "id, postGroupId, text, media, createdAt, user:users(id, firstName, lastName, image), comments: post_comments(count)",
+      "id, postGroupId, text,content, media, createdAt, user:users(id, firstName, lastName, avatar), comments: post_comments(count)",
       {
         count: "exact",
       }
@@ -78,14 +92,15 @@ export const getPostsByGroup = async (groupId, page = 1) => {
   return { data, nextCursor };
 };
 
-export const addComment = ({ userId, postId, text }) => {
-  return supabase.from("post_comments").insert({ userId, postId, text }).throwOnError();
+export const addComment = ({ userId, postId, parentCommentId, content }) => {
+  return supabase.from("post_comments").insert({ userId, postId, parentCommentId, content }).throwOnError();
 };
 
 export const getCommentsByPost = (postId) => {
   return supabase
     .from("post_comments")
-    .select("id, text, createdAt, user: users(id, firstName, lastName, image)")
+    .select("id, parentCommentId, text, content, createdAt, user: users(id, firstName, lastName, avatar)")
     .eq("postId", postId)
+    .order("createdAt", { ascending: true })
     .throwOnError();
 };

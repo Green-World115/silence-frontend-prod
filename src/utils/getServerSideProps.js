@@ -1,5 +1,4 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import * as userApi from "api/user";
 
 export const dashboardGetServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx);

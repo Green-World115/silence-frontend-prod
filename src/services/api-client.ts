@@ -1,16 +1,19 @@
 import axios from "axios";
+import Cookie from "js-cookie";
+import head from "lodash/head";
 
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
   headers: {
     "Content-type": "application/json",
   },
 });
 
-// axiosInstance.interceptors.request.use((config) => {
-//   config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}}`;
-//   return config;
-// });
+apiClient.interceptors.request.use((config) => {
+  const accessToken = head(JSON.parse(Cookie.get("supabase-auth-token")));
+  config.headers.Authorization = `Bearer ${accessToken}`;
+  return config;
+});
 
 apiClient.interceptors.response.use(
   (response) => response,

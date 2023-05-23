@@ -1,6 +1,6 @@
 import { Paper, Box, Card } from "@mui/material";
 import React from "react";
-import ChatWindow from "./ChatWindow";
+import ChatWindow from "./chat-window";
 import List from "./List";
 
 const Chat = () => {

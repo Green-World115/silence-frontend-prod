@@ -1,37 +1,41 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import General from "./General";
-import TabPanel from "components/TabPanel";
+import General from "./general";
+
+const tabs = [
+  {
+    value: "profile",
+    label: "Profile",
+    component: <General />,
+  },
+  {
+    value: "billing",
+    label: "Billing",
+    component: <div>coming soon</div>,
+  },
+  {
+    value: "password",
+    label: "Password",
+    component: <div>coming soon</div>,
+  },
+];
 
 const Profile = () => {
-  const [tab, setTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState("profile");
 
-  const handleChange = (_event, newValue) => {
-    setTab(newValue);
-  };
+  const handleChange = (_event, newValue) => setCurrentTab(newValue);
 
   return (
-    <div>
-      <Tabs value={tab} onChange={handleChange}>
-        <Tab label="General" disableRipple />
-        <Tab label="Billing" disableRipple />
-        <Tab label="Password" disableRipple />
+    <Container>
+      <Tabs value={currentTab} onChange={handleChange} sx={{ mb: 5 }}>
+        {tabs.map((tab) => (
+          <Tab key={tab.value} value={tab.value} label={tab.label} />
+        ))}
       </Tabs>
-
-      <Box mt={4}>
-        <TabPanel value={tab} index={0}>
-          <General />
-        </TabPanel>
-        <TabPanel value={tab} index={1}>
-          <Typography>Coming soon</Typography>
-        </TabPanel>
-        <TabPanel value={tab} index={2}>
-          <Typography>Coming soon</Typography>
-        </TabPanel>
-      </Box>
-    </div>
+      {tabs.map((tab) => tab.value === currentTab && <Box key={tab.value}> {tab.component} </Box>)}
+    </Container>
   );
 };
 

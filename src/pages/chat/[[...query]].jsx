@@ -1,6 +1,6 @@
 import ChatProvider from "feature/chat/context";
 import React from "react";
-import DashboardLayout from "components/DashboardLayout";
+import DashboardLayout from "components/dashboard-layout";
 import Chat from "feature/chat";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
