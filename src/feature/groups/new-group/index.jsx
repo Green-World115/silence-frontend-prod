@@ -59,11 +59,11 @@ const NewGroup = () => {
     if (createGroupResponse.error) {
       enqueueSnackbar("Create the group failed", { variant: "error" });
     } else if (createGroupResponse.data) {
-      const users = [...data.users, user.id].map((userId) => ({
-        userId: userId,
+      const users = [...data.users, user].map((userItem) => ({
+        userId: userItem.id,
         postGroupId: createGroupResponse.data.id,
-        isAccepted: userId === user.id,
-        role: userId === user.id ? groupRoles.OWNER : groupRoles.MEMBER,
+        isAccepted: userItem.id === user.id,
+        role: userItem.id === user.id ? groupRoles.OWNER : groupRoles.MEMBER,
       }));
       const addUserResponse = await postApi.addUsersToGroup(users);
       if (addUserResponse.error) enqueueSnackbar("Add users to the group failed", { variant: "error" });
