@@ -30,6 +30,7 @@ export const deleteGroupCover = (file) => {
 };
 
 export const uploadGroupCover = (groupId, file) => {
+  console.log(`${groupId}/${file.name}`);
   return supabase.storage.from("groups").upload(`${groupId}/${file.name}`, file, {
     cacheControl: "3600",
     upsert: true,
