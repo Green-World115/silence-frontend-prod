@@ -10,6 +10,10 @@ export const useUpdateCover = (groupId, currentCover) => {
     mutationFn: async (data) => {
       const { data: response, error } = await fileApi.uploadGroupCover(groupId, data);
       if (error) throw error;
+      console.log('group id: ', groupId);
+      console.log('data: ', data);
+      console.log('current cover: ', currentCover);
+      console.log('response path: ', response.path);
       await postApi.updateGroup(groupId, { cover: response.path });
       if (currentCover) {
         await fileApi.deleteGroupCover(currentCover);
