@@ -26,7 +26,7 @@ const GroupList = () => {
           <Typography variant="h5" mb={2}>
             {key}
           </Typography>
-          {items?.map((group) => (
+          {items?.sort((a, b) => a.id - b.id).map((group) => (
             <GroupItem
               key={group.id}
               id={group.id}
