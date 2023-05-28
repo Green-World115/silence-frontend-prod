@@ -37,7 +37,7 @@ const CreateAccount = () => {
         <Tabs value={tab} sx={{ "& .MuiTabs-flexContainer": { px: 2, bgcolor: "background.neutral" } }}>
           <Tab label="Basic Information" disableRipple />
           <Tab label="Causes" disableRipple />
-          <Tab label="Plans" disableRipple />
+          {/* <Tab label="Plans" disableRipple /> */}
         </Tabs>
         <Divider />
         <Content>
@@ -45,11 +45,11 @@ const CreateAccount = () => {
             {!loading && <BasicInformation onNext={() => setTab(1)} initialValues={basicInfo} />}
           </TabPanel>
           <TabPanel value={tab} index={1}>
-            {!loading && <Causes initialValues={causes} onNext={() => setTab(2)} onBack={() => setTab(0)} />}
+            {!loading && <Causes initialValues={causes} onBack={() => setTab(0)} />}
           </TabPanel>
-          <TabPanel value={tab} index={2}>
+          {/* <TabPanel value={tab} index={2}>
             <Plans onBack={() => setTab(1)} />
-          </TabPanel>
+          </TabPanel> */}
         </Content>
       </Card>
     </>

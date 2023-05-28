@@ -7,6 +7,9 @@ import causes from "constants/causes";
 import { Info } from "./styled";
 import * as symptomApi from "api/symptoms";
 import { useSnackbar } from "notistack";
+import { useUser } from "feature/auth/context";
+import { useRouter } from "next/router";
+import * as userApi from "api/user";
 
 const options = [
   causes.CONCUSSION,
@@ -21,17 +24,19 @@ const options = [
   causes.UNKNOWN,
 ];
 
-const Causes = ({ initialValues, onNext, onBack }) => {
+const Causes = ({ initialValues, onBack }) => {
   const [saving, setSaving] = useState(false);
   const { control, handleSubmit } = useForm({
     defaultValues: initialValues,
   });
+  const user = useUser();
+  const router = useRouter();
 
   const { fields } = useFieldArray({ control, name: "userSymptoms" });
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const submit = handleSubmit(async (values) => {
+  const handleSave = handleSubmit(async (values) => {
     setSaving(true);
     const symptoms = values.userSymptoms.map((userSymptom) => ({
       id: userSymptom.id,
@@ -45,7 +50,9 @@ const Causes = ({ initialValues, onNext, onBack }) => {
       return;
     }
     setSaving(false);
-    onNext();
+    
+    await userApi.confirmUser(user.id);
+    router.push("/");
   });
 
   return (
@@ -92,8 +99,8 @@ const Causes = ({ initialValues, onNext, onBack }) => {
 
       <Box display="flex" justifyContent="space-between" mt={5}>
         <Button onClick={onBack}>Previous</Button>
-        <Button loading={saving} onClick={submit}>
-          Save and continue
+        <Button loading={saving} onClick={handleSave}>
+          Save
         </Button>
       </Box>
     </>
