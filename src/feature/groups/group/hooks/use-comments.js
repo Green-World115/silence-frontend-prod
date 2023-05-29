@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import * as postApi from "api/post";
+import * as postApi from "@api/post";
 
 const formatComments = (data) => {
   const t = {};

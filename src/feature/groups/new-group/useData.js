@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as symptomApi from "api/symptoms";
 import * as userApi from "api/user";
-import * as postApi from "api/post";
+import * as postApi from "@api/post";
 
 import { useUser } from "feature/auth/context";
 import { useQuery } from "@tanstack/react-query";

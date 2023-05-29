@@ -14,7 +14,7 @@ const Posts = () => {
   const handleNextPage = () => {
     posts.fetchNextPage();
   };
-
+  
   return (
     <Grid container>
       <Grid item xs={12} md={8}>

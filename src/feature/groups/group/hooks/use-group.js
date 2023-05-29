@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import * as postApi from "api/post";
+import * as postApi from "@api/post";
 import { useUser } from "feature/auth/context";
 
 export const useGroup = () => {
