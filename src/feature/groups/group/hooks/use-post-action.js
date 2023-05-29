@@ -40,8 +40,8 @@ export const useCreatePost = (groupId) => {
         media.push(`${response.path}`);
       }
       delete data.files;
-      console.log("data: ", data);
-      await postApi.createPost({userId: data.userId, groupId, content: data.content, media: data.media});
+      console.log("media", data);
+      await postApi.createPost({userId: data.userId, groupId, content: data.content, media: media});
     },
     onError: (e) => console.log(e),
     onSuccess: () => {
