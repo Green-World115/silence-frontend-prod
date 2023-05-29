@@ -1,10 +1,9 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import * as postApi from "api/post";
+import * as postApi from "@api/post";
 import * as fileApi from "api/file";
 
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import apiClient from "services/api-client";
 
 export const usePosts = () => {
   const router = useRouter();
@@ -41,8 +40,7 @@ export const useCreatePost = (groupId) => {
         media.push(`${response.path}`);
       }
       delete data.files;
-      data.media = media;
-      await apiClient.post("/posts", data);
+      await postApi.createPost({userId: data.userId, groupId, content: data.content, media: data.media});
     },
     onError: (e) => console.log(e),
     onSuccess: () => {

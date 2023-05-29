@@ -1,6 +1,6 @@
 import { useUser } from "feature/auth/context";
 import { createContext, useContext, useState } from "react";
-import * as postApi from "api/post";
+import * as postApi from "@api/posts";
 import { useRouter } from "next/router";
 
 const GroupContext = createContext(null);

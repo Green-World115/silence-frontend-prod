@@ -54,6 +54,7 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
             sx={{ cursor: "pointer" }}
             name={formatName(user)}
             src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
+            alt="avatar"
           />
         }
         title={

@@ -60,6 +60,7 @@ const NewPost = React.forwardRef(() => {
 
   const router = useRouter();
   const { id: groupId } = router.query;
+  const user = useUser();
 
   const searchUserQuery = useSearchUser(searchQuery);
 
@@ -80,7 +81,7 @@ const NewPost = React.forwardRef(() => {
       const editorState = editor.getEditorState();
 
       createPostMutation.mutate(
-        { postGroupId:groupId, content: JSON.stringify(editorState.toJSON()), files },
+        { userId: user.id, postGroupId:groupId, content: JSON.stringify(editorState.toJSON()), files },
         {
           onSuccess: () => {
             editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
