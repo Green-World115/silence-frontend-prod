@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import * as postApi from "@api/post";
-import * as fileApi from "api/file";
+import * as fileApi from "@api/file";
 
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
