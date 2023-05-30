@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IconButton, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
@@ -6,20 +7,38 @@ import React, { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { Container, ImageContainer, UploadContainer } from "./styled";
 import uniqueId from "lodash/uniqueId";
+import { useSnackbar } from "notistack";
+
+const sizeLimit = 5 * 1024 * 1024;
 
 const Upload = ({ files, onChangeFiles }) => {
+
+  const { enqueueSnackbar } = useSnackbar();
+  const [isEnable, setIsEanble] = useState(false);
+
   const { getRootProps, getInputProps } = useDropzone({
     multiple: true,
     maxFiles: 1,
     accept: { "image/*": [] },
     onDropAccepted: (acceptedFiles) => {
-      const addedFiles = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-          id: uniqueId(file.name),
-        })
-      );
-      onChangeFiles([...files, ...addedFiles]);
+      let isAllowed = true;
+      acceptedFiles.map((file) => {
+        if (file.size > sizeLimit) {
+          enqueueSnackbar(`The image size must be less than 5MB!`, { variant: "warning" });
+          isAllowed = false;
+        }
+      });
+
+      if (isAllowed === true) {
+        setIsEanble(true);
+        const addedFiles = acceptedFiles.map((file) => (
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+            id: uniqueId(file.name),
+          })
+        ));
+        onChangeFiles([...files, ...addedFiles]);
+      }
     },
   });
 
@@ -42,7 +61,7 @@ const Upload = ({ files, onChangeFiles }) => {
         </UploadContainer>
       )}
 
-      {files.length > 0 && (
+      {files.length > 0 && isEnable === true && (
         <Stack direction="row" spacing={2}>
           {files.map((file) => (
             <ImageContainer key={file.id}>
