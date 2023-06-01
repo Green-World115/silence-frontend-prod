@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import * as userApi from "api/user";
-import * as symptomApi from "api/symptoms";
+import * as userApi from "@api/user";
+import * as symptomApi from "@api/symptoms";
 import values from "lodash/values";
 import merge from "lodash/merge";
 import keyBy from "lodash/keyBy";

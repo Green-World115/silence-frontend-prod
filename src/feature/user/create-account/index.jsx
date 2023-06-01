@@ -9,7 +9,7 @@ import { useState } from "react";
 import Causes from "./Causes";
 import Plans from "./Plans";
 import { useCreateAccount } from "./hooks/useCreateAccount";
-import * as authApi from "api/auth";
+import * as authApi from "@api/auth";
 import { useRouter } from "next/router";
 import TabPanel from "components/TabPanel";
 

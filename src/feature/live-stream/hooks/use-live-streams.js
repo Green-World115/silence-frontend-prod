@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import * as liveStreamApi from 'api/live-stream';
+import * as liveStreamApi from '@api/live-stream';
 import { useSnackbar } from 'notistack';
 import apiClient from 'services/api-client';
 

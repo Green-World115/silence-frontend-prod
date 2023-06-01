@@ -16,7 +16,7 @@ import navConfig from "./nav-config";
 import { useUser } from "feature/auth/context";
 import Account from "./Account";
 import { indigo } from "@mui/material/colors";
-import * as authApi from "api/auth";
+import * as authApi from "@api/auth";
 
 // ----------------------------------------------------------------------
 

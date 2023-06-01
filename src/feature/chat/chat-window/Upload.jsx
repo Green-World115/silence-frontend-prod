@@ -41,9 +41,9 @@ const Upload = ({ userId, chatGroupId }) => {
       </IconButton>
       <Dialog open={file} fullWidth maxWidth="sm">
         <DialogContent sx={{ p: 4 }}>
-          <CloseButton onClick={handleClose}>
+          <IconButton sx={{position: "absolute", top: "0", right: "0"}} onClick={handleClose}>
             <CloseIcon />
-          </CloseButton>
+          </IconButton>
           <ImageContainer>
             <Image src={file?.preview} fill style={{ objectFit: "cover" }} alt="message-media" />
           </ImageContainer>

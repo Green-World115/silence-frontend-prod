@@ -2,7 +2,7 @@ import React from "react";
 import Login from "feature/auth/login";
 import AuthLayout from "components/AuthLayout";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 
 const LoginPage = () => {
   return (

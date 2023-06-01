@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import * as fileApi from "api/file";
-import * as chatApi from "api/chat";
+import * as fileApi from "@api/file";
+import * as chatApi from "@api/chat";
 import { useSnackbar } from "notistack";
 
 export const useSendMessage = (userId, chatGroupId) => {

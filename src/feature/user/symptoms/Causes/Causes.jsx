@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import RHFAutocomplete from "components/hook-forms/RHFAutocomplete";
 import causes from "constants/causes";
-import * as symptomApi from "api/symptoms";
+import * as symptomApi from "@api/symptoms";
 import { useSnackbar } from "notistack";
 
 const options = [

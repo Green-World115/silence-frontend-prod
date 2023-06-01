@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import * as symptomApi from "api/symptoms";
+import * as symptomApi from "@api/symptoms";
 import values from "lodash/values";
 import merge from "lodash/merge";
 import keyBy from "lodash/keyBy";

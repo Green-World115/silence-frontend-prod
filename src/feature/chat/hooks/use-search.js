@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import * as chatApi from "api/chat";
+import * as chatApi from "@api/chat";
 import { useUser } from "feature/auth/context";
 import useDebounce from "hooks/useDebounce";
 export const useSearch = (searchText) => {

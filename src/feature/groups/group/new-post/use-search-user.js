@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 
 export const useSearchUser = (searchText) => {
   const searchUserQuery = useQuery({

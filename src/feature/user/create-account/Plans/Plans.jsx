@@ -7,7 +7,7 @@ import CardPayment from "./CardPayment";
 import GooglePay from "./GooglePay";
 import OrderSummery from "./OrderSummery";
 import { PaymentContainer } from "./styled";
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 import { useUser } from "feature/auth/context";
 import { useRouter } from "next/router";
 

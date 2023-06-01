@@ -1,4 +1,4 @@
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 import { useUser } from "feature/auth/context";
 import { useQuery } from "@tanstack/react-query";
 export const useProfile = () => {

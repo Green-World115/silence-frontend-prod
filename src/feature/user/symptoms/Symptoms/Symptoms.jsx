@@ -4,7 +4,7 @@ import { Box, Stack } from "@mui/material";
 import Button from "components/Button";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import * as symptomApi from "api/symptoms";
+import * as symptomApi from "@api/symptoms";
 import SymptomInput from "../../components/SymptomInput";
 import { useUser } from "feature/auth/context";
 

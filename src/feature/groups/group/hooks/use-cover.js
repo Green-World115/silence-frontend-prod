@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import * as fileApi from "api/file";
+import * as fileApi from "@api/file";
 import * as postApi from "@api/post";
 import { useSnackbar } from "notistack";
 

@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 import CreateAccount from "feature/user/create-account";
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 
 const CreateAccountPage = () => {
   return (

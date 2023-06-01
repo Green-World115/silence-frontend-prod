@@ -12,7 +12,10 @@ const NotificationsPopover = () => {
   const router = useRouter();
   const { unreadCount, notificationQuery, readAllMutation, readMutation } = useNotifications();
 
-  const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);
+  const handleOpenPopover = (event) => {
+    setOpenPopover(event.currentTarget);
+    readAllMutation.mutate();
+  }
   const handleClosePopover = () => setOpenPopover(null);
   const handleReadAll = () => readAllMutation.mutate();
   const handleShowAll = () => {
@@ -62,7 +65,7 @@ const NotificationsPopover = () => {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Box sx={{ p: 1 }}>
-          <Button fullWidth variant="text">
+          <Button fullWidth variant="text" onClick={handleShowAll}>
             See All Notifications
           </Button>
         </Box>

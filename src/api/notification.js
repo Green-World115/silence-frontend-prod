@@ -34,6 +34,18 @@ export const sendCommentNotification = (userId, notifierIds = []) => {
     .throwOnError();
 };
 
+export const sendInviteNotification = (userId, notifierId) => {
+  return supabase
+    .from('notifications')
+    .upsert({
+      userId: userId,
+      url: '/groups',
+      type: notificationType.INVITE_TO_GROUP,
+      notifierId: notifierId
+    })
+    .throwOnError();
+}
+
 export const getUnreadNotificationsCount = (userId) => {
   return supabase
     .from('notifications')

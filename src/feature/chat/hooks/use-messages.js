@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as chatApi from 'api/chat';
+import * as chatApi from '@api/chat';
 import { useQuery } from '@tanstack/react-query';
 import { useUser } from 'feature/auth/context';
 

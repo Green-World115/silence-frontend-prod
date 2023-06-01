@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import * as userApi from "api/user";
-import * as fileApi from "api/file";
+import * as userApi from "@api/user";
+import * as fileApi from "@api/file";
 import { useSnackbar } from "notistack";
 
 import { useUser } from "feature/auth/context";

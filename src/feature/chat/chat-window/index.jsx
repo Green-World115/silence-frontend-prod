@@ -25,6 +25,8 @@ const ChatWindow = () => {
 
   const { messages, pagination, loadNext, chatGroup } = useMessages(type, id);
 
+  console.log("chat group data: ", chatGroup?.data);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       {!id && (

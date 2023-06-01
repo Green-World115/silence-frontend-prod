@@ -5,11 +5,11 @@ import { useFieldArray, useForm } from "react-hook-form";
 import RHFAutocomplete from "components/hook-forms/RHFAutocomplete";
 import causes from "constants/causes";
 import { Info } from "./styled";
-import * as symptomApi from "api/symptoms";
+import * as symptomApi from "@api/symptoms";
 import { useSnackbar } from "notistack";
 import { useUser } from "feature/auth/context";
 import { useRouter } from "next/router";
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 
 const options = [
   causes.CONCUSSION,

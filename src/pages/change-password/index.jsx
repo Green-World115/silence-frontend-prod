@@ -2,7 +2,7 @@ import AuthLayout from "components/AuthLayout";
 import React from "react";
 import ChangePassword from "../../feature/auth/change-password";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import * as userApi from "api/user";
+import * as userApi from "@api/user";
 
 const ResetPasswordPage = () => {
   return (

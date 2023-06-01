@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
-import * as authApi from "api/auth";
+import * as authApi from "@api/auth";
 import { useSnackbar } from "notistack";
 import Button from "components/Button";
 import { useRouter } from "next/router";

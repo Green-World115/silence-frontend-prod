@@ -13,6 +13,7 @@ import { useSnackbar } from "notistack";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RHFUploadAvatar } from "components/hook-forms/RHFUpload";
 import { schema } from "./schema";
+import * as notificationApi from '@api/notification';
 
 const NewGroup = () => {
   const user = useUser();
@@ -48,6 +49,7 @@ const NewGroup = () => {
   );
 
   const submit = handleSubmit(async (data) => {
+
     setSubmitting(true);
     const createGroupResponse = await postApi.createGroup({
       name: data.name,
@@ -65,6 +67,14 @@ const NewGroup = () => {
         isAccepted: userItem.id === user.id,
         role: userItem.id === user.id ? groupRoles.OWNER : groupRoles.MEMBER,
       }));
+
+      data?.users.map(async (value) => {
+        await notificationApi.sendInviteNotification(
+          value.id,
+          user.id
+        )
+      })
+
       const addUserResponse = await postApi.addUsersToGroup(users);
       if (addUserResponse.error) enqueueSnackbar("Add users to the group failed", { variant: "error" });
       router.push("/groups");

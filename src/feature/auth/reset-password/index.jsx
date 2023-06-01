@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "components/Button";
 import { useMutation } from "@tanstack/react-query";
-import * as authApi from "api/auth";
+import * as authApi from "@api/auth";
 import { useSnackbar } from "notistack";
 
 const ResetPassword = () => {

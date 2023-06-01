@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import Button from "components/Button";
 import Image from "next/image";
-import * as authApi from "api/auth";
+import * as authApi from "@api/auth";
 
 import { Company, Content, Links, StyledGrid, StyledGridItem, StyledLink, Title } from "./styled";
 import { useRouter } from "next/router";
