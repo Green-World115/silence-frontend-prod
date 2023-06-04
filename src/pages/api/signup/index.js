@@ -15,7 +15,7 @@ export default (req, res) => {
     const userEmail = lead.email;
     console.log(req.body);
 
-    const link = `https://tinnituspal.com/signup?email=${userEmail}`;
+    const link = `https://www.tinnituspal.com/signup?email=${userEmail}`;
 
     let mailOptions = {
       from: "ramca0909@gmail.com",
