@@ -3,8 +3,8 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        // hostname: "eysakvmmtrcyoqmvugfo.supabase.co",
-        hostname: "wkxlpoenbgdwtwamrkjz.supabase.co",
+        hostname: "eysakvmmtrcyoqmvugfo.supabase.co",
+        // hostname: "wkxlpoenbgdwtwamrkjz.supabase.co",
       },
     ],
   },

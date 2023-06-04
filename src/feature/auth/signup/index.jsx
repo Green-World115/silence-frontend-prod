@@ -1,5 +1,5 @@
 import { Stack, Paper, Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
@@ -14,6 +14,14 @@ const SignUp = () => {
   const { control, handleSubmit } = useForm();
   const router = useRouter({});
   const { enqueueSnackbar } = useSnackbar();
+  const [userEmail, setUserEmail] = useState();
+
+  useEffect(() => {
+    if (Object.keys(router.query).length === 0) {
+      router.push("/login");
+    }
+    else setUserEmail(router.query.email);
+  });
 
   const signup = handleSubmit(async (values) => {
     setLoading(true);
@@ -35,7 +43,7 @@ const SignUp = () => {
             <Company variant="h5">Tinnitus pal</Company>
             <Title variant="h4">Create account</Title>
             <Stack spacing={2} sx={{ width: "100%" }}>
-              <RHFTextField name="email" control={control} label="Email" />
+              <RHFTextField name="email" control={control} value={userEmail} label="Email" />
               <RHFTextField name="password" control={control} label="Password" type="password" />
               <RHFTextField
                 name="confirmPassword"

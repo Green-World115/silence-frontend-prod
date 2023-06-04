@@ -17,6 +17,8 @@ import { AvatarContainer, Indicator } from './styled';
 const NotificationItem = ({ notification, onRead }) => {
   const { type, read, url, createdAt, notifier } = notification;
 
+  console.log("notifi: ", notification);
+
   const router = useRouter();
 
   const handleClick = () => {
@@ -54,7 +56,15 @@ const getAvatar = (type, notifier) => {
         <OndemandVideoIcon sx={{ color: '#ffffff' }} />
       </AvatarContainer>
     );
-  } else {
+  }
+  else if (type === notificationType.INVITE_TO_GROUP){
+    return (
+      <CustomAvatar
+        // name = {}
+      />
+    )
+  }
+  else {
     return (
       <CustomAvatar
         name={notifier?.firstName}

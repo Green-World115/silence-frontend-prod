@@ -2,7 +2,6 @@ import AuthLayout from "components/AuthLayout";
 import React from "react";
 import SignUp from "feature/auth/signup";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import * as userApi from "@api/user";
 
 const SignUpPage = () => {
   return (
@@ -17,6 +16,15 @@ export default SignUpPage;
 export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx);
   const { data } = await supabase.rpc("get_session");
+
+  if (Object.keys(ctx.query).length === 0) return {
+    redirect: {
+      destination: "/",
+      permanent: false
+    }
+  }
+
+  const userEmail = ctx.query.email;
 
   if (data) {
     if (data && !data?.isAccountComplete) {
@@ -36,11 +44,11 @@ export const getServerSideProps = async (ctx) => {
     }
 
     return {
-      props: {},
+      props: {userEmail},
     };
   }
 
   return {
-    props: {},
+    props: {userEmail},
   };
 };
