@@ -8,6 +8,18 @@ import { useSnackbar } from "notistack";
 import Button from "components/Button";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import jwt from "jsonwebtoken";
+
+const decodeJWT = (token) => {
+  try{
+    const decoded = jwt.decode(token);
+    return decoded;
+  }
+  catch(err){
+    console.log(err);
+    return null;
+  }
+}
 
 const SignUp = () => {
   const [loading, setLoading] = useState();
@@ -20,7 +32,11 @@ const SignUp = () => {
     if (Object.keys(router.query).length === 0) {
       router.push("/login");
     }
-    else setUserEmail(router.query.email);
+    else{
+      const token = router.query.token;
+      const decodedToken = decodeJWT(token);
+      setUserEmail(decodedToken.email);
+    }
   });
 
   const signup = handleSubmit(async (values) => {
@@ -30,7 +46,7 @@ const SignUp = () => {
     else {
       const loginResponse = await authApi.login(values.email, values.password);
       if (loginResponse.error) enqueueSnackbar(loginResponse.error.message, { variant: "error" });
-      else router.push("/create-account");
+      else router.push(`/create-account`);
     }
     setLoading(false);
   });

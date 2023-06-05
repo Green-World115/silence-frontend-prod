@@ -1,5 +1,5 @@
-import * as authApi from "@api/auth";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -11,11 +11,21 @@ const transporter = nodemailer.createTransport({
 
 export default (req, res) => {
   if (req.body.action === 'buy_product'){
+    console.log(req.body);
     const lead = req.body.lead;
     const userEmail = lead.email;
-    console.log(req.body);
+    const pricetier = req.body.action_details.transaction_details.price;
 
-    const link = `https://www.tinnituspal.com/signup?email=${userEmail}`;
+    const payload = {
+      email: userEmail,
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+      price: pricetier
+    };
+
+    const token = jwt.sign(payload, 'J7kRmPnQsW4tY8zX');
+
+    const link = `https://www.tinnituspal.com/signup?token=${token}`;
 
     let mailOptions = {
       from: "ramca0909@gmail.com",

@@ -24,7 +24,7 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  const userEmail = ctx.query.email;
+  const token = ctx.query.token;
 
   if (data) {
     if (data && !data?.isAccountComplete) {
@@ -44,11 +44,11 @@ export const getServerSideProps = async (ctx) => {
     }
 
     return {
-      props: {userEmail},
+      props: {token},
     };
   }
 
   return {
-    props: {userEmail},
+    props: {token},
   };
 };
