@@ -49,7 +49,7 @@ const Login = () => {
               <StyledLink fontWeight={500} onClick={() => router.push("/reset-password")}>
                 Reset password
               </StyledLink>
-              <StyledLink fontWeight={500} onClick={() => router.push("/signup")}>
+              <StyledLink fontWeight={500} onClick={() => router.push('https://www.silencetinnitusnow.com/tinnitus-pal')}>
                 Don't have account? Create account
               </StyledLink>
             </Links>
