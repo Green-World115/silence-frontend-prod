@@ -21,6 +21,13 @@ export const uploadUserAvatar = (userId, file) => {
   });
 };
 
+export const uploadCommentImage = (userId, postId, file, filename) => {
+  return supabase.storage.from("users").upload(`${userId}/post/${postId}/${postId}-${filename}`, file, {
+    cacheControl: "3600",
+    upsert: true,
+  });
+};
+
 export const deleteUserAvatar = (file) => {
   return supabase.storage.from("users").remove(file);
 };

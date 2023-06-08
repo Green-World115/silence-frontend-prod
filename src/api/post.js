@@ -72,6 +72,13 @@ export const deletePost = (id) => {
   return supabase.from("posts").delete().eq("id", id).throwOnError();
 };
 
+export const deleteComment = async (id, media) => {
+  if (media?.length > 0){
+    const {data, error} = await supabase.storage.from('users').remove(media);
+  }
+  return supabase.from("post_comments").delete().eq("id", id).throwOnError();
+}
+
 export const getPostsByGroup = async (groupId, page = 1) => {
   const { from, to } = getPagination(page, 5);
   const { data, count } = await supabase
@@ -92,14 +99,14 @@ export const getPostsByGroup = async (groupId, page = 1) => {
   return { data, nextCursor };
 };
 
-export const addComment = ({ userId, postId, parentCommentId, content }) => {
-  return supabase.from("post_comments").insert({ userId, postId, parentCommentId, content }).throwOnError();
+export const addComment = ({ userId, postId, parentCommentId, content, media = [] }) => {
+  return supabase.from("post_comments").insert({ userId: userId, postId: postId, parentCommentId: parentCommentId, content: content, media }).throwOnError();
 };
 
 export const getCommentsByPost = (postId) => {
   return supabase
     .from("post_comments")
-    .select("id, parentCommentId, text, content, createdAt, user: users(id, firstName, lastName, avatar)")
+    .select("id, parentCommentId, text, media, content, createdAt, user: users(id, firstName, lastName, avatar)")
     .eq("postId", postId)
     .order("createdAt", { ascending: true })
     .throwOnError();

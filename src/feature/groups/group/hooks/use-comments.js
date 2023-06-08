@@ -6,7 +6,7 @@ const formatComments = (data) => {
   data.forEach((item) =>
     ((t[item.parentCommentId] ??= {}).replies ??= []).push(Object.assign((t[item.id] ??= {}), item))
   );
-  return t[null].replies;
+  return t[null]?.replies;
 };
 
 export const useComments = (postId, showComments) => {
@@ -14,7 +14,7 @@ export const useComments = (postId, showComments) => {
     queryKey: ["comments", postId],
     queryFn: () => postApi.getCommentsByPost(postId),
     select: (data) => formatComments(data.data),
-    enabled: !!showComments,
+    enabled: true,
   });
 
   return commentsQuery;

@@ -1,5 +1,5 @@
 import EditorCapturePlugin from "components/lexical/editor-capture-plugin";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useSearchUser } from "./use-search-user";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
 
@@ -10,12 +10,15 @@ import { AutoLinkNode } from "@lexical/link";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
 import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 import MentionsPlugin from "components/lexical/mentions-plugin";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { IconButton } from "@mui/material";
 import { $isRootTextContentEmptyCurry } from "@lexical/text";
-import { Typography } from "@mui/material";
+import { Typography, Card } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { CLEAR_EDITOR_COMMAND } from "lexical";
 import { InputContainer, Placeholder, Send, StyledContentEditable } from "./styled";
+import useToggle from "hooks/useToggle";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import Upload from "feature/groups/group/new-post/Upload";
 
 //TODO update regex to match any url
 const URL_MATCHER =
@@ -49,9 +52,11 @@ const CommentInput = React.forwardRef(({ onSubmit, placeholder }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const editorRef = useRef();
+  const [files, setFiles] = useState([]);
+  const [showFiles, toggleFiles] = useToggle(false);
 
   const searchUserQuery = useSearchUser(searchQuery);
-
+  
   const checkEmpty = () => {
     const editor = editorRef.current;
     const isComposing = editor.isComposing();
@@ -65,34 +70,44 @@ const CommentInput = React.forwardRef(({ onSubmit, placeholder }) => {
     if (!checkEmpty()) {
       const editor = editorRef.current;
       const editorState = editor.getEditorState();
-      editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
-      onSubmit(editorState);
+      onSubmit(editorState, files, editor);
+      setFiles([]);
+      if (showFiles) toggleFiles();
     }
   };
 
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <EditorCapturePlugin ref={editorRef} />
-      <InputContainer>
-        <PlainTextPlugin
-          contentEditable={<StyledContentEditable />}
-          placeholder={
-            <Placeholder>
-              <Typography color="text.disabled">{placeholder || "Write a comment.."}</Typography>
-            </Placeholder>
-          }
-        />
-        <Send edge="end" disabled={isEmpty} color="primary" onClick={handleSubmit}>
-          <SendIcon />
-        </Send>
-      </InputContainer>
+    <Card sx={{ p: 3, mb: 2, width: "100%"}}>
+      <LexicalComposer initialConfig={editorConfig}>
+        <EditorCapturePlugin ref={editorRef} />
+        <InputContainer>
+          <PlainTextPlugin
+            contentEditable={<StyledContentEditable />}
+            placeholder={
+              <Placeholder>
+                <Typography color="text.disabled">{placeholder || "Write a comment.."}</Typography>
+              </Placeholder>
+            }
+          />
+          <IconButton edge="end" disabled={isEmpty} color="primary" onClick={handleSubmit}>
+            <SendIcon />
+          </IconButton>
+          {!showFiles && (
+            <IconButton onClick={toggleFiles}>
+              <AddPhotoAlternateIcon />
+            </IconButton>
+          )}
+        </InputContainer>
 
-      <AutoLinkPlugin matchers={MATCHERS} />
-      <MentionsPlugin options={searchUserQuery.data} onQueryChange={setSearchQuery} />
-      <SubmitPlugin onSubmit={handleSubmit} />
-      <ClearEditorPlugin />
-      <OnChangePlugin onChange={handleChange} />
-    </LexicalComposer>
+        <AutoLinkPlugin matchers={MATCHERS} />
+        <MentionsPlugin options={searchUserQuery.data} onQueryChange={setSearchQuery} />
+        <SubmitPlugin onSubmit={handleSubmit} />
+        <ClearEditorPlugin />
+        <OnChangePlugin onChange={handleChange} />
+      </LexicalComposer>
+
+      {showFiles && <Upload onChangeFiles={setFiles} files={files} />}
+    </Card>
   );
 });
 

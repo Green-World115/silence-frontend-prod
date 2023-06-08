@@ -7,6 +7,7 @@ import Button from "components/Button";
 import { CommentInfo, Content, StyledContentEditable } from "./styled";
 import MoreVert from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Image from "next/image";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
@@ -23,7 +24,7 @@ import config from "@config/index";
 import UserInfo from "components/user-info";
 import { formatName } from "utils/user";
 
-export const Comment = ({ id, user, postId, text, content, createdAt, replies, level }) => {
+export const Comment = ({ id, user, postId, text, content, createdAt, replies, level, media }) => {
   const [openPopover, setOpenPopover] = useState(null);
   const [showConfirmDelete, toggleConfirmDelete] = useToggle(false);
   const [showReply, toggleShowReply] = useToggle(false);
@@ -38,7 +39,7 @@ export const Comment = ({ id, user, postId, text, content, createdAt, replies, l
   const handleOpenUserInfo = (event) => setShowUserinfo(event.currentTarget);
   const handleCloseUserInfo = () => setShowUserinfo(null);
 
-  const deleteMutation = useDeleteComment(id, postId);
+  const deleteMutation = useDeleteComment(id, media);
 
   const handleConfirmDelete = () => {
     deleteMutation.mutate(null, { onSuccess: () => toggleConfirmDelete() });
@@ -79,6 +80,16 @@ export const Comment = ({ id, user, postId, text, content, createdAt, replies, l
             </IconButton>
           )}
         </Box>
+        {media?.length > 0 && (
+          <Image
+            src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
+            width="0"
+            height="0"
+            sizes="100vw"
+            style={{ width: "300px", height: "auto" }}
+            alt="post-image"
+          />
+        )}
         <CommentInfo direction="row" spacing={1}>
           {level < 3 && (
             <Link variant="caption" sx={{ cursor: "pointer" }} onClick={toggleShowReply}>
@@ -100,13 +111,14 @@ export const Comment = ({ id, user, postId, text, content, createdAt, replies, l
               text={reply.text}
               createdAt={reply.createdAt}
               content={reply.content}
-              replies={reply.replies}
+              replies={reply?.replies}
+              media={JSON.parse(reply?.media)}
               level={level + 1}
             />
           ))}
         </Stack>
         {showReply && (
-          <NewComment postId={postId} parentCommentId={id} placeholder={`Reply to ${name}`} sx={{ mb: 2 }} />
+          <NewComment postId={postId} parentCommentId={id} placeholder={`Reply to ${formatName(user)}`} sx={{ mb: 2 }} />
         )}
       </Box>
 

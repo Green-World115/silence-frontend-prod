@@ -5,7 +5,6 @@ import RHFTextField from "../../../components/hook-forms/RHFTextField";
 import Button from "../../../components/Button";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
 import * as authApi from "@api/auth";
-import * as userApi from "@api/user";
 
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";

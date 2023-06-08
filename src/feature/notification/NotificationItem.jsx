@@ -17,8 +17,6 @@ import { AvatarContainer, Indicator } from './styled';
 const NotificationItem = ({ notification, onRead }) => {
   const { type, read, url, createdAt, notifier } = notification;
 
-  console.log("notifi: ", notification);
-
   const router = useRouter();
 
   const handleClick = () => {
@@ -56,13 +54,6 @@ const getAvatar = (type, notifier) => {
         <OndemandVideoIcon sx={{ color: '#ffffff' }} />
       </AvatarContainer>
     );
-  }
-  else if (type === notificationType.INVITE_TO_GROUP){
-    return (
-      <CustomAvatar
-        // name = {}
-      />
-    )
   }
   else {
     return (
@@ -111,6 +102,15 @@ const formatNotification = (type, notifier) => {
           {notifier.firstName} {notifier.lastName}
         </Typography>
         &nbsp; commented on your post
+      </Typography>
+    );
+  } else if (type === notificationType.INVITE_TO_GROUP) {
+    return (
+      <Typography variant="body2">
+        <Typography component="span" variant="body2" fontWeight={600}>
+          {notifier.firstName} {notifier.lastName}
+        </Typography>
+        &nbsp; has invited you to a private group
       </Typography>
     );
   }

@@ -8,8 +8,6 @@ import config from "@config/index";
 
 const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, postCount }) => {
   const router = useRouter();
-  console.log("avatabaseurl: ", config.avatarBaseUrl);
-  console.log("avatar", users.avatar);
   const handleSelect = () => isAccepted && router.push(`groups/${id}`);
 
   return (
