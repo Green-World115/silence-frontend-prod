@@ -33,7 +33,7 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, 
                 <CustomAvatar
                   key={key}
                   name={user.firstName}
-                  src={user.avatar && `${config.avatarBaseUrl}${users.avatar}`}
+                  src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
                   alt="avatar"
                 />
               ))}
