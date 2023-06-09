@@ -61,7 +61,8 @@ export const Comments = ({ postId, commentCount }) => {
         onClick={toggleComment}
         endIcon={ (comments.data?.length > 3) ? (showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />) : ""}
       >
-        {`${comments.data?.length > 3 ? (showComments ? ('Less (' + (comments.data?.length - 3) + ')') : ('More (' + (comments.data?.length - 3) + ')')) : ""}`}
+        {(comments.data?.length > 3) ? "View more comments" : ""}
+        {/* {`${comments.data?.length > 3 ? (showComments ? ('Less (' + (comments.data?.length - 3) + ')') : ('More (' + (comments.data?.length - 3) + ')')) : ""}`} */}
       </Button>
     </div>
   );
