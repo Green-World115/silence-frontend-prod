@@ -1,5 +1,5 @@
 import { Paper, Avatar as MuiAvatar, Typography } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Content, UploadContainer } from "./styled";
 import { useDropzone } from "react-dropzone";
 import config from "@config/index";

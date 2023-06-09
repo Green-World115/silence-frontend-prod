@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem, Box } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CustomAvatar } from "components/custom-avatar";
@@ -29,7 +29,7 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
 
   const currentUser = useUser();
 
-  const canDelete = currentUser?.role === roles.ADMIN || currentUser?.id === user.id;
+  const canDelete = currentUser.role === roles.ADMIN || currentUser.id === user.id;
 
   const handleClosePopover = () => setOpenPopover(null);
   const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);
@@ -54,7 +54,6 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
             sx={{ cursor: "pointer" }}
             name={formatName(user)}
             src={user.avatar && `${config.avatarBaseUrl}${user.avatar}`}
-            alt="avatar"
           />
         }
         title={
@@ -90,7 +89,6 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
 
           {media.length > 0 && (
             <Image
-              loader={() => `${config.supabaseStorageUrl}/public/users/${media[0]}`}
               src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
               width="0"
               height="0"

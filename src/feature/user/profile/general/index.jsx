@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid } from "@mui/material";
 import Info from "./Info";
 import { useProfile } from "../hooks/use-profile";
