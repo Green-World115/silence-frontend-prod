@@ -24,7 +24,7 @@ export const Comments = ({ postId, commentCount }) => {
         onClick={toggleComment}
         endIcon={showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
       >
-        Comments {(commentCount  - (comments.data?.length > 3 ? 3 : comments.data?.length)) ? `(${commentCount - (comments.data?.length > 3 ? 3 : comments.data?.length)})` : ""}
+        Comments {`${comments.data?.length > 3 ? '(' + (comments.data?.length - 3) + ')' : ""}`}
       </Button>
       <Stack spacing={1} sx={{ mt: 3 }}>
         {showComments && (
