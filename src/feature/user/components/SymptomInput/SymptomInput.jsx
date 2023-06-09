@@ -1,4 +1,3 @@
-import React from "react";
 import symptomTypes from "constants/symptomTypes";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Slider from "../Slider";

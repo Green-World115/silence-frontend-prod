@@ -1,7 +1,8 @@
-import { Typography } from "@mui/material";
-import DashboardLayout from "components/dashboard-layout";
-import Content from "feature/content";
 import React from "react";
+import dynamic from "next/dynamic";
+
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const Content = dynamic(() => import('feature/content'));
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 const ContentPage = () => {

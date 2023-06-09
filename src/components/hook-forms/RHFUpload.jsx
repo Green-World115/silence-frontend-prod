@@ -1,6 +1,4 @@
 import { Controller } from "react-hook-form";
-import { FormHelperText } from "@mui/material";
-
 import { UploadAvatar } from "../upload";
 
 export function RHFUploadAvatar({ name, control, ...other }) {

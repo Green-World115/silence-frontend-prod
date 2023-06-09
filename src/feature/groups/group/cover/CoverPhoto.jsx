@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { CoverPhotoContainer, EditAvatarButton } from "./styled";
 import { useDropzone } from "react-dropzone";

@@ -2,7 +2,6 @@ import { Box, Grid, Paper, FormLabel } from "@mui/material";
 import Button from "components/Button";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import RHFSwitch from "components/hook-forms/RHFSwitch";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Content } from "./styled";
 import { useUpdateProfile } from "../hooks/use-profile-action";

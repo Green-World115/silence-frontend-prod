@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
-import DashboardLayout from 'components/dashboard-layout';
-import Home from 'feature/home';
+import dynamic from 'next/dynamic';
 import React from 'react';
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const Home = dynamic(() => import ('feature/home'));
 import { dashboardGetServerSideProps } from 'utils/getServerSideProps';
 
 const Index = () => {

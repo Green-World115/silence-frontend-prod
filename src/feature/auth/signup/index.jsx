@@ -1,5 +1,5 @@
 import { Stack, Paper, Box } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
@@ -72,7 +72,7 @@ const SignUp = () => {
                 Create
               </Button>
             </Stack>
-            <Links onClick={() => router.push("/login")}>
+            <Links onClick={() => router.push("/login")} prefetch={false}>
               <StyledLink fontWeight={500}>Already have a account? Login</StyledLink>
             </Links>
           </StyledGridItem>

@@ -1,8 +1,9 @@
+import React from "react";
 import { Container } from "@mui/material";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import React from "react";
-import CreateAccount from "feature/user/create-account";
-import * as userApi from "@api/user";
+import dynamic from "next/dynamic";
+
+const CreateAccount = dynamic(() => import('feature/user/create-account'));
 
 const CreateAccountPage = () => {
   return (

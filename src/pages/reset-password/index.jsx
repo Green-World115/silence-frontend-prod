@@ -1,8 +1,9 @@
-import AuthLayout from "components/AuthLayout";
 import React from "react";
-import ResetPassword from "../../feature/auth/reset-password";
+import dynamic from "next/dynamic";
+
+const AuthLayout = dynamic(() => import('components/AuthLayout'));
+const ResetPassword = dynamic(() => import('feature/auth/reset-password'));
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import * as userApi from "@api/user";
 
 const ResetPasswordPage = () => {
   return (

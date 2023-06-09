@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, IconButton, Link, MenuItem, Stack, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import MenuPopover from "components/menu-popover";
@@ -93,7 +93,7 @@ export const Comment = ({ id, user, postId, text, content, createdAt, replies, l
         )}
         <CommentInfo direction="row" spacing={1}>
           {level < 3 && (
-            <Link variant="caption" sx={{ cursor: "pointer" }} onClick={toggleShowReply}>
+            <Link variant="caption" sx={{ cursor: "pointer" }} onClick={toggleShowReply} prefetch={false}>
               Reply
             </Link>
           )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, Divider, IconButton, Stack, Typography, MenuItem, Box } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CustomAvatar } from "components/custom-avatar";
@@ -29,7 +29,7 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
 
   const currentUser = useUser();
 
-  const canDelete = currentUser.role === roles.ADMIN || currentUser.id === user.id;
+  const canDelete = currentUser?.role === roles.ADMIN || currentUser?.id === user.id;
 
   const handleClosePopover = () => setOpenPopover(null);
   const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);

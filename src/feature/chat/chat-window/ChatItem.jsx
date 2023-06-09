@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
-import React from "react";
 import { ChatItemContent, ChatItemText, ChatItemContainer, ChatImageContainer } from "./styled";
 import config from "@config/index";
 import Image from "next/image";

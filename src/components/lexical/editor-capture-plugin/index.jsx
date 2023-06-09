@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import React, { useEffect } from "react";
+import { useEffect, forwardRef } from "react";
 
-const EditorCapturePlugin = React.forwardRef((_, ref) => {
+const EditorCapturePlugin = forwardRef((_, ref) => {
   const [editor] = useLexicalComposerContext();
   useEffect(() => {
     ref.current = editor;

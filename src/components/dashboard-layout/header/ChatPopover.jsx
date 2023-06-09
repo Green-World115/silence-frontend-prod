@@ -1,4 +1,3 @@
-import React from 'react';
 import { Badge, IconButton } from '@mui/material';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import { useRouter } from 'next/router';

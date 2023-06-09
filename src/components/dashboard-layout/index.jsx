@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Box } from "@mui/material";
-import Header from "./header";
-import NavVertical from "./nav/NavVertical";
+const Header = dynamic(() => import('./header'));
+const NavVertical = dynamic(() => import('./nav/NavVertical'));
 
 const DashboardLayout = ({ children, maxWidth, title }) => {
   const [openNav, setOpenNav] = useState(false);

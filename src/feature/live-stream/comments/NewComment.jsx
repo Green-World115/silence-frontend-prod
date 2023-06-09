@@ -1,5 +1,4 @@
 import CommentInput from "components/comment-input";
-import React from "react";
 import { useNewComment } from "../hooks/use-comment";
 import { useUser } from "feature/auth/context";
 import { Stack } from "@mui/material";

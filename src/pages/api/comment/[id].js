@@ -1,9 +1,10 @@
 import { createRouter } from "next-connect";
-
-import commentController from "backend/controllers/comment-controller";
-import authMiddleware from "backend/middlewares/auth-middleware";
-import ApiError from "backend/utils/api-error";
+import dynamic from "next/dynamic";
 import httpStatus from "http-status";
+
+const commentController = dynamic(() => import('backend/controllers/comment-controller'));
+const authMiddleware = dynamic(() => import('backend/middlewares/auth-middleware'));
+const ApiError = dynamic(() => import('backend/utils/api-error'));
 
 const router = createRouter();
 

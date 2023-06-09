@@ -1,5 +1,7 @@
-import DashboardLayout from "components/dashboard-layout";
-import LiveStream from "feature/live-stream";
+import dynamic from "next/dynamic";
+
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const LiveStream = dynamic(() => import('feature/live-stream'));
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 const LiveStreamPage = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import { CommentInfo, Content, StyledContentEditable } from "./styled";

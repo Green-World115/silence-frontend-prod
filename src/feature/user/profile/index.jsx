@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Container } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import General from "./general";

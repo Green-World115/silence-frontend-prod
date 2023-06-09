@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, Divider, IconButton, MenuItem, Stack, Typography } from "@mui/material";
 import { formatToNow, formateDateTime } from "utils/date-formatter";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -11,7 +11,6 @@ import { useUser } from "feature/auth/context";
 import roles from "constants/roles";
 import { useDeleteLiveStreams } from "../hooks/use-live-streams";
 import Button from "components/Button";
-import { isAfter } from "date-fns";
 import copy from "copy-to-clipboard";
 import { useSnackbar } from "notistack";
 import Comments from "../comments";
@@ -25,7 +24,7 @@ const Item = ({ data }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const user = useUser();
-  const isAdmin = user.role === roles.ADMIN;
+  const isAdmin = user?.role === roles.ADMIN;
   const isCommentingDisabled = isPast(new Date(dateTime));
 
   const handleOpenPopover = (event) => setOpenPopover(event.currentTarget);

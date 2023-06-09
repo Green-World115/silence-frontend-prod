@@ -1,5 +1,7 @@
-import DashboardLayout from 'components/dashboard-layout';
-import Notification from 'feature/notification';
+import dynamic from 'next/dynamic';
+
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const Notification = dynamic(() => import('feature/notification'));
 import { dashboardGetServerSideProps } from 'utils/getServerSideProps';
 
 const NotificationPage = () => {

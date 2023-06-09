@@ -1,6 +1,8 @@
-import DashboardLayout from "components/dashboard-layout";
-import Group from "feature/groups/group";
 import React from "react";
+import dynamic from "next/dynamic";
+
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const Group = dynamic(() => import('feature/groups/group'));
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 export const GroupsPage = () => {

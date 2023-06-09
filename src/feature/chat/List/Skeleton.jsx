@@ -1,4 +1,3 @@
-import React from "react";
 import MuiSkeleton from "@mui/material/Skeleton";
 import { Divider, Stack } from "@mui/material";
 const Skeleton = () => {

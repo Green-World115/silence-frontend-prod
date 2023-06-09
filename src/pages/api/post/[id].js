@@ -1,8 +1,8 @@
 import { createRouter } from "next-connect";
-import cors from "cors";
+import dynamic from "next/dynamic";
 
-import postController from "backend/controllers/post-controller";
-import authMiddleware from "backend/middlewares/auth-middleware";
+const postController = dynamic(() => import('backend/controllers/post-controller'));
+const authMiddleware = dynamic(() => import('backend/middlewares/auth-middleware'));
 
 const router = createRouter();
 

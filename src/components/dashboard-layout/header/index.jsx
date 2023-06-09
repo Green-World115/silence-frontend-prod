@@ -1,12 +1,12 @@
-import * as React from 'react';
+import dynamic from 'next/dynamic';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Stack } from '@mui/material';
 import { ToolBar } from './styled';
 import { useResponsive } from '../../../hooks/useResponsive';
-import NotificationsPopover from './NotificationsPopover';
-import ChatPopover from './ChatPopover';
+const NotificationsPopover = dynamic(() => import('./NotificationsPopover'));
+const ChatPopover = dynamic(() => import('./ChatPopover'));
 
 export default function SearchAppBar({ onToggleNav }) {
   const { tab } = useResponsive();

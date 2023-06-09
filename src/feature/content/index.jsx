@@ -1,6 +1,4 @@
-import { Box, Card, Stack, Typography } from "@mui/material";
-import React from "react";
-import { PlayerWrapper } from "./styled";
+import { Box, Stack, Typography } from "@mui/material";
 import Item from "./Item";
 
 const Content = () => {

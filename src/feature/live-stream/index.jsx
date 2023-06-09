@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Button from "components/Button";
 import Item from "./item";
@@ -11,7 +10,7 @@ import roles from "constants/roles";
 const LiveStream = () => {
   const [showNewLiveStream, toggleNewLiveStream] = useToggle(false);
   const user = useUser();
-  const isAdmin = user.role === roles.ADMIN;
+  const isAdmin = user?.role === roles.ADMIN;
   const liveStreamsQuery = useLiveStreams();
 
   return (

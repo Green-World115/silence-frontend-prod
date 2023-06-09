@@ -1,6 +1,5 @@
-import * as React from "react";
 import { Skeleton as MuiSkeleton } from "@mui/material";
-import { Box, Stack } from "@mui/system";
+import { Stack } from "@mui/system";
 
 const HeaderSkeleton = () => {
   return (

@@ -1,5 +1,4 @@
 import MenuPopover from "components/menu-popover/MenuPopover";
-import React from "react";
 import { useUser } from "./use-user";
 import { Divider, Stack, Typography } from "@mui/material";
 import Skelton from "./Skelton";

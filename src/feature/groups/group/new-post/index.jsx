@@ -1,5 +1,5 @@
 import EditorCapturePlugin from "components/lexical/editor-capture-plugin";
-import React, { useRef, useState } from "react";
+import { useRef, useState, forwardRef } from "react";
 import { useSearchUser } from "./use-search-user";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
@@ -50,7 +50,7 @@ const editorConfig = {
   nodes: [MentionNode, AutoLinkNode],
 };
 
-const NewPost = React.forwardRef(() => {
+const NewPost = forwardRef(() => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const [showFiles, toggleFiles] = useToggle(false);

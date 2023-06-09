@@ -1,4 +1,3 @@
-import React from "react";
 import { Stack, Paper, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import RHFTextField from "../../../components/hook-forms/RHFTextField";
@@ -38,7 +37,7 @@ const ResetPassword = () => {
                 Send
               </Button>
             </Stack>
-            <Links onClick={() => router.push("/login")}>
+            <Links onClick={() => router.push("/login")} prefetch={false}>
               <StyledLink fontWeight={500}>Back to Login</StyledLink>
             </Links>
           </StyledGridItem>

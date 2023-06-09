@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Container, SliderContainer } from "./styled";
 import { FormLabel, Typography } from "@mui/material";
 import RHFSlider from "components/hook-forms/RHFSlider";

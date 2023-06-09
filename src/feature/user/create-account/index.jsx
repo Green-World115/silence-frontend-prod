@@ -1,5 +1,4 @@
-import { Box, Card, Divider, Link, Paper } from "@mui/material";
-import React from "react";
+import { Box, Card, Divider, Link } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import BasicInformation from "./BasicInformation";
@@ -7,7 +6,6 @@ import { Company, Content } from "./styled";
 
 import { useState } from "react";
 import Causes from "./Causes";
-import Plans from "./Plans";
 import { useCreateAccount } from "./hooks/useCreateAccount";
 import * as authApi from "@api/auth";
 import { useRouter } from "next/router";
@@ -29,7 +27,7 @@ const CreateAccount = () => {
     <>
       <Box justifyContent="space-between" display="flex">
         <Company variant="h5">Tinnitus pal</Company>
-        <Link whiteSpace="nowrap" component="button" variant="h6" onClick={handleLogout}>
+        <Link whiteSpace="nowrap" component="button" variant="h6" onClick={handleLogout} prefetch={false}>
           Log out
         </Link>
       </Box>

@@ -1,5 +1,4 @@
-import { Card, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Card, Typography } from "@mui/material";
 import { PlayerWrapper } from "./styled";
 
 const Item = ({ link, title, description }) => {

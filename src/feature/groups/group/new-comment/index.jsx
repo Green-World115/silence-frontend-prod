@@ -1,6 +1,5 @@
 import { Stack } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
-import React from "react";
 import { useUser } from "feature/auth/context";
 
 import { useCreateComment } from "../hooks/use-comment";

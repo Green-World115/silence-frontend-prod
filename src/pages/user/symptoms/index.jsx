@@ -1,5 +1,7 @@
-import DashboardLayout from "components/dashboard-layout";
-import Symptoms from "feature/user/symptoms";
+import dynamic from "next/dynamic";
+
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const Symptoms = dynamic(() => import('feature/user/symptoms'));
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 const SymptomPage = () => {

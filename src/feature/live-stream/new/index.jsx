@@ -2,7 +2,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Dialog, DialogActions, DialogContent, DialogTitle, Stack } from "@mui/material";
 import Button from "components/Button";
 import RHFTextField from "components/hook-forms/RHFTextField";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { schema } from "./schema";
 import { useAddLiveStream } from "../hooks/use-live-streams";

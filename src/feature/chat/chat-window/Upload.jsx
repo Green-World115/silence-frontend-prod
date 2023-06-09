@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { CircularProgress, Dialog, DialogContent, IconButton, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDropzone } from "react-dropzone";
 import SendIcon from "@mui/icons-material/Send";
 import Image from "next/image";
-import { CloseButton, ImageContainer } from "./styled";
+import { ImageContainer } from "./styled";
 import { useSendMessage } from "../hooks/use-message-actions";
 import { useSnackbar } from "notistack";
 

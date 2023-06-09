@@ -1,7 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { LexicalTypeaheadMenuPlugin } from "@lexical/react/LexicalTypeaheadMenuPlugin";
 import { useCallback } from "react";
-import * as React from "react";
 
 import { $createMentionNode } from "./MentionNode";
 import { MenuItem, Stack, Typography, Popper, Paper } from "@mui/material";

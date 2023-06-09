@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { Badge, Box, List, Typography, Divider, IconButton, Button, Stack } from '@mui/material';
-import MenuPopover from 'components/menu-popover/MenuPopover';
-import Scrollbar from 'components/scrollbar';
-import NotificationItem from 'feature/notification/NotificationItem';
+const MenuPopover = dynamic(() => import('components/menu-popover/MenuPopover'));
+const Scrollbar = dynamic(() => import('components/scrollbar'));
+const NotificationItem = dynamic(() => import('feature/notification/NotificationItem'));
 import { useNotifications } from './hooks/use-notifications';
 import { useRouter } from 'next/router';
 

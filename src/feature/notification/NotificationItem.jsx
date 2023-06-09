@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import { CustomAvatar } from 'components/custom-avatar';
 import notificationType from 'constants/notification-type';
-import React from 'react';
 import { formatToNow } from 'utils/date-formatter';
 import config from '@config/index';
 import { useRouter } from 'next/router';

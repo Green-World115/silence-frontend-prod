@@ -1,8 +1,10 @@
-import ChatProvider from "feature/chat/context";
 import React from "react";
-import DashboardLayout from "components/dashboard-layout";
-import Chat from "feature/chat";
+import dynamic from "next/dynamic";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
+
+const ChatProvider = dynamic(() => import('feature/chat/context'));
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const Chat = dynamic(() => import('feature/chat'));
 
 const ChatPage = () => {
   return (

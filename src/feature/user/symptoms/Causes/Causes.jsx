@@ -1,6 +1,6 @@
-import { Grid, Stack, Typography, FormLabel, Box, TextField, Paper, Card } from "@mui/material";
+import { Grid, FormLabel, Box, TextField, Card } from "@mui/material";
 import Button from "components/Button";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import RHFAutocomplete from "components/hook-forms/RHFAutocomplete";
 import causes from "constants/causes";

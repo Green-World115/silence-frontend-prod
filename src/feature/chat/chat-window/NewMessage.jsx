@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { IconButton, InputBase, Stack } from "@mui/material";
-import React from "react";
 import { InputContainer } from "./styled";
 import SendIcon from "@mui/icons-material/Send";
 import Upload from "./Upload";

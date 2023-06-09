@@ -1,4 +1,3 @@
-import React from "react";
 import { useMembers } from "../hooks/use-group";
 import { Card, Grid, Stack, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
@@ -23,7 +22,7 @@ const Members = () => {
                 <div>
                   <Typography>{formatName(member)}</Typography>
                   <Typography variant="caption" color="text.secondary" component="div">
-                    {member.role === roles.ADMIN ? member.role : member.groupRole}
+                    {member?.role === roles.ADMIN ? member?.role : member.groupRole}
                   </Typography>
                 </div>
               </Stack>
