@@ -90,6 +90,7 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
 
           {media.length > 0 && (
             <Image
+              loader={() => `${config.supabaseStorageUrl}/public/users/${media[0]}`}
               src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
               width="0"
               height="0"

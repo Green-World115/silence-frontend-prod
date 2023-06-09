@@ -48,7 +48,7 @@ const CoverPhoto = ({ groupId, cover }) => {
         <input {...getInputProps()} />
         {updateCoverMutation.isLoading ? "Uploading" : "Edit"}
       </EditAvatarButton>
-      {image && <Image src={image} alt="cover" fill style={{ objectFit: "cover" }} />}
+      {image && <Image loader={() => image} src={image} alt="cover" fill style={{ objectFit: "cover" }} />}
     </CoverPhotoContainer>
   );
 };

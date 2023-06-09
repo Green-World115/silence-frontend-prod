@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Button from "components/Button";
@@ -18,14 +18,9 @@ export const Comments = ({ postId, commentCount }) => {
   const comments = useComments(postId, showComments);
   return (
     <div>
-      <Button
-        variant="text"
-        color="primary"
-        onClick={toggleComment}
-        endIcon={showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-      >
-        Comments {`${comments.data?.length > 3 ? '(' + (comments.data?.length - 3) + ')' : ""}`}
-      </Button>
+      <Typography color={"blue"}>
+        Comments
+      </Typography>
       <Stack spacing={1} sx={{ mt: 3 }}>
         {showComments && (
           comments.data?.map((comment) => (
@@ -60,6 +55,14 @@ export const Comments = ({ postId, commentCount }) => {
           ))
         )}
       </Stack>
+      <Button
+        variant="text"
+        color="primary"
+        onClick={toggleComment}
+        endIcon={ (comments.data?.length > 3) ? (showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />) : ""}
+      >
+        {`${comments.data?.length > 3 ? (showComments ? ('Less (' + (comments.data?.length - 3) + ')') : ('More (' + (comments.data?.length - 3) + ')')) : ""}`}
+      </Button>
     </div>
   );
 };

@@ -25,7 +25,7 @@ const ChatItem = ({ content, time, avatar, name, guest, media }) => {
           {media ? (
             <Box>
               <ChatImageContainer>
-                <Image src={`${config.supabaseStorageUrl}/public/users/${media}`} fill style={{ objectFit: "cover" }} />
+                <Image loader={() => `${config.supabaseStorageUrl}/public/users/${media}`} src={`${config.supabaseStorageUrl}/public/users/${media}`} fill style={{ objectFit: "cover" }} />
               </ChatImageContainer>
               {content && (
                 <Typography variant="body2" mt={1}>

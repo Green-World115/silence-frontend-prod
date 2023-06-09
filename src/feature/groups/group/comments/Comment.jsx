@@ -82,6 +82,7 @@ export const Comment = ({ id, user, postId, text, content, createdAt, replies, l
         </Box>
         {media?.length > 0 && (
           <Image
+            loader={() => `${config.supabaseStorageUrl}/public/users/${media[0]}`}
             src={`${config.supabaseStorageUrl}/public/users/${media[0]}`}
             width="0"
             height="0"

@@ -17,6 +17,7 @@ export default function AvatarPreview({ file }) {
 
   return (
     <Image
+      loader={() => imgUrl}
       alt="avatar"
       src={imgUrl}
       sx={{
