@@ -5,7 +5,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import RHFTextField from "components/hook-forms/RHFTextField";
 import RHFSwitch from "components/hook-forms/RHFSwitch";
 import { Info } from "./styled";
-import SymptomInput from "../../components/SymptomInput";
+import SymptomInput from "components/SymptomInput";
 import * as userApi from "@api/user";
 import * as symptomApi from "@api/symptoms";
 import { useSnackbar } from "notistack";

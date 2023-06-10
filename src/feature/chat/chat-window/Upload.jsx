@@ -9,7 +9,7 @@ import { ImageContainer } from "./styled";
 import { useSendMessage } from "../hooks/use-message-actions";
 import { useSnackbar } from "notistack";
 
-const sizeLimit = 1 * 1024 * 1024;
+const sizeLimit = 5 * 1024 * 1024;
 
 const Upload = ({ userId, chatGroupId }) => {
   const [file, setFile] = useState(null);
@@ -22,7 +22,7 @@ const Upload = ({ userId, chatGroupId }) => {
     onDropAccepted: (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file.size > sizeLimit) {
-        enqueueSnackbar(`The image size must be less than 1MB!`, { variant: "warning" });
+        enqueueSnackbar(`The image size must be less than 5MB!`, { variant: "warning" });
       } else {
         Object.assign(file, { preview: URL.createObjectURL(file) });
         setFile(file);

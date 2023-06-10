@@ -1,7 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'), {ssr: false});
 const Content = dynamic(() => import('feature/content'));
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 

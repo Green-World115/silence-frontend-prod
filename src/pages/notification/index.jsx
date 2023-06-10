@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'), {ssr: false});
 const Notification = dynamic(() => import('feature/notification'));
 import { dashboardGetServerSideProps } from 'utils/getServerSideProps';
 

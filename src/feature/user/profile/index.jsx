@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Box, Container } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import General from "./general";
+import dynamic from "next/dynamic";
+const General = dynamic(() => import('./general'));
 
 const tabs = [
   {

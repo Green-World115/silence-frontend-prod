@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
-import Cover from "./cover";
-import Posts from "./posts";
+import dynamic from "next/dynamic";
+const Cover = dynamic(() => import('./cover'));
+const Posts = dynamic(() => import('./posts'));
+const Members = dynamic(() => import('./members'));
 import { useGroup } from "./hooks/use-group";
-import Members from "./members";
 
 const tabs = [
   { component: <Posts />, name: "Posts", value: "posts" },

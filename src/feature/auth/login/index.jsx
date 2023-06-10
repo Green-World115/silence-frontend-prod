@@ -1,8 +1,8 @@
 import { Stack, Paper, Box } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import RHFTextField from "../../../components/hook-forms/RHFTextField";
-import Button from "../../../components/Button";
+import RHFTextField from "components/hook-forms/RHFTextField";
+import Button from "components/Button";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
 import * as authApi from "@api/auth";
 
@@ -45,10 +45,10 @@ const Login = () => {
               </Button>
             </Stack>
             <Links>
-              <StyledLink fontWeight={500} onClick={() => router.push("/reset-password")} prefetch={false}>
+              <StyledLink fontWeight={500} onClick={() => router.push("/reset-password")}>
                 Reset password
               </StyledLink>
-              <StyledLink fontWeight={500} onClick={() => router.push('https://www.silencetinnitusnow.com/tinnitus-pal')} prefetch={false}>
+              <StyledLink fontWeight={500} onClick={() => router.push('https://www.silencetinnitusnow.com/tinnitus-pal')}>
                 Don't have account? Create account
               </StyledLink>
             </Links>

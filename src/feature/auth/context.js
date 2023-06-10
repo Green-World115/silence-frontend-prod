@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../../utils/superbase-client";
+import { supabase } from "utils/superbase-client";
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children, initialSession }) => {

@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 
 const ChatProvider = dynamic(() => import('feature/chat/context'));
-const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'), {ssr: false});
 const Chat = dynamic(() => import('feature/chat'));
 
 const ChatPage = () => {

@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { Badge, Box, List, Typography, Divider, IconButton, Button, Stack } from '@mui/material';
 const MenuPopover = dynamic(() => import('components/menu-popover/MenuPopover'));
-const Scrollbar = dynamic(() => import('components/scrollbar'));
+const Scrollbar = dynamic(() => import('components/scrollbar'), {ssr: false});
 const NotificationItem = dynamic(() => import('feature/notification/NotificationItem'));
 import { useNotifications } from './hooks/use-notifications';
 import { useRouter } from 'next/router';

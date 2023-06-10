@@ -9,7 +9,7 @@ import { Container, ImageContainer, UploadContainer } from "./styled";
 import uniqueId from "lodash/uniqueId";
 import { useSnackbar } from "notistack";
 
-const sizeLimit = 1 * 1024 * 1024;
+const sizeLimit = 5 * 1024 * 1024;
 
 const Upload = ({ files, onChangeFiles }) => {
 
@@ -24,7 +24,7 @@ const Upload = ({ files, onChangeFiles }) => {
       let isAllowed = true;
       acceptedFiles.map((file) => {
         if (file.size > sizeLimit) {
-          enqueueSnackbar(`The image size must be less than 1MB!`, { variant: "warning" });
+          enqueueSnackbar(`The image size must be less than 5MB!`, { variant: "warning" });
           isAllowed = false;
         }
       });

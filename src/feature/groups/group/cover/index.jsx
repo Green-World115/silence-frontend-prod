@@ -1,6 +1,6 @@
 import { Divider, Tab, Tabs, Typography } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
-import { AvatarContainer, CoverContainer, EditAvatarButton, NameContainer } from "./styled";
+import { AvatarContainer, CoverContainer, NameContainer } from "./styled";
 import CoverPhoto from "./CoverPhoto";
 import { useRouter } from "next/router";
 const Cover = ({ name, category, avatar, cover, activeTab, onChangeTab }) => {

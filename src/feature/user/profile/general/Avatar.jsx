@@ -1,12 +1,16 @@
 import { Paper, Avatar as MuiAvatar, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Content, UploadContainer } from "./styled";
 import { useDropzone } from "react-dropzone";
 import config from "@config/index";
 import { useUpdateAvatar } from "../hooks/use-profile-action";
+import { useSnackbar } from "notistack";
+
+const sizeLimit = 5 * 1024 * 1024;
 
 const Avatar = ({ avatar }) => {
   const [file, setFile] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   const updateAvatarMutation = useUpdateAvatar(avatar);
 
@@ -16,11 +20,15 @@ const Avatar = ({ avatar }) => {
     accept: { "image/*": [] },
     onDropAccepted: (acceptedFiles) => {
       const acceptedFile = acceptedFiles[0];
-      Object.assign(acceptedFile, {
-        preview: URL.createObjectURL(acceptedFile),
-      });
-      setFile(acceptedFile);
-      updateAvatarMutation.mutate(acceptedFile);
+      if (file.size > sizeLimit) {
+        enqueueSnackbar(`The image size must be less than 5MB!`, { variant: "warning" });
+      } else {
+        Object.assign(acceptedFile, {
+          preview: URL.createObjectURL(acceptedFile),
+        });
+        setFile(acceptedFile);
+        updateAvatarMutation.mutate(acceptedFile);
+      }
     },
   });
 

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 // @mui
 import { Collapse } from '@mui/material';
 // hooks
-import useActiveLink from '../../../hooks/use-active-link';
+import useActiveLink from 'hooks/use-active-link';
 //
 import NavItem from './NavItem';
 

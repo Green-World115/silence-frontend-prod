@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
-const AuthLayout = dynamic(() => import('components/AuthLayout'));
+const AuthLayout = dynamic(() => import('components/AuthLayout'), {ssr: false});
 const ChangePassword = dynamic(() => import('feature/auth/change-password'));
 import * as userApi from "@api/user";
 

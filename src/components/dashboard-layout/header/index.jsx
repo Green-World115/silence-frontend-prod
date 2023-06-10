@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Stack } from '@mui/material';
 import { ToolBar } from './styled';
-import { useResponsive } from '../../../hooks/useResponsive';
+import { useResponsive } from 'hooks/useResponsive';
 const NotificationsPopover = dynamic(() => import('./NotificationsPopover'));
 const ChatPopover = dynamic(() => import('./ChatPopover'));
 

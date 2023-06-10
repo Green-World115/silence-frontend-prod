@@ -1,7 +1,8 @@
 import { Box, Card, Divider, Link } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import BasicInformation from "./BasicInformation";
+import dynamic from "next/dynamic";
+const BasicInformation = dynamic(() => import('./BasicInformation'));
 import { Company, Content } from "./styled";
 
 import { useState } from "react";
@@ -27,7 +28,7 @@ const CreateAccount = () => {
     <>
       <Box justifyContent="space-between" display="flex">
         <Company variant="h5">Tinnitus pal</Company>
-        <Link whiteSpace="nowrap" component="button" variant="h6" onClick={handleLogout} prefetch={false}>
+        <Link whiteSpace="nowrap" component="button" variant="h6" onClick={handleLogout}>
           Log out
         </Link>
       </Box>

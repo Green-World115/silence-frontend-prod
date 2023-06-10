@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DashboardLayout = dynamic(() => import('components/dashboard-layout'));
+const DashboardLayout = dynamic(() => import('components/dashboard-layout'), {ssr: false});
 const Profile = dynamic(() => import('feature/user/profile'));
 import { dashboardGetServerSideProps } from "utils/getServerSideProps";
 

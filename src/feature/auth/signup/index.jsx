@@ -72,7 +72,7 @@ const SignUp = () => {
                 Create
               </Button>
             </Stack>
-            <Links onClick={() => router.push("/login")} prefetch={false}>
+            <Links onClick={() => router.push("/login")}>
               <StyledLink fontWeight={500}>Already have a account? Login</StyledLink>
             </Links>
           </StyledGridItem>

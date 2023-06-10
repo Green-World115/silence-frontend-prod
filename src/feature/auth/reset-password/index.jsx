@@ -1,6 +1,6 @@
 import { Stack, Paper, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
-import RHFTextField from "../../../components/hook-forms/RHFTextField";
+import RHFTextField from "components/hook-forms/RHFTextField";
 import { Company, Links, StyledGrid, StyledGridItem, StyledLink, Title, Content } from "./styled";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -37,7 +37,7 @@ const ResetPassword = () => {
                 Send
               </Button>
             </Stack>
-            <Links onClick={() => router.push("/login")} prefetch={false}>
+            <Links onClick={() => router.push("/login")}>
               <StyledLink fontWeight={500}>Back to Login</StyledLink>
             </Links>
           </StyledGridItem>

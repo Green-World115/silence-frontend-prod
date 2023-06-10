@@ -1,7 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-const AuthLayout = dynamic(() => import('components/AuthLayout'));
+const AuthLayout = dynamic(() => import('components/AuthLayout'), {ssr: false});
 const SignUp = dynamic(() => import('feature/auth/signup'));
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
