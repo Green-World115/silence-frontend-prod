@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import dynamic from "next/dynamic";
 const General = dynamic(() => import('./general'));
+const Billing = dynamic(() => import('./billing'));
 
 const tabs = [
   {
@@ -12,9 +13,9 @@ const tabs = [
     component: <General />,
   },
   {
-    value: "billing",
-    label: "Billing",
-    component: <div>coming soon</div>,
+    value: "subscription",
+    label: "Subscription",
+    component: <Billing />,
   },
   {
     value: "password",

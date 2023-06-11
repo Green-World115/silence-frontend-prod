@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Button from "components/Button";
@@ -18,9 +18,6 @@ export const Comments = ({ postId, commentCount }) => {
   const comments = useComments(postId, showComments);
   return (
     <div>
-      <Typography color={"blue"}>
-        Comments
-      </Typography>
       <Stack spacing={1} sx={{ mt: 3 }}>
         {showComments && (
           comments.data?.map((comment) => (

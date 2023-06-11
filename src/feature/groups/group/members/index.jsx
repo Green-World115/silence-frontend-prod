@@ -12,11 +12,12 @@ const Members = () => {
       <Grid item xs={12} md={6}>
         <Card sx={{ p: 3 }}>
           <Stack spacing={2}>
-            {membersQuery.data?.map((member) => (
-              <Stack direction="row" spacing={2}>
+            {membersQuery.data?.map((member, key) => (
+              (member.firstName !== "Ram" && member.firstName !== "Nolan") &&
+              <Stack direction="row" spacing={2} key={key}>
                 <CustomAvatar
                   src={member.avatar && `${config.avatarBaseUrl}${member.avatar}`}
-                  alr="avatar"
+                  alt="avatar"
                   name={formatName(member)}
                 />
                 <div>

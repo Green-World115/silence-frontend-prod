@@ -8,11 +8,13 @@ export const Content = styled("div")`
   justify-content: center;
 `;
 
-export const UploadContainer = styled("div")`
-  height: 120px;
-  width: 120px;
-  border-radius: 60px;
-  cursor: pointer;
-  padding: 5px;
-  border: dashed 1px ${(props) => props.theme.palette.divider};
-`;
+export const UploadContainer = styled("div")(({theme}) => ({
+  height: "120px",
+  width: "120px",
+  borderRadius: "60px",
+  cursor: "pointer",
+  padding: "5px",
+  transition: 'opacity 0.3s ease',
+  '&:hover': {opacity:0.5},
+  border: `dashed 1px ${theme.palette.divider}`,
+}));

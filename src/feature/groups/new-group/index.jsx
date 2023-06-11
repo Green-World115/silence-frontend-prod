@@ -73,7 +73,7 @@ const NewGroup = () => {
           value.id,
           user.id
         )
-      })
+      });
 
       const addUserResponse = await postApi.addUsersToGroup(users);
       if (addUserResponse.error) enqueueSnackbar("Add users to the group failed", { variant: "error" });

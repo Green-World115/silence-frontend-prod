@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Container, DetailsContainer, UserContainer } from "./styled";
 import config from "@config/index";
 
-const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, postCount }) => {
+const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, postCount, type }) => {
   const router = useRouter();
   const handleSelect = () => isAccepted && router.push(`groups/${id}`);
 
@@ -29,6 +29,7 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, 
           <UserContainer>
             <CustomAvatarGroup max={5}>
               {users?.map((user, key) => (
+                (user.firstName !== "Ram" && user.firstName !== "Nolan" || type === "Private") &&
                 <CustomAvatar
                   key={key}
                   name={user.firstName}
@@ -37,7 +38,7 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, 
                 />
               ))}
             </CustomAvatarGroup>
-            <Typography variant="subtitle1">{userCount} members</Typography>
+            <Typography variant="subtitle1">{(type === 'Private') ? userCount : userCount - 2} members</Typography>
           </UserContainer>
           <span>
             <Typography variant="subtitle1" display="inline">

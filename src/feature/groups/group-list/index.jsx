@@ -20,10 +20,10 @@ const GroupList = () => {
         <Button onClick={handleNewGroup}>New Group</Button>
       </Stack>
 
-      {map(groupBy(groups, "categoryName"), (items, key) => (
-        <Box key={key} mb={5}>
+      {map(groupBy(groups, "categoryName"), (items, type) => (
+        <Box key={type} mb={5}>
           <Typography variant="h5" mb={2}>
-            {key}
+            {type}
           </Typography>
           {items?.sort((a, b) => a.id - b.id).map((group) => (
             <GroupItem
@@ -36,6 +36,7 @@ const GroupList = () => {
               users={group.users}
               onJoin={handleJoin}
               onDecline={handleDecline}
+              type={type}
             />
           ))}
         </Box>
