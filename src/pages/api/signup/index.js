@@ -26,11 +26,12 @@ export default (req, res) => {
     const token = jwt.sign(payload, 'J7kRmPnQsW4tY8zX');
 
     const link = `https://www.tinnituspal.com/signup?token=${token}`;
+    console.log("link: ", link);
 
     let mailOptions = {
       from: "ramca0909@gmail.com",
       to: userEmail,
-      subject: "Please Sign Up!",
+      subject: "Please Sign Up to Tinnitus Pal!",
       text: link,
       html: `
       <p>Follow this link to Sign Up:</p>

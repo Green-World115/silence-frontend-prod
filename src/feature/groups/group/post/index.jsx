@@ -100,8 +100,8 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
           )}
 
           <Divider />
-          <Comments postId={id} commentCount={commentCount} />
           <NewComment postId={id} />
+          <Comments postId={id} commentCount={commentCount} />
         </Stack>
       </CardContent>
 

@@ -36,7 +36,7 @@ export const Comments = ({ postId, commentCount }) => {
           ))
         )}
         {!showComments && (
-          getNew3(comments.data)?.map((comment) => (
+          getNew3(comments.data)?.sort((a, b) => b.id - a.id).map((comment) => (
             <Comment
               key={comment.id}
               id={comment.id}
