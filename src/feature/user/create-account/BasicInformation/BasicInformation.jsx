@@ -45,8 +45,7 @@ const BasicInformation = ({ initialValues, onNext }) => {
     const userSymptoms = values.userSymptoms?.map((symptom) => ({
       value: symptom.value,
       symptomId: symptom.symptomId,
-      userId: values.id,
-      id: symptom.id,
+      userId: values.id
     }));
 
     const symptomResponse = await symptomApi.updateUserSymptoms(userSymptoms);

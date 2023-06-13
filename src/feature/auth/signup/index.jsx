@@ -37,14 +37,14 @@ const SignUp = () => {
       const decodedToken = decodeJWT(token);
       setUserEmail(decodedToken.email);
     }
-  });
+  }, []);
 
   const signup = handleSubmit(async (values) => {
     setLoading(true);
-    const signResponse = await authApi.signup(values.email, values.password);
+    const signResponse = await authApi.signup(userEmail, values.password);
     if (signResponse.error) enqueueSnackbar(signResponse.error.message, { variant: "error" });
     else {
-      const loginResponse = await authApi.login(values.email, values.password);
+      const loginResponse = await authApi.login(userEmail, values.password);
       if (loginResponse.error) enqueueSnackbar(loginResponse.error.message, { variant: "error" });
       else router.push(`/create-account`);
     }
@@ -59,7 +59,7 @@ const SignUp = () => {
             <Company variant="h5">Tinnitus pal</Company>
             <Title variant="h4">Create account</Title>
             <Stack spacing={2} sx={{ width: "100%" }}>
-              <RHFTextField name="email" control={control} value={userEmail} label="Email" />
+              <RHFTextField name="email" control={control} value={userEmail} label="Email" disabled={true}/>
               <RHFTextField name="password" control={control} label="Password" type="password" />
               <RHFTextField
                 name="confirmPassword"

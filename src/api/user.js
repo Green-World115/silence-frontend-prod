@@ -1,15 +1,22 @@
 import { supabase } from "../utils/superbase-client";
+import differenceInDays from "date-fns/differenceInDays";
 
-export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location, hideLocationAge, avatar }) => {
+export const getDaysLeft = (user) => {
+  const dateNow = Date.now();
+  const dateCreated = new Date(user.subscribedDay);
+  const diffDays = differenceInDays(dateNow, dateCreated);
+  return diffDays;
+}
+
+export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location, hideLocationAge }) => {
   return await supabase
     .from("users")
     .update({
       firstName,
       lastName,
-      avatar,
       age,
       location,
-      hideLocationAge,
+      hideLocationAge
     })
     .eq("id", userId)
     .throwOnError();
@@ -22,7 +29,7 @@ export const getUserByEmail = async (email) => {
 export const getUserById = async (userId) => {
   return await supabase
     .from("users")
-    .select("id,email, firstName, avatar, lastName,age, location, hideLocationAge, isAccountComplete")
+    .select("id, email, firstName, avatar, lastName,age, location, hideLocationAge, isAccountComplete, subscribedDay")
     .eq("id", userId)
     .limit(1)
     .single();
