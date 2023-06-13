@@ -18,11 +18,13 @@ export const logout = async () => {
 };
 
 export const resetPassword = async (email) => {
-  const { error, data } = await supabase.auth.resetPasswordForEmail(email, {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/change-password`,
   });
-  if (error) throw error;
-  else return data;
+  console.log("Data: ", data);
+  console.log("Err: ", error);
+  if (error) return error;
+  return data;
 };
 export const changePassword = async (password) => {
   const { error, data } = await supabase.auth.updateUser({ password });

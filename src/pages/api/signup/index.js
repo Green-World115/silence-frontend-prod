@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     user: "ramca0909@gmail.com",
     pass: "tdxodeyseblvgqzi"
   }
-})
+});
 
 export default (req, res) => {
   if (req.body.action === 'buy_product'){
