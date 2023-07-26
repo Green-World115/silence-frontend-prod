@@ -8,6 +8,15 @@ export const getLiveStreams = () => {
     .throwOnError();
 };
 
+export const getALiveStream = async (id) => {
+  const liveStream = await supabase
+    .from("live_streams")
+    .select("id, title, description, dateTime, link")
+    .eq("id", id)
+    .throwOnError();
+    return liveStream.data[0]
+};
+
 export const addLiveStream = ({ title, description, link, dateTime }) => {
   return supabase
     .from("live_streams")
