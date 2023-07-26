@@ -91,7 +91,7 @@ const formatNotification = (type, notifier) => {
         <Typography component="span" variant="body2" fontWeight={600}>
           Live stream
         </Typography>
-        &nbsp;is added
+        &nbsp;has been scheduled
       </Typography>
     );
   } else if (type === notificationType.COMMENT_OWN_POST) {
