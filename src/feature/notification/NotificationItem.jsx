@@ -84,7 +84,7 @@ const formatNotification = (type, notifier, url) => {
         <Typography component="span" variant="body2" fontWeight={600}>
           {notifier.firstName} {notifier.lastName}
         </Typography>
-        &nbsp;mention you in a comment
+        &nbsp;mentioned you in a comment
       </Typography>
     );
   } else if (type === notificationType.MENTION_IN_POST) {
@@ -93,7 +93,7 @@ const formatNotification = (type, notifier, url) => {
         <Typography component="span" variant="body2" fontWeight={600}>
           {notifier.firstName} {notifier.lastName}
         </Typography>
-        &nbsp;mention you in a post
+        &nbsp;mentioned you in a post
       </Typography>
     );
   } else if (type === notificationType.NEW_LIVE_STREAM) {

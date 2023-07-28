@@ -100,7 +100,7 @@ export const getPostsByGroup = async (groupId, page = 1) => {
 };
 
 export const addComment = ({ userId, postId, parentCommentId, content, media = [] }) => {
-  return supabase.from("post_comments").insert({ userId: userId, postId: postId, parentCommentId: parentCommentId, content: content, media }).throwOnError();
+  return supabase.from("post_comments").insert({ userId: userId, postId: postId, parentCommentId: parentCommentId, content: content, media }).select('id').throwOnError();
 };
 
 export const getCommentsByPost = (postId) => {

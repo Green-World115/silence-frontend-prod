@@ -19,7 +19,7 @@ const Comments = ({ liveStreamId, isCommentingDisabled }) => {
           {commentsQuery.data?.map((comment) => (
             <Comment
               key={comment.id}
-              id={comment.id}
+              id={`#comment-${comment.id}`}
               user={comment.user}
               createdAt={comment.createdAt}
               content={comment.content}

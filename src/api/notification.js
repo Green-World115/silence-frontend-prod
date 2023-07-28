@@ -21,16 +21,21 @@ export const readNotification = (id) => {
   return supabase.from('notifications').update({ read: true }).eq('id', id).throwOnError();
 };
 
-export const sendCommentNotification = (userId, notifierIds = []) => {
+export const sendCommentNotification = (user, notifierIds = [], postId, addedCommentId) => {
+  const upsert = []
+  for (let i = 0; i < notifierIds.length; i ++) {
+    if (user.id!== notifierIds[i]) {
+      upsert.push({
+        userId: notifierIds[i],
+        type: notificationType.MENTION_IN_COMMENT,
+        notifierId: user.id,
+        url: `/groups/${postId}/#post-${postId}-comment-${addedCommentId}`
+      })
+    }
+  }
   return supabase
     .from('notifications')
-    .upsert(
-      notifierIds.map((notifierId) => ({
-        userId,
-        type: notificationType.MENTION_IN_COMMENT,
-        notifierId,
-      }))
-    )
+    .upsert(upsert)
     .throwOnError();
 };
 
