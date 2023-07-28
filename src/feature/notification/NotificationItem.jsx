@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   ListItemAvatar,
   ListItemButton,
@@ -5,13 +6,14 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { CustomAvatar } from 'components/custom-avatar';
 import notificationType from 'constants/notification-type';
 import { formatToNow } from 'utils/date-formatter';
+import { getALiveStream } from '@api/live-stream';
 import config from '@config/index';
-import { useRouter } from 'next/router';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { AvatarContainer, Indicator } from './styled';
+import { useEffect, useState } from 'react';
 
 const NotificationItem = ({ notification, onRead }) => {
   const { type, read, url, createdAt, notifier } = notification;
@@ -28,7 +30,7 @@ const NotificationItem = ({ notification, onRead }) => {
       <ListItemAvatar>{getAvatar(type, notifier)}</ListItemAvatar>
       <ListItemText
         disableTypography
-        primary={formatNotification(type, notifier)}
+        primary={formatNotification(type, notifier, url)}
         secondary={
           <Typography variant="caption" color="text.secondary">
             {formatToNow(createdAt)}
@@ -65,14 +67,24 @@ const getAvatar = (type, notifier) => {
   }
 };
 
-const formatNotification = (type, notifier) => {
+const formatNotification = (type, notifier, url) => {
+  const [title, setTitle] = useState('')
+    useEffect(() => {
+      if (url) {
+        const id = url.replace('/live-stream?id=', '')
+        getALiveStream(id).then((data) => {
+          setTitle(data.title)
+        })
+      }
+    }, [url])
+
   if (type === notificationType.MENTION_IN_COMMENT) {
     return (
       <Typography variant="body2">
         <Typography component="span" variant="body2" fontWeight={600}>
           {notifier.firstName} {notifier.lastName}
         </Typography>
-        &nbsp;mention you in a comment
+        &nbsp;mentioned you in a comment
       </Typography>
     );
   } else if (type === notificationType.MENTION_IN_POST) {
@@ -81,7 +93,7 @@ const formatNotification = (type, notifier) => {
         <Typography component="span" variant="body2" fontWeight={600}>
           {notifier.firstName} {notifier.lastName}
         </Typography>
-        &nbsp;mention you in a post
+        &nbsp;mentioned you in a post
       </Typography>
     );
   } else if (type === notificationType.NEW_LIVE_STREAM) {
@@ -91,7 +103,8 @@ const formatNotification = (type, notifier) => {
         <Typography component="span" variant="body2" fontWeight={600}>
           Live stream
         </Typography>
-        &nbsp;is added
+        &nbsp;has been scheduled:
+        <b>{title}</b>
       </Typography>
     );
   } else if (type === notificationType.COMMENT_OWN_POST) {

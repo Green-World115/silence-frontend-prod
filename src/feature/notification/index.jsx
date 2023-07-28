@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Card, Stack, Typography } from '@mui/material';
 import { useNotifications, useRead } from './hooks/use-notifications';
 import NotificationItem from './NotificationItem';
@@ -26,8 +27,8 @@ const Notification = () => {
       <Stack spacing={1}>
         {notificationQuery?.data?.pages.map((page, i) => (
           <React.Fragment key={i}>
-            {page.notifications.map((notification) => (
-              <Card>
+            {page.notifications.map((notification, idx) => (
+              <Card key={idx}>
                 <NotificationItem
                   key={notification.id}
                   notification={notification}

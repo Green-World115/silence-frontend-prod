@@ -29,7 +29,6 @@ const Symptoms = ({ initialValues }) => {
       value: symptom.value,
       symptomId: symptom.symptomId,
       userId: user.id,
-      id: symptom.id,
     }));
 
     const symptomResponse = await symptomApi.updateUserSymptoms(userSymptoms);
@@ -47,7 +46,7 @@ const Symptoms = ({ initialValues }) => {
     <Card sx={{ p: 5 }}>
       <Grid container spacing={4}>
         {fields?.map((field, index) => (
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} key={index}>
             <SymptomInput
               type={field.type}
               label={field.name}
