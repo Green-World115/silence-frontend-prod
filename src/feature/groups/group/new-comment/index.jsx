@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import { CustomAvatar } from "components/custom-avatar";
 import { useUser } from "feature/auth/context";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useCreateComment } from "../hooks/use-comment";
 import { useResponsive } from "hooks/useResponsive";
@@ -15,8 +16,9 @@ import * as postApi from "@api/post";
 import * as fileApi from "@api/file";
 import generateUniqueTimeString from "constants/random";
 
-const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
+const NewComment = ({ groupId, postId, parentCommentId, placeholder, sx }) => {
   const user = useUser();
+  const queryClient = useQueryClient();
 
   const dispatch = useDispatch();
   const { mobile } = useResponsive();
@@ -38,12 +40,13 @@ const NewComment = ({ postId, parentCommentId, placeholder, sx }) => {
         }
       }
       const result = await postApi.addComment({ userId: user.id, postId: postId, parentCommentId: parentCommentId, content: JSON.stringify(editorState.toJSON()), media });
+      queryClient.invalidateQueries(["comments", postId]);
       const addedCommentId = result.data[0].id
   
       if (mentions.length > 0) {
         const mentionIds = mentions.map((mention) => mention.mention.id);
         
-        await notificationApi.sendCommentNotification(user, mentionIds, postId, addedCommentId);
+        await notificationApi.sendCommentNotification(user, mentionIds, groupId, postId, addedCommentId);
       }
       editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
       dispatch(changeState());

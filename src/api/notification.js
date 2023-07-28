@@ -21,7 +21,7 @@ export const readNotification = (id) => {
   return supabase.from('notifications').update({ read: true }).eq('id', id).throwOnError();
 };
 
-export const sendCommentNotification = (user, notifierIds = [], postId, addedCommentId) => {
+export const sendCommentNotification = (user, notifierIds = [], groupId, postId, addedCommentId) => {
   const upsert = []
   for (let i = 0; i < notifierIds.length; i ++) {
     if (user.id!== notifierIds[i]) {
@@ -29,7 +29,7 @@ export const sendCommentNotification = (user, notifierIds = [], postId, addedCom
         userId: notifierIds[i],
         type: notificationType.MENTION_IN_COMMENT,
         notifierId: user.id,
-        url: `/groups/${postId}/#post-${postId}-comment-${addedCommentId}`
+        url: `/groups/${groupId}/#group-${groupId}-post-${postId}`
       })
     }
   }
