@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import EditorCapturePlugin from "components/lexical/editor-capture-plugin";
 import { useRef, useState, forwardRef } from "react";
 import { useSearchUser } from "./use-search-user";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { useQueryClient } from "@tanstack/react-query";
+
 import SubmitPlugin from "components/lexical/submit-plugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { MentionNode } from "components/lexical/mentions-plugin/MentionNode";
@@ -18,9 +21,12 @@ import { InputContainer, Placeholder, StyledContentEditable } from "./styled";
 import useToggle from "hooks/useToggle";
 import Button from "components/Button";
 import { useCreatePost } from "../hooks/use-post-action";
-import { useRouter } from "next/router";
 import Upload from "./Upload";
+import { useSnackbar } from "notistack";
 import { useUser } from "feature/auth/context";
+import * as postApi from "@api/post";
+import * as notificationApi from '@api/notification';
+import * as fileApi from "@api/file";
 
 //TODO update regex to match any url
 const URL_MATCHER =
@@ -61,6 +67,8 @@ const NewPost = forwardRef(() => {
   const router = useRouter();
   const { id: groupId } = router.query;
   const user = useUser();
+  const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
 
   const searchUserQuery = useSearchUser(searchQuery);
 
@@ -75,21 +83,34 @@ const NewPost = forwardRef(() => {
 
   const handleChange = () => setIsEmpty(checkEmpty());
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!checkEmpty()) {
-      const editor = editorRef.current;
-      const editorState = editor.getEditorState();
-
-      createPostMutation.mutate(
-        { userId: user.id, postGroupId:groupId, content: JSON.stringify(editorState.toJSON()), files },
-        {
-          onSuccess: () => {
-            editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
-            setFiles([]);
-            if (showFiles) toggleFiles();
-          },
+      try {
+        const editor = editorRef.current;
+        const editorState = editor.getEditorState();
+        const mentions = editorState?.toJSON()?.root?.children[0]?.children?.filter((item) => item.type === "mention")
+        const media = [];
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const { data: response, error } = await fileApi.uploadPostImage(user.id, file);
+          if (error) throw error;
+          media.push(`${response.path}`);
+        }      
+        const result = await postApi.createPost({ userId: user.id, groupId, content: JSON.stringify(editorState.toJSON()), media: media });
+        queryClient.invalidateQueries(["posts", groupId]);
+  
+        const addedPostId = result.data[0].id
+        if (mentions.length > 0) {
+          const mentionIds = mentions.map((mention) => mention.mention.id);
+          
+          await notificationApi.sendPostNotification(user, mentionIds, groupId, addedPostId);
         }
-      );
+        editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
+        setFiles([]);
+        if (showFiles) toggleFiles();
+      } catch (error) {
+        enqueueSnackbar("An error occured! Please try again!", { variant: "error" });
+      }
     }
   };
 

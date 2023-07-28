@@ -65,7 +65,7 @@ export const declineGroupInvitation = (userId, groupId) => {
 };
 
 export const createPost = ({ userId, groupId, content, media = [] }) => {
-  return supabase.from("posts").insert({ userId: userId, media: media, text: "", postGroupId: groupId, content }).throwOnError();
+  return supabase.from("posts").insert({ userId: userId, media: media, text: "", postGroupId: groupId, content }).select('id').throwOnError();
 };
 
 export const deletePost = (id) => {
@@ -100,7 +100,7 @@ export const getPostsByGroup = async (groupId, page = 1) => {
 };
 
 export const addComment = ({ userId, postId, parentCommentId, content, media = [] }) => {
-  return supabase.from("post_comments").insert({ userId: userId, postId: postId, parentCommentId: parentCommentId, content: content, media }).select('id').throwOnError();
+  return supabase.from("post_comments").insert({ userId: userId, postId: postId, parentCommentId: parentCommentId, content: content, media }).throwOnError();
 };
 
 export const getCommentsByPost = (postId) => {

@@ -39,38 +39,19 @@ const NewComment = ({ groupId, postId, parentCommentId, placeholder, sx }) => {
           media.push(`${response.path}`);
         }
       }
-      const result = await postApi.addComment({ userId: user.id, postId: postId, parentCommentId: parentCommentId, content: JSON.stringify(editorState.toJSON()), media });
+      await postApi.addComment({ userId: user.id, postId: postId, parentCommentId: parentCommentId, content: JSON.stringify(editorState.toJSON()), media });
       queryClient.invalidateQueries(["comments", postId]);
-      const addedCommentId = result.data[0].id
   
       if (mentions.length > 0) {
         const mentionIds = mentions.map((mention) => mention.mention.id);
         
-        await notificationApi.sendCommentNotification(user, mentionIds, groupId, postId, addedCommentId);
+        await notificationApi.sendCommentNotification(user, mentionIds, groupId, postId);
       }
       editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
       dispatch(changeState());
     } catch (error) {
       enqueueSnackbar("An error occured! Please try again!", { variant: "error" });
     }
-
-    // commentMutation.mutate(
-    //   { userId: user.id, parentCommentId: parentCommentId, postId: postId, content: JSON.stringify(editorState.toJSON()), media: files },
-    //   {
-    //     onSuccess: async () => {
-    //       if (mentions.length > 0) {
-    //         const mentionIds = mentions.map((mention) => mention.id);
-    //         const notifierNames = mentions.map((mention) => mention.name)
-    //         await notificationApi.sendCommentNotification(user.id, mentionIds, notifierNames);
-    //       }
-    //       editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
-    //       dispatch(changeState());
-    //     },
-    //     onError: () => {
-    //       enqueueSnackbar("An error occured! Please try again!", { variant: "error" });
-    //     }
-    //   }
-    // );
   };
 
   return (
