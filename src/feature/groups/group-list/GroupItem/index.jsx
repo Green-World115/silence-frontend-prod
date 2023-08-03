@@ -38,7 +38,7 @@ const GroupItem = ({ name, id, isAccepted, onJoin, onDecline, users, userCount, 
                 />
               ))}
             </CustomAvatarGroup>
-            <Typography variant="subtitle1">{(type === 'Private') ? userCount : userCount - 2} members</Typography>
+            <Typography variant="subtitle1">{userCount} members</Typography>
           </UserContainer>
           <span>
             <Typography variant="subtitle1" display="inline">
