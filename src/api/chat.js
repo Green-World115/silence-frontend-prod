@@ -62,15 +62,20 @@ export const searchChat = async (userId, searchText) => {
 
   let usersResponse;
 
-  if (searchText) {
-    const receiverIds = groupSearchResponse.data.map((group) => group.receiverId);
-    receiverIds.push(userId);
+  const receiverIds = groupSearchResponse.data.map((group) => group.receiverId);
+  receiverIds.push(userId);
+  if (searchText && searchText !== '*') {
     usersResponse = await supabase
       .from('users')
       .select('id, firstName, lastName, image')
       .or(
         `firstName.ilike.%${searchText}%, lastName.ilike.%${searchText}%, email.ilike.%${searchText}%`
       )
+      .not('id', 'in', `(${receiverIds.join(',')})`);
+  } else if (searchText === '*') {
+    usersResponse = await supabase
+      .from('users')
+      .select('id, firstName, lastName, image')
       .not('id', 'in', `(${receiverIds.join(',')})`);
   }
 

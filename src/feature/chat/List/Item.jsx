@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import ListItemText from '@mui/material/ListItemText';
@@ -5,12 +6,13 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
-import { CustomAvatar } from 'components/custom-avatar';
 import { Divider, Stack } from '@mui/material';
-import { useRouter } from 'next/router';
-import { UnreadLabel } from './styled';
 
-const Item = ({ name, unreadCount, receiverId }) => {
+import { CustomAvatar } from 'components/custom-avatar';
+import { UnreadLabel } from './styled';
+import config from "@config/index";
+
+const Item = ({ name, unreadCount, receiverId, avatar }) => {
   const router = useRouter();
 
   const handleRedirect = () => router.push(`/chat/private/${receiverId}`);
@@ -20,7 +22,13 @@ const Item = ({ name, unreadCount, receiverId }) => {
       <ListItem alignItems="flex-start" disablePadding>
         <ListItemButton onClick={handleRedirect} disableRipple>
           <ListItemAvatar>
-            <CustomAvatar name={name} alt={name} />
+            <CustomAvatar
+              size="sm"
+              name={name}
+              alt={name}
+              src={avatar && `${config.avatarBaseUrl}${avatar}`}
+              sx={{ width: 30, height: 30, mr: 2, fontSize: 16 }}
+            />
           </ListItemAvatar>
           <ListItemText
             primary={

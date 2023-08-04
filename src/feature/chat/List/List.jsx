@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import MuiList from '@mui/material/List';
-import Drawer from '@mui/material/Drawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Divider from '@mui/material/Divider';
@@ -18,7 +17,6 @@ import Skeleton from './Skeleton';
 import isEmpty from 'lodash/isEmpty';
 
 const List = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -26,16 +24,35 @@ const List = () => {
 
   const { data, isLoading } = useSearch(searchText);
 
-  const handleChangeSearch = (e) => setSearchText(e.target.value);
+  const handleChangeSearch = useCallback((e) => {
+    const value = e.target.value
+    if (value) {
+      setSearchText(value)
+    } else {
+      setSearchText("*")
+    }
+  }, []);
+
+  const handleFocus = useCallback(() => {
+    if (searchText === "") {
+      setSearchText("*")
+    }
+  }, [searchText])
+
+  const handleBlur = useCallback(() => {
+    if (searchText === '*') setSearchText("")
+  }, [searchText])
 
   const drawer = (
-    <Container>
+    <Container style={{ overflow: 'auto'}}>
       <SearchContainer>
         <TextField
           size="small"
           fullWidth
           placeholder="Enter user name or email"
           onChange={handleChangeSearch}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
       </SearchContainer>
       <Divider component="div" />
@@ -49,11 +66,13 @@ const List = () => {
                 <Typography variant="subtitle1">Chat</Typography>
               </SectionTitle>
             )}
-            {data?.groups?.map((group) => (
+            {data?.groups?.map((group, idx) => (
               <Item
                 name={group.name}
                 unreadCount={group.unreadCount}
                 receiverId={group.receiverId}
+                avatar={group.avatar}
+                key={idx}
               />
             ))}
             {!isEmpty(data?.users) && searchText && (
@@ -61,8 +80,8 @@ const List = () => {
                 <Typography variant="subtitle1">Users</Typography>
               </SectionTitle>
             )}
-            {data?.users?.map((user) => (
-              <Item name={user.firstName} receiverId={user.id} />
+            {searchText && data?.users?.map((user) => (
+              <Item name={user.firstName} receiverId={user.id} key={user.id} />
             ))}
           </MuiList>
         )}
@@ -76,7 +95,7 @@ const List = () => {
     </Container>
   );
 
-  return <>{mobile ? <Drawer open={false}>{drawer}</Drawer> : <>{drawer}</>}</>;
+  return <>{drawer}</>;
 };
 
 export default List;

@@ -47,7 +47,7 @@ const Upload = ({ userId, chatGroupId }) => {
         <AddPhotoAlternateIcon />
         <input {...getInputProps()} />
       </IconButton>
-      <Dialog open={file} fullWidth maxWidth="sm">
+      <Dialog open={file ? true : false} fullWidth maxWidth="sm">
         <DialogContent sx={{ p: 4 }}>
           <IconButton sx={{ position: "absolute", top: "0", right: "0" }} onClick={handleClose}>
             <CloseIcon />

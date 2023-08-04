@@ -26,8 +26,6 @@ const ChatWindow = () => {
 
   const { messages, pagination, loadNext, chatGroup } = useMessages(type, id);
 
-  console.log("chat group data: ", chatGroup?.data);
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
       {!id && (
@@ -47,6 +45,7 @@ const ChatWindow = () => {
               <Stack direction="row" spacing={2} alignItems="center">
                 <CustomAvatar
                   name={chatGroup.data?.name}
+                  alt={chatGroup.data?.name}
                   src={chatGroup.data?.avatar && `${config.avatarBaseUrl}${chatGroup.data?.avatar}`}
                 />
                 <Typography variant="subtitle2">{chatGroup.data?.name}</Typography>
