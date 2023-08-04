@@ -24,24 +24,7 @@ const List = () => {
 
   const { data, isLoading } = useSearch(searchText);
 
-  const handleChangeSearch = useCallback((e) => {
-    const value = e.target.value
-    if (value) {
-      setSearchText(value)
-    } else {
-      setSearchText("*")
-    }
-  }, []);
-
-  const handleFocus = useCallback(() => {
-    if (searchText === "") {
-      setSearchText("*")
-    }
-  }, [searchText])
-
-  const handleBlur = useCallback(() => {
-    if (searchText === '*') setSearchText("")
-  }, [searchText])
+  const handleChangeSearch = (e) => setSearchText(e.target.value);
 
   const drawer = (
     <Container style={{ overflow: 'auto'}}>
@@ -49,10 +32,9 @@ const List = () => {
         <TextField
           size="small"
           fullWidth
-          placeholder="Enter user name or email"
+          placeholder="Enter user name or email or *"
           onChange={handleChangeSearch}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          value={searchText}
         />
       </SearchContainer>
       <Divider component="div" />
@@ -81,7 +63,7 @@ const List = () => {
               </SectionTitle>
             )}
             {searchText && data?.users?.map((user) => (
-              <Item name={user.firstName} receiverId={user.id} key={user.id} />
+              <Item name={user.firstName} avatar={user.avatar} receiverId={user.id} key={user.id} />
             ))}
           </MuiList>
         )}
