@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import MuiList from '@mui/material/List';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -19,12 +20,20 @@ import isEmpty from 'lodash/isEmpty';
 const List = () => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
 
   const [searchText, setSearchText] = useState('');
 
   const { data, isLoading } = useSearch(searchText);
 
   const handleChangeSearch = (e) => setSearchText(e.target.value);
+  const sortedGroup = useMemo(() => data?.groups.sort((a, b) => b.chatMessageId - a.chatMessageId), [data])
+
+  useEffect(() => {
+    const receiverId = sortedGroup[0]?.receiverId
+    if (receiverId)
+      router.push(`/chat/private/${receiverId}`)
+  }, [sortedGroup])
 
   const drawer = (
     <Container style={{ overflow: 'auto'}}>
@@ -48,7 +57,7 @@ const List = () => {
                 <Typography variant="subtitle1">Chat</Typography>
               </SectionTitle>
             )}
-            {data?.groups?.map((group, idx) => (
+            {sortedGroup?.map((group, idx) => (
               <Item
                 name={group.name}
                 unreadCount={group.unreadCount}
