@@ -54,23 +54,29 @@ export const markAsRead = async (chatGroupId, userId) => {
 };
 
 export const searchChat = async (userId, searchText) => {
+  const realText = searchText === "*" ? "" : searchText
   const groupSearchResponse = await supabase.rpc('search_chat_groups', {
-    search_text: `%${searchText}%`,
+    search_text: `%${realText}%`,
   });
 
   if (groupSearchResponse.error) throw groupSearchResponse.error;
 
   let usersResponse;
 
-  if (searchText) {
-    const receiverIds = groupSearchResponse.data.map((group) => group.receiverId);
-    receiverIds.push(userId);
+  const receiverIds = groupSearchResponse.data.map((group) => group.receiverId);
+  receiverIds.push(userId);
+  if (searchText && searchText !== '*') {
     usersResponse = await supabase
       .from('users')
-      .select('id, firstName, lastName, image')
+      .select('id, firstName, lastName, image, avatar')
       .or(
-        `firstName.ilike.%${searchText}%, lastName.ilike.%${searchText}%, email.ilike.%${searchText}%`
+        `firstName.ilike.%${realText}%, lastName.ilike.%${realText}%, email.ilike.%${realText}%`
       )
+      .not('id', 'in', `(${receiverIds.join(',')})`);
+  } else if (searchText === '*') {
+    usersResponse = await supabase
+      .from('users')
+      .select('id, firstName, lastName, image, avatar')
       .not('id', 'in', `(${receiverIds.join(',')})`);
   }
 

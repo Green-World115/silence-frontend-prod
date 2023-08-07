@@ -65,7 +65,7 @@ export const declineGroupInvitation = (userId, groupId) => {
 };
 
 export const createPost = ({ userId, groupId, content, media = [] }) => {
-  return supabase.from("posts").insert({ userId: userId, media: media, text: "", postGroupId: groupId, content }).throwOnError();
+  return supabase.from("posts").insert({ userId: userId, media: media, text: "", postGroupId: groupId, content }).select('id').throwOnError();
 };
 
 export const deletePost = (id) => {

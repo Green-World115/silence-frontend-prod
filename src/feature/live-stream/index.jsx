@@ -24,8 +24,8 @@ const LiveStream = () => {
       </Stack>
 
       <Stack spacing={2}>
-        {liveStreamsQuery.data?.map((liveStream) => (
-          <Item id={liveStream.id} data={liveStream} />
+        {liveStreamsQuery.data?.map((liveStream, idx) => (
+          <Item id={liveStream.id} data={liveStream} key={idx} />
         ))}
       </Stack>
     </Box>

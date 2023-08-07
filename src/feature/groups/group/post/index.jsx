@@ -43,7 +43,7 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
   };
 
   return (
-    <Card>
+    <Card id={`group-${groupId}-post-${id}`}>
       <UserInfo open={showUserinfo} onClose={handleCloseUserInfo} userId={user.id} />
       <CardHeader
         disableTypography
@@ -100,8 +100,8 @@ const Post = ({ id, groupId, user, text, content, commentCount, time, media }) =
           )}
 
           <Divider />
-          <NewComment postId={id} />
           <Comments postId={id} commentCount={commentCount} />
+          <NewComment groupId={groupId} postId={id} />
         </Stack>
       </CardContent>
 

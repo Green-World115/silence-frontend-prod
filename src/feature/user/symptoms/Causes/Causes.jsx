@@ -27,6 +27,7 @@ const Causes = ({ initialValues }) => {
   });
 
   const { fields } = useFieldArray({ control, name: "userSymptoms" });
+  console.log(fields, 'kkkkkkkk')
 
   const { enqueueSnackbar } = useSnackbar();
 

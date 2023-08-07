@@ -8,7 +8,7 @@ export const getDaysLeft = (user) => {
   return diffDays;
 }
 
-export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location, hideLocationAge }) => {
+export const updateUserBasicInfo = async (userId, { firstName, lastName, age, location, hideLocationAge, avatar }) => {
   return await supabase
     .from("users")
     .update({
@@ -16,7 +16,8 @@ export const updateUserBasicInfo = async (userId, { firstName, lastName, age, lo
       lastName,
       age,
       location,
-      hideLocationAge
+      hideLocationAge,
+      avatar
     })
     .eq("id", userId)
     .throwOnError();

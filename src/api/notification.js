@@ -21,16 +21,39 @@ export const readNotification = (id) => {
   return supabase.from('notifications').update({ read: true }).eq('id', id).throwOnError();
 };
 
-export const sendCommentNotification = (userId, notifierIds = []) => {
+export const sendCommentNotification = (user, notifierIds = [], groupId, postId) => {
+  const upsert = []
+  for (let i = 0; i < notifierIds.length; i ++) {
+    if (user.id!== notifierIds[i]) {
+      upsert.push({
+        userId: notifierIds[i],
+        type: notificationType.MENTION_IN_COMMENT,
+        notifierId: user.id,
+        url: `/groups/${groupId}/#group-${groupId}-post-${postId}`
+      })
+    }
+  }
   return supabase
     .from('notifications')
-    .upsert(
-      notifierIds.map((notifierId) => ({
-        userId,
-        type: notificationType.MENTION_IN_COMMENT,
-        notifierId,
-      }))
-    )
+    .upsert(upsert)
+    .throwOnError();
+};
+
+export const sendPostNotification = (user, notifierIds = [], groupId, addedPostId, ) => {
+  const upsert = []
+  for (let i = 0; i < notifierIds.length; i ++) {
+    if (user.id!== notifierIds[i]) {
+      upsert.push({
+        userId: notifierIds[i],
+        type: notificationType.MENTION_IN_POST,
+        notifierId: user.id,
+        url: `/groups/${groupId}/#group-${groupId}-post-${addedPostId}`
+      })
+    }
+  }
+  return supabase
+    .from('notifications')
+    .upsert(upsert)
     .throwOnError();
 };
 

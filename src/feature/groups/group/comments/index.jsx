@@ -18,9 +18,17 @@ export const Comments = ({ postId, commentCount }) => {
   const comments = useComments(postId, showComments);
   return (
     <div>
+      <Button
+        variant="text"
+        color="primary"
+        onClick={toggleComment}
+        endIcon={showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+      >
+        View more comments
+      </Button>
       <Stack spacing={1} sx={{ mt: 3 }}>
         {showComments && (
-          comments.data?.sort((a, b) => b.id - a.id).map((comment) => (
+          comments.data?.sort((a, b) => a.id - b.id).map((comment) => (
             <Comment
               key={comment.id}
               id={comment.id}
@@ -36,7 +44,7 @@ export const Comments = ({ postId, commentCount }) => {
           ))
         )}
         {!showComments && (
-          getNew3(comments.data)?.sort((a, b) => b.id - a.id).map((comment) => (
+          getNew3(comments.data)?.sort((a, b) => a.id - b.id).map((comment) => (
             <Comment
               key={comment.id}
               id={comment.id}
@@ -52,14 +60,6 @@ export const Comments = ({ postId, commentCount }) => {
           ))
         )}
       </Stack>
-      <Button
-        variant="text"
-        color="primary"
-        onClick={toggleComment}
-        endIcon={ showComments ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-      >
-        View more comments
-      </Button>
     </div>
   );
 };
